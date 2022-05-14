@@ -10,6 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Location {
@@ -25,4 +28,13 @@ public class Location {
     // TODO Location type from and Enum
     @Enumerated(EnumType.STRING)
     private List<LocationType> roles = new ArrayList<LocationType>();
+    
+    @OneToMany(mappedBy = "location")
+    private List<Plan> plans = new ArrayList<Plan>();
+    
+    @OneToMany(mappedBy = "timeSlotsLoc")
+    private List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
+    
+    @OneToMany(mappedBy = "transactionLoc")
+    private List<Transaction> transactions = new ArrayList<Transaction>();
 }
