@@ -20,4 +20,8 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name="badge_id")
     private Badge badge;
+    
+    @ManyToOne
+    @JoinColumn(name="location_id")
+    private Location transactionLoc;
 }

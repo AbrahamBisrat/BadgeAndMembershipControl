@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Plan {
@@ -23,4 +25,12 @@ public class Plan {
     // TODO list of allowed roles via Enums
     @Enumerated(EnumType.STRING)
     private List<Role> roles = new ArrayList<Role>();
+    
+    @ManyToOne
+    @JoinColumn(name="mship_id")
+    private Membership mship;
+    
+    @ManyToOne
+    @JoinColumn(name="location_id")
+    private Location location;
 }

@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,4 +27,10 @@ public class Member {
     // TODO Roles from an Enum
     @Enumerated(EnumType.STRING)
     private List<Role> roles = new ArrayList<Role>();
+    
+    @OneToMany(mappedBy = "member")
+    private List<Badge> badges = new ArrayList<Badge>();
+    @ManyToOne
+    @JoinColumn(name = "membership_id")
+    private Membership membership;
 }
