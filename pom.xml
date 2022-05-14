@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>edu.miu.cs</groupId>
+    <groupId>edu.miu.cs.finalproject</groupId>
     <artifactId>badgeAndMembershipControl</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>badgeAndMembershipControl</name>
