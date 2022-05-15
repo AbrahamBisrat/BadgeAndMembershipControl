@@ -1,7 +1,8 @@
-package edu.miu.cs.badgeandmembershipcontrol.aspect.service;
+package edu.miu.cs.badgeandmembershipcontrol.aspect.service.impl;
 
 import edu.miu.cs.badgeandmembershipcontrol.aspect.domain.Logger;
 import edu.miu.cs.badgeandmembershipcontrol.aspect.repo.LoggerRepo;
+import edu.miu.cs.badgeandmembershipcontrol.aspect.service.LoggerService;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
-public class LoggerServiceImpl implements LoggerService{
+public class LoggerServiceImpl implements LoggerService {
 
     private final LoggerRepo loggerRepo;
 
