@@ -1,7 +1,12 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import lombok.Data;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import javax.persistence.*;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
+@Data
 public class Plan {
 
     @Id
@@ -22,15 +28,15 @@ public class Plan {
     private String name;
     private String description;
 
-    // TODO list of allowed roles via Enums
     @Enumerated(EnumType.STRING)
-    private List<Role> roles = new ArrayList<Role>();
+    private List<Role> roles = new ArrayList<>();
     
     @ManyToOne
-    @JoinColumn(name="mship_id")
-    private Membership mship;
+    @JoinColumn(name="membership_id")
+    private Membership membership;
     
     @ManyToOne
     @JoinColumn(name="location_id")
     private Location location;
+
 }

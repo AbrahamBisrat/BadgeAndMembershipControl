@@ -1,8 +1,14 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
 
+
+import lombok.Data;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import javax.persistence.*;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
+@Data
 public class Location {
 
     @Id
@@ -25,16 +32,11 @@ public class Location {
     private String description;
     private int capacity;
 
-    // TODO Location type from and Enum
-    @Enumerated(EnumType.STRING)
-    private List<LocationType> roles = new ArrayList<LocationType>();
-    
-    @OneToMany(mappedBy = "location")
-    private List<Plan> plans = new ArrayList<Plan>();
-    
-    @OneToMany(mappedBy = "timeSlotsLoc")
+    @Enumerated
+    private LocationType locationType;
+
+    @OneToMany
+    @JoinColumn(name = "location_id")
     private List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
-    
-    @OneToMany(mappedBy = "transactionLoc")
-    private List<Transaction> transactions = new ArrayList<Transaction>();
+  
 }
