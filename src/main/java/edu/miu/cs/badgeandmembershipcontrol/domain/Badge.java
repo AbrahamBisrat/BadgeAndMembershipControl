@@ -1,5 +1,8 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -21,12 +24,11 @@ public class Badge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String status;
 
-    @OneToMany(mappedBy = "badge")
-    private List<Transaction> transactions = new ArrayList<Transaction>();
-  
-    @ManyToOne
+    private String stateCode = "Active";
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private Member member;
 }

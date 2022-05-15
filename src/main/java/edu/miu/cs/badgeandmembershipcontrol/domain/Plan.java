@@ -1,24 +1,16 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
-import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
-@Data
 public class Plan {
 
     @Id
@@ -28,8 +20,11 @@ public class Plan {
     private String name;
     private String description;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    private List<Role> roles = new ArrayList<>();
+
+    @Enumerated
+    @ElementCollection
+    private Set<Role> roles = new HashSet<>();
+
     
     @ManyToOne
     @JoinColumn(name="membership_id")
@@ -39,4 +34,16 @@ public class Plan {
     @JoinColumn(name="location_id")
     private Location location;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Plan plan = (Plan) o;
+        return id != null && Objects.equals(id, plan.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
