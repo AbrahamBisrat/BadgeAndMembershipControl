@@ -25,10 +25,6 @@ public class Plan {
     private Set<Role> roles = new HashSet<>();
     
     @ManyToOne
-    @JoinColumn(name="membership_id")
-    private Membership membership;
-    
-    @ManyToOne
     @JoinColumn(name="location_id")
     private Location location;
 

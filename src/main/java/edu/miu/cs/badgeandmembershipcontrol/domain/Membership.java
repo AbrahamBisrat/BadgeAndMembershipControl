@@ -27,6 +27,7 @@ public class Membership {
 
     @ManyToOne
     private Member member;
+
     @ManyToOne
     private Plan plan;
 
