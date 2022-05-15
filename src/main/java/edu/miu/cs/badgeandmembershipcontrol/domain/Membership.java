@@ -1,12 +1,21 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import lombok.Data;
+
+import javax.persistence.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Data
 public class Membership {
 
     @Id
@@ -16,10 +25,9 @@ public class Membership {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    // TODO make the relationships happen here
-
-//    Member member;
-//
-//    Plan plan;
+    @ManyToOne
+    private Member member;
+    @ManyToOne
+    private Plan plan;
 
 }
