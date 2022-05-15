@@ -1,6 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.aspect.service;
 
-import com.waaAssig.Assignment.aspect.logger.domain.Logger;
+import edu.miu.cs.badgeandmembershipcontrol.aspect.domain.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Service;
 

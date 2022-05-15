@@ -18,13 +18,17 @@ public class ExecutionTimeAspect {
         proceedingJoinPoint.proceed();
         LocalTime afterExecution = LocalTime.now();
 
-        System.out.println("|||**  Execution time details  **|||"
+        String message =
+                "|||**  Execution time details  **|||"
                 + "\n" + beforeExecution
                 + "\n" + afterExecution
                 + "\n" + "Time elapsed while executing -->> "
                 + proceedingJoinPoint.getSignature().getName()
                 + " <<--  : "
                 + Duration.between(beforeExecution, afterExecution).toMillis()
-                + "ms");
+                + "ms";
+
+        System.out.println(message);
     }
+
 }

@@ -1,6 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.aspect.repo;
 
-import com.waaAssig.Assignment.aspect.logger.domain.Logger;
+import edu.miu.cs.badgeandmembershipcontrol.aspect.domain.Logger;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
