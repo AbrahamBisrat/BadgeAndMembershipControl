@@ -33,7 +33,7 @@ public class Member {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
     private List<Badge> badges = new ArrayList<Badge>();
   
 }
