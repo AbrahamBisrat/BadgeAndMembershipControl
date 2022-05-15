@@ -12,14 +12,21 @@ import java.time.LocalTime;
 @Service
 public class exceptionServiceImpl implements exceptionService{
 
-    @Autowired exceptionRepo exRepo;
+    private final exceptionRepo exRepo;
 
-    @Override
-    public void save( JoinPoint jp, Throwable throwable ){
-        exRepo.save(new exception(
-            LocalDate.now(), LocalTime.now(), jp.getSignature().getName(),
-            throwable.getClass().getName(), throwable.getMessage()
-        ));
+    public exceptionServiceImpl(exceptionRepo exRepo) {
+        this.exRepo = exRepo;
+    }
+
+    @Override public void save( JoinPoint jp, Throwable throwable ){
+        exRepo.save(
+                exception.builder()
+                        .date(LocalDate.now())
+                        .time(LocalTime.now())
+                        .operation(jp.getSignature().getName())
+                        .exceptionType(throwable.getClass().getName())
+                        .exceptionMessage(throwable.getMessage())
+                        .build());
     }
 
 }

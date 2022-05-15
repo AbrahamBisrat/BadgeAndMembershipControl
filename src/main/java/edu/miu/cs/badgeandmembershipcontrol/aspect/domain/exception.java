@@ -1,6 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.aspect.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
@@ -10,9 +11,10 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 public class exception {
 
     @Id
@@ -24,13 +26,5 @@ public class exception {
     private String operation;
     private String exceptionType;
     private String exceptionMessage;
-
-    public exception(LocalDate d, LocalTime t, String op, String eT, String eM) {
-        date = d;
-        time = t;
-        operation = op;
-        exceptionType = eT;
-        exceptionMessage = eM;
-    }
 
 }
