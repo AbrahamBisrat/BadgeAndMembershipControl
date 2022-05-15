@@ -35,7 +35,7 @@ public class Location {
     @Enumerated
     private LocationType locationType;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     private List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
   

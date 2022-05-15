@@ -1,6 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 
+import edu.miu.cs.badgeandmembershipcontrol.aspect.ExcutionTime;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
@@ -21,6 +22,7 @@ public class BadgeController {
     }
 
     @GetMapping()
+    @ExcutionTime
     public ResponseEntity<?> getBadges() {
         List<Badge> badgeList = badgeService.getAllBadges();
         return new ResponseEntity<>(badgeList, HttpStatus.OK);
