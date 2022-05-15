@@ -1,9 +1,11 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.repository.BadgeRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -13,11 +15,9 @@ import java.util.Optional;
 @Transactional
 public class BadgeServiceImpl implements BadgeService {
 
+    @Autowired
     private BadgeRepository badgeRepository;
 
-    public BadgeServiceImpl(BadgeRepository badgeRepository){
-        this.badgeRepository = badgeRepository;
-    }
 
     @Override
     public List<Badge> getAllBadges() {

@@ -2,6 +2,7 @@ package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
+import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.repository.LocationRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,15 @@ public class LocationServiceImpl implements LocationService {
         Optional<Location> locationOptional = locationRepository.findById(locationId);
         if(locationOptional.isPresent()){
             return locationRepository.save(location);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Location> getLocationsByLocationType(LocationType locationType) {
+        Optional<List<Location>> optionalLocationList = locationRepository.findLocationByLocationType(locationType);
+        if(optionalLocationList.isPresent()){
+            return  optionalLocationList.get();
         }
         return null;
     }

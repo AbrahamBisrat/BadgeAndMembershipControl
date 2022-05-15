@@ -20,9 +20,11 @@ public class Plan {
     private String name;
     private String description;
 
+
     @Enumerated
     @ElementCollection
     private Set<Role> roles = new HashSet<>();
+
     
     @ManyToOne
     @JoinColumn(name="membership_id")
