@@ -1,4 +1,4 @@
-package edu.miu.cs.badgeandmembershipcontrol.aspect;
+package edu.miu.cs.badgeandmembershipcontrol.aspect.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

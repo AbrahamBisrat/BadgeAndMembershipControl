@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @Component
 public class ExecutionTimeAspect {
 
-    @Around("@annotation(ExcutionTime)")
+    @Around("@annotation(edu.miu.cs.badgeandmembershipcontrol.aspect.annotations.ExcutionTime)")
     public void timeLogger(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         LocalTime beforeExecution = LocalTime.now();
         proceedingJoinPoint.proceed();
