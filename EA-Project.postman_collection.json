@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1ab95c8d-32e0-4287-9ce7-d811478d8d64",
+		"_postman_id": "4436de21-48e3-4378-92ca-80be3f01960b",
 		"name": "EA-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -327,139 +327,13 @@
 			]
 		},
 		{
-			"name": "Location",
-			"item": [
-				{
-					"name": "Get Locations",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/api/v1/locations",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"locations"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Location",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": "JSON Type",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\":\"recriation\",\n    \"description\":\"gymnasium \",\n    \"capacity\":100\n    \n}"
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1/locations",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"locations"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Location by Id",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Accept",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "    {\n        \"id\": 1,\n        \"name\": \"recriation\",\n        \"description\": \"footballfeild \",\n        \"capacity\": 100,\n        \"locationType\": \"GYMNASIUM\",\n        \"timeSlots\": [\n            {\n                \"startTime\": \"2012-03-22 12:00\",\n                \"endTime\": \"2022-12-22 12:00\"\n            }\n        ]\n    }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/v1/locations/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"locations",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Location By Id",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/api/v1/locations/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"locations",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Plan",
 			"item": [
 				{
 					"name": "Get Plans",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": "JSON Type",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "localhost:8080/api/v1/plans",
 							"host": [
@@ -489,7 +363,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\":\"Yadessa\",\n    \"lastName\":\"Aga\",\n    \"emailAddress\":\"yade@miu.edu\",\n    \"roles\": [\"STUDENT\"]\n}"
+							"raw": "   {\n        \"id\": 2,\n        \"name\": \"EAT\",\n        \"description\": \"SNACKS\",\n        \"roles\": [],\n        \"location\": {\n            \"id\": 1,\n            \"name\": \"VERIL\",\n            \"description\": \"VERILHALL\",\n            \"capacity\": 50,\n            \"locationType\": \"DORMITORY\",\n            \"timeSlots\": []\n        }\n    }"
 						},
 						"url": {
 							"raw": "localhost:8080/api/v1/plans",
@@ -520,7 +394,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":4,\n    \"firstName\":\"Hara\",\n    \"lastName\":\"Dagne\",\n    \"emailAddress\": \"hara@miu.edu\",\n    \"roles\": [\"STAFF\",\"STUDENT\"]\n}"
+							"raw": "\n    {\n        \"id\": 2,\n        \"name\": \"STUDY\",\n        \"description\": \"DATABASE\",\n        \"roles\": [],\n        \"location\": {\n            \"id\": 1,\n            \"name\": \"VERIL\",\n            \"description\": \"VERILHALL\",\n            \"capacity\": 50,\n            \"locationType\": \"DORMITORY\",\n            \"timeSlots\": []\n        }\n    }\n"
 						},
 						"url": {
 							"raw": "localhost:8080/api/v1/plans/2",
@@ -551,7 +425,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/api/v1/plans/1",
+							"raw": "localhost:8080/api/v1/plans/2",
 							"host": [
 								"localhost"
 							],
@@ -560,7 +434,7 @@
 								"api",
 								"v1",
 								"plans",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -572,19 +446,12 @@
 			"name": "Transaction",
 			"item": [
 				{
-					"name": "Get Transactions",
+					"name": "Get Transaction",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": "JSON Type",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/transactrions",
+							"raw": "localhost:8080/api/v1/transactions",
 							"host": [
 								"localhost"
 							],
@@ -592,7 +459,7 @@
 							"path": [
 								"api",
 								"v1",
-								"transactrions"
+								"transactions"
 							]
 						}
 					},
@@ -612,7 +479,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\":\"Yadessa\",\n    \"lastName\":\"Aga\",\n    \"emailAddress\":\"yade@miu.edu\",\n    \"roles\": [\"STUDENT\"]\n}"
+							"raw": "{\n        \"id\": 2,\n        \"accessTime\": \"2022-05-01T00:00:00\",\n        \"badge\": {\n            \"id\": 1,\n            \"stateCode\": \"ACTIVE\"\n        },\n        \"transactionLoc\": {\n            \"id\": 1,\n            \"name\": \"VERIL\",\n            \"description\": \"VERILHALL\",\n            \"capacity\": 50,\n            \"locationType\": \"DORMITORY\",\n            \"timeSlots\": []\n        }\n    }"
 						},
 						"url": {
 							"raw": "localhost:8080/api/v1/transactions",
@@ -642,7 +509,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/api/v1/transactions/2",
+							"raw": "localhost:8080/api/v1/transactions/1",
 							"host": [
 								"localhost"
 							],
@@ -651,7 +518,7 @@
 								"api",
 								"v1",
 								"transactions",
-								"2"
+								"1"
 							]
 						}
 					},
