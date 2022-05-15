@@ -21,7 +21,6 @@ public class Transaction {
     private LocalDateTime accessTime;
     
     @ManyToOne
-
     @JoinColumn(name="badge_id")
     private Badge badge;
     
