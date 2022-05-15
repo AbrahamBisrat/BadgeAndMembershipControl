@@ -1,11 +1,14 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
+@Data
 public class Badge {
 
     @Id
@@ -14,4 +17,7 @@ public class Badge {
 
     private String status;
 
+    @ManyToOne
+    @JoinColumn(name="member_id")
+    private Member member;
 }

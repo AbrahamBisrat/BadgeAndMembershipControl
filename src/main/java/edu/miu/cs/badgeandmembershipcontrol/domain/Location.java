@@ -1,12 +1,16 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
+@Data
 public class Location {
 
     @Id
@@ -17,6 +21,11 @@ public class Location {
     private String description;
     private int capacity;
 
-    // TODO Location type from and Enum
+    @Enumerated
+    private LocationType locationType;
+
+    @OneToMany
+    @JoinColumn(name = "location_id")
+    private List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
 
 }

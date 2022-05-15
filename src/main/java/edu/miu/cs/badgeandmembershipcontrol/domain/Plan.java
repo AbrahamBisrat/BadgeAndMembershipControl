@@ -1,11 +1,15 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
+@Data
 public class Plan {
 
     @Id
@@ -15,7 +19,13 @@ public class Plan {
     private String name;
     private String description;
 
-    // TODO list of allowed roles via Enums
+    @Enumerated
+    @ElementCollection
+    private Collection<Role> roles;
 
+    
+    @ManyToOne
+    @JoinColumn(name="location_id")
+    private Location location;
 
 }

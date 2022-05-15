@@ -1,11 +1,15 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.*;
 
 @Entity
+@Data
 public class Member {
 
     @Id
@@ -16,6 +20,10 @@ public class Member {
     private String lastName;
     private String emailAddress;
 
-    // TODO Roles from an Enum
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    private Collection<Role> roles;
+
+    @OneToMany(mappedBy = "member")
+    private List<Badge> badges = new ArrayList<Badge>();
 
 }
