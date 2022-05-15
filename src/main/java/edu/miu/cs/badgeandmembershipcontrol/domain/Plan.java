@@ -28,7 +28,7 @@ public class Plan {
     private String name;
     private String description;
 
-    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
     
     @ManyToOne
