@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "9e4e31b4-8a15-41d2-9255-11cee4dd377e",
-		"name": "EA-Project Copy",
+		"_postman_id": "4436de21-48e3-4378-92ca-80be3f01960b",
+		"name": "EA-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -327,22 +327,15 @@
 			]
 		},
 		{
-			"name": "Membership",
+			"name": "Plan",
 			"item": [
 				{
-					"name": "Get Memberships",
+					"name": "Get Plans",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": "JSON Type",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/members",
+							"raw": "localhost:8080/api/v1/plans",
 							"host": [
 								"localhost"
 							],
@@ -350,14 +343,14 @@
 							"path": [
 								"api",
 								"v1",
-								"members"
+								"plans"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Create Memberships",
+					"name": "Create Plan",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -370,10 +363,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\":\"Yadessa\",\n    \"lastName\":\"Aga\",\n    \"emailAddress\":\"yade@miu.edu\",\n    \"roles\": [\"STUDENT\"]\n}"
+							"raw": "   {\n        \"id\": 2,\n        \"name\": \"EAT\",\n        \"description\": \"SNACKS\",\n        \"roles\": [],\n        \"location\": {\n            \"id\": 1,\n            \"name\": \"VERIL\",\n            \"description\": \"VERILHALL\",\n            \"capacity\": 50,\n            \"locationType\": \"DORMITORY\",\n            \"timeSlots\": []\n        }\n    }"
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/members",
+							"raw": "localhost:8080/api/v1/plans",
 							"host": [
 								"localhost"
 							],
@@ -381,14 +374,14 @@
 							"path": [
 								"api",
 								"v1",
-								"members"
+								"plans"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update Memberships",
+					"name": "Update Plan By ID",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -401,10 +394,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":4,\n    \"firstName\":\"Hara\",\n    \"lastName\":\"Dagne\",\n    \"emailAddress\": \"hara@miu.edu\",\n    \"roles\": [\"STAFF\",\"STUDENT\"]\n}"
+							"raw": "\n    {\n        \"id\": 2,\n        \"name\": \"STUDY\",\n        \"description\": \"DATABASE\",\n        \"roles\": [],\n        \"location\": {\n            \"id\": 1,\n            \"name\": \"VERIL\",\n            \"description\": \"VERILHALL\",\n            \"capacity\": 50,\n            \"locationType\": \"DORMITORY\",\n            \"timeSlots\": []\n        }\n    }\n"
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/members/4",
+							"raw": "localhost:8080/api/v1/plans/2",
 							"host": [
 								"localhost"
 							],
@@ -412,15 +405,15 @@
 							"path": [
 								"api",
 								"v1",
-								"members",
-								"4"
+								"plans",
+								"2"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete Memberships",
+					"name": "Delete Plan By ID",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -432,7 +425,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/api/v1/members/4",
+							"raw": "localhost:8080/api/v1/plans/2",
 							"host": [
 								"localhost"
 							],
@@ -440,8 +433,92 @@
 							"path": [
 								"api",
 								"v1",
-								"members",
-								"4"
+								"plans",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Get Transaction",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/transactions",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": 2,\n        \"accessTime\": \"2022-05-01T00:00:00\",\n        \"badge\": {\n            \"id\": 1,\n            \"stateCode\": \"ACTIVE\"\n        },\n        \"transactionLoc\": {\n            \"id\": 1,\n            \"name\": \"VERIL\",\n            \"description\": \"VERILHALL\",\n            \"capacity\": 50,\n            \"locationType\": \"DORMITORY\",\n            \"timeSlots\": []\n        }\n    }"
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/transactions",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Transaction By ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/transactions/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"1"
 							]
 						}
 					},
