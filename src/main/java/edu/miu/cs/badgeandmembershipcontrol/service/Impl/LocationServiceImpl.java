@@ -1,17 +1,18 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
-import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.repository.LocationRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class LocationServiceImpl implements LocationService {
 
