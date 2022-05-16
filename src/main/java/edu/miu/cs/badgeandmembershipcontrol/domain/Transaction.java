@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -29,5 +30,15 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name="location_id")
     private Location transactionLoc;
-  
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return accessTime.equals(that.accessTime) && badge.equals(that.badge) && transactionLoc.equals(that.transactionLoc);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(accessTime, badge, transactionLoc);
+    }
 }
