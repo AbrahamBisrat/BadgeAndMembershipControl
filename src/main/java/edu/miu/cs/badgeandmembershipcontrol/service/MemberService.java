@@ -19,5 +19,5 @@ public interface MemberService {
 
     boolean removeMember(Long memberId);
 
-    Member createNewBadge(Long memberId);
+    Badge createNewBadge(Long memberId);
 }

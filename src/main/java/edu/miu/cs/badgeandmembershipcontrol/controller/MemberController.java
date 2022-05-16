@@ -1,6 +1,8 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -63,4 +65,11 @@ public class MemberController {
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
+
+    @PostMapping(path = "/addMembership/{memberId}")
+    public ResponseEntity<?> addMembership(@PathVariable String memberId, @RequestBody Plan plan) {
+
+        return null;
+    }
+
 }
