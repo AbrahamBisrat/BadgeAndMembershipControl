@@ -10,11 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Data
 @Entity
 @ToString
-@EqualsAndHashCode
 public class Membership {
 
     @Id
@@ -29,5 +29,16 @@ public class Membership {
 
     @ManyToOne
     private Plan plan;
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Membership that = (Membership) o;
+        return startDate.equals(that.startDate) && endDate.equals(that.endDate) && member.equals(that.member) && plan.equals(that.plan);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(startDate, endDate, member, plan);
+    }
 
 }
