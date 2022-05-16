@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 

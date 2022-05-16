@@ -67,6 +67,15 @@ public class TransactionController {
 		}
 		return new ResponseEntity<>(transactionList, HttpStatus.OK);
 	}
+
+	@GetMapping(path = "/plan/{planId}")
+	public ResponseEntity<?> getTransactionsByPlanId(@PathVariable String planId){
+		Transaction transactionList = transactionService.findTransactionByPlan(Long.parseLong(planId));
+		if(transactionList == null){
+			return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(transactionList, HttpStatus.OK);
+	}
 	
 	
 	

@@ -23,4 +23,8 @@ public interface TransactionService {
 
 	List<Transaction> findTransactionByTimeSlot(Long timeSlotId);
 
+//	Transaction findTransactionByPlan(Long planId);
+
+
+
 }
