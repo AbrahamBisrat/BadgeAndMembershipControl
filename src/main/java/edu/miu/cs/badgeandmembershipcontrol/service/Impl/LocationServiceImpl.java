@@ -30,7 +30,11 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override public Location createLocation(Location location) {
-        return locationRepository.save(location);
+        // if the location already exists do not take it!
+        Optional<Location> optionalLocation = locationRepository.findLocationByName(location.getName());
+        if(!optionalLocation.isPresent())
+            return locationRepository.save(location);
+        return null;
     }
 
     @Override public Location updateLocation(Long locationId, Location location) {
