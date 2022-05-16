@@ -29,5 +29,9 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name="location_id")
     private Location transactionLoc;
+    
+    @ManyToOne
+    @JoinColumn(name="membership_id")
+    private Membership membership;
   
 }
