@@ -1,8 +1,10 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +17,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MembershipServiceImpl implements MembershipService {
 
-    private final MembershipRepository membershipRepository;
+ @NotNull
+   private final MembershipRepository membershipRepository;
 
     @Override public List<Membership> getMemberMemberships(Long memberId) {
         Optional<List<Membership>> memberMemberShipOptional = membershipRepository.findMembershipByMember_Id(memberId);
