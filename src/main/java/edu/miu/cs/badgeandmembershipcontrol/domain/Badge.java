@@ -47,4 +47,9 @@ public class Badge {
     @ToString.Exclude
     private Member member;
 
+
+    public void setBadgeInActive(){
+        this.stateCode = "InActive";
+    }
+
 }

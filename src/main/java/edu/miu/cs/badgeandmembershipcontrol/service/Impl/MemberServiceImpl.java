@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.repository.BadgeRepository;
@@ -18,13 +19,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
+    @NotNull
     private MemberRepository memberRepository;
+    @NotNull
     private BadgeService badgeService;
-
-    public MemberServiceImpl(MemberRepository memberRepository, BadgeService badgeService){
-        this.memberRepository = memberRepository;
-        this.badgeService = badgeService;
-    }
 
     @Override
     public List<Member> getAllMembers() {
@@ -63,8 +61,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Badge createNewBadge(Long memberId) {
-
-        return null;
+    public Member createNewBadge(Long memberId) {
+        Member member = getMember(memberId);
+        if(member == null ){
+            return null;
+        }
+        badgeService.deactivateBadge(memberId);
+        badgeService.createBadge(member);
+        return member;
     }
 }

@@ -36,6 +36,18 @@ public class BadgeServiceImpl implements BadgeService {
         return memberBadgeOptional.orElse(null);
     }
 
+    @Override
+    public Badge getActiveBadgeByMemberId(Long memberId) {
+        return badgeRepository.findBadgeByMemberIdAndStateCode(memberId,"Active");
+    }
+
+    @Override
+    public Badge deactivateBadge(Long memberId) {
+        Badge oldBadge = getActiveBadgeByMemberId(memberId);
+        oldBadge.setBadgeInActive();
+        return badgeRepository.save(oldBadge);
+    }
+
     @Override public Badge createBadge(Badge badge) {
         return badgeRepository.save(badge);
     }

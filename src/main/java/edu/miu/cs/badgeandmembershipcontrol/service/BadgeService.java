@@ -15,6 +15,10 @@ public interface BadgeService {
 
     List<Badge> getMemberBadges(Long memberId);
 
+    Badge getActiveBadgeByMemberId(Long memberId);
+
+    Badge deactivateBadge(Long memberId);
+
     Badge createBadge(Badge badge);
 
     Badge createBadge(Member member);
