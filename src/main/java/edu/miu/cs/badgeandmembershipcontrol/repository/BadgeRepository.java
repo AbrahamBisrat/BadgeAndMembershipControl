@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface BadgeRepository extends JpaRepository<Badge,Long> {
 
-    Optional<List<Badge>> findBadgesByMember_Id(Long memberId);
+    Optional<List<Badge>> findBadgesByMemberId(Long memberId);
 }

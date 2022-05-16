@@ -1,9 +1,11 @@
 package edu.miu.cs.badgeandmembershipcontrol.service;
 
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface BadgeService {
 
     List<Badge> getAllBadges();
