@@ -47,6 +47,7 @@ public class LocationController {
     @PostMapping
     public ResponseEntity<?> createLocation(@RequestBody Location location){
         Location newLocation = locationService.createLocation(location);
+        System.out.println("newLocation = " + newLocation);
         if(newLocation == null)
             return new ResponseEntity<>("Already Exists", HttpStatus.OK);
         return new ResponseEntity<>(newLocation, HttpStatus.CREATED);

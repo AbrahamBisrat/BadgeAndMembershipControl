@@ -37,7 +37,7 @@ public class LoggerAspect {
 
     @AfterThrowing(value = "entireProjectPointCut()", throwing = "up")
     public void errorLog(JoinPoint jp, Throwable up){
-        exceptionService.save(jp, up);
+//        exceptionService.save(jp, up);
     }
 
 }

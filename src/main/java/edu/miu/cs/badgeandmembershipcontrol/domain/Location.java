@@ -1,7 +1,9 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Required;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @Entity
@@ -25,7 +29,9 @@ public class Location {
     private Long id;
 
 
+    @NotEmpty(message = "Location name is Required")
     @Column(unique = true)
+//    @NotNull
     private String name;
     private String description;
     private int capacity;
