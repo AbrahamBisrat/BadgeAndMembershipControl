@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TransactionRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
@@ -15,44 +16,28 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-	private TransactionRepository transactionRepository;
-
+	@NotNull private TransactionRepository transactionRepository;
 	
-	public TransactionServiceImpl(TransactionRepository transactionRepository){
-		this.transactionRepository = transactionRepository;
-	}
-	
-	@Override
-	public List<Transaction> getAllTransactions() {
+	@Override public List<Transaction> getAllTransactions() {
 	return transactionRepository.findAll();
 	}
 
-	@Override
-	public Transaction getTransaction(Long transactionId) {
+	@Override public Transaction getTransaction(Long transactionId) {
 		Optional<Transaction> transactionOptional = transactionRepository.findById(transactionId);
-		if(transactionOptional.isPresent()){
-			return transactionOptional.get();
-		}
-		return null;
+		return transactionOptional.orElse(null);
 	}
 	
-	@Override
-	public List<Transaction> getBadgeTransactions(Long badgeId) {
+	@Override public List<Transaction> getBadgeTransactions(Long badgeId) {
 		Optional<List<Transaction>> badgeTransactrionsOptional = transactionRepository.findTransactionsByBadge_Id(badgeId);
-		if(badgeTransactrionsOptional.isPresent()){
-			return badgeTransactrionsOptional.get();
-		}
-		return null;
+		return badgeTransactrionsOptional.orElse(null);
 	}
 	
 	
-	@Override
-	public Transaction createTransaction(Transaction transaction) {
-	return transactionRepository.save(transaction);
+	@Override public Transaction createTransaction(Transaction transaction) {
+		return transactionRepository.save(transaction);
 	}
 	
-	@Override
-	public boolean removeTransaction(Long transactionId) {
+	@Override public boolean removeTransaction(Long transactionId) {
 		Optional<Transaction> transactionOptional = transactionRepository.findById(transactionId);
 		if(transactionOptional.isPresent()){
 			transactionRepository.deleteById(transactionId);

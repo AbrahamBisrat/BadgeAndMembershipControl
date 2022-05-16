@@ -7,6 +7,7 @@ import edu.miu.cs.badgeandmembershipcontrol.repository.BadgeRepository;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
