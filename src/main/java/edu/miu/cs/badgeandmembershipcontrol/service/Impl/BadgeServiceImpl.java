@@ -18,7 +18,6 @@ public class BadgeServiceImpl implements BadgeService {
     @Autowired
     private BadgeRepository badgeRepository;
 
-
     @Override
     public List<Badge> getAllBadges() {
         return badgeRepository.findAll();

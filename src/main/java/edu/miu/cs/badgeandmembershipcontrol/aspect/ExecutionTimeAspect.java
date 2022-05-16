@@ -13,9 +13,9 @@ import java.time.LocalTime;
 public class ExecutionTimeAspect {
 
     @Around("@annotation(edu.miu.cs.badgeandmembershipcontrol.aspect.annotations.ExcutionTime)")
-    public void timeLogger(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object timeLogger(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         LocalTime beforeExecution = LocalTime.now();
-        proceedingJoinPoint.proceed();
+        Object retVal = proceedingJoinPoint.proceed();
         LocalTime afterExecution = LocalTime.now();
 
         String message =
@@ -29,6 +29,7 @@ public class ExecutionTimeAspect {
                 + "ms";
 
         System.out.println(message);
+        return retVal;
     }
 
 }
