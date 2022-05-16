@@ -1,6 +1,8 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+
 import com.sun.istack.NotNull;
+
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.repository.PlanRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
@@ -46,7 +48,9 @@ public class PlanServiceImpl implements PlanService {
         return null;
 	}
 
+
 	@Override public boolean removePlan(Long planId) {
+
 		Optional<Plan> planOptional = planRepository.findById(planId);
         if(planOptional.isPresent()){
             planRepository.deleteById(planId);
