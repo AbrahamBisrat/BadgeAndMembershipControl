@@ -67,8 +67,17 @@ public class TransactionController {
 		}
 		return new ResponseEntity<>(transactionList, HttpStatus.OK);
 	}
+
+	@GetMapping(path = "/plan/{planId}")
+	public ResponseEntity<?> getTransactionsByPlanId(@PathVariable String planId){
+		Transaction transactionList = transactionService.findTransactionByPlan(Long.parseLong(planId));
+		if(transactionList == null){
+			return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(transactionList, HttpStatus.OK);
+	}
 	
-	@GetMapping(path = "/transaction/{transactionId}")
+	@GetMapping(path = "/location/{transactionId}")
 	public ResponseEntity<?> getTransactionLocation(@PathVariable String transactionId){
 		Location location = transactionService.getTransactionLocation(Long.parseLong(transactionId));
 		return new ResponseEntity<>(location, HttpStatus.OK);

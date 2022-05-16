@@ -73,10 +73,21 @@ public class TransactionServiceImpl implements TransactionService {
 		return null;
 	}
 
+
+	@Override
+	public Transaction findTransactionByPlan(Long planId) {
+		Optional<Transaction> transactionOptional = Optional.ofNullable(transactionRepository.findTransactionByPlan(planId));
+		if (transactionOptional.isPresent()) {
+			return transactionOptional.get();
+		}
+		return null;
+	}
+
 	@Override public Location getTransactionLocation(Long transactionId) {
 //		Optional<Location> transactionLocationOptional = transactionRepository.findTransactionLocationBy_Id(transactionId);
 //		return transactionLocationOptional.orElse(null);
 		return new Location();
 	}
+
 
 }

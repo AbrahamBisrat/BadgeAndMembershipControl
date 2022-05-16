@@ -2,7 +2,9 @@ package edu.miu.cs.badgeandmembershipcontrol.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.ToString;
+import lombok.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +38,12 @@ public class Membership implements Serializable {
 
 //    @JsonBackReference(value="plan")
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonBackReference(value="member")
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    private Member member;
+
+    @JsonBackReference(value="member")
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private Plan plan;
 
 
