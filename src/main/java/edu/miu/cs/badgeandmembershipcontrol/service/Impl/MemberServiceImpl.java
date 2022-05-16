@@ -27,8 +27,7 @@ public class MemberServiceImpl implements MemberService {
     @NotNull private final MemberRepository memberRepository;
     @NotNull private final MembershipRepository membershipRepository;
 
-    @Override
-    public List<Member> getAllMembers() {
+    @Override public List<Member> getAllMembers() {
         return memberRepository.findAll();
     }
 
@@ -76,14 +75,24 @@ public class MemberServiceImpl implements MemberService {
             Long memberId, Long planId, Membership membership) {
         Plan plan = planService.getPlan(planId);
         Member member = memberRepository.findById(memberId).orElse(null);
-        if(member == null || plan == null){
-            System.out.println("Bad request, The id belong to nothing");
+        if(member == null || plan == null || membership == null){
             return null;
         }
+        // check if the user have that plan already.
+        System.out.println("#####################            #############           ########");
+        List<Membership> memberships = membershipRepository.findMembershipByMember_Id(memberId).orElse(null);
+
+        boolean duplicatePlan = true;
+        if(memberships != null) {
+            duplicatePlan = memberships.stream().map(Membership::getPlan)
+                    .filter(eachPlan -> eachPlan.equals(plan))
+                    .toList().isEmpty(); }
+
+        if(duplicatePlan) return null;
+
         membership.setMember(member);
         membership.setPlan(plan);
         membershipRepository.save(membership);
-        System.out.println("membership = " + membership);
         return membership;
     }
 

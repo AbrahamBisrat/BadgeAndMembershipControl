@@ -1,10 +1,9 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.ToString;
+import lombok.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,8 @@ import java.time.LocalDateTime;
 
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @Entity
 @ToString
 public class Membership {
@@ -26,10 +26,12 @@ public class Membership {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    @ManyToOne
+    @JsonBackReference(value="member")
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private Member member;
 
-    @ManyToOne
+    @JsonBackReference(value="member")
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private Plan plan;
 
     @Override public boolean equals(Object o) {

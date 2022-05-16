@@ -3,7 +3,10 @@ package edu.miu.cs.badgeandmembershipcontrol.repository;
 import java.util.List;
 import java.util.Optional;
 
+
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
+
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +23,11 @@ public interface TransactionRepository extends JpaRepository<Transaction,Long> {
 
 	Optional<List<Transaction>> findTransactionsByBadge_Id(Long badgelocationId);
 
-//	@Query("select t from Transaction t JOIN t.membership m Join Plan p on p.id=?1")
-//	Transaction findTransactionByPlan(Long planId);
+
+	@Query("select t from Transaction t JOIN t.membership m Join Plan p on p.id=?1")
+	Transaction findTransactionByPlan(Long planId);
+
+	@Query("select t.transactionLoc from Transaction t where t.id=?1")
+	Optional<Location> findTransactionLocationBy_Id(Long transactionId);
+
 }

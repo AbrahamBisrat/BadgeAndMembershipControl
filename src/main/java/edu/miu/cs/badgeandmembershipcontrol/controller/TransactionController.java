@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import lombok.NonNull;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,6 @@ public class TransactionController {
 		return new ResponseEntity<>(transactionList, HttpStatus.OK);
 	}
 
-
 	@GetMapping(path = "/member/{memberId}")
 	public ResponseEntity<?> getTransactionsByMemberId(@PathVariable String memberId){
 		List<Transaction> transactionList = transactionService.findTransactionByMember(Long.parseLong(memberId),"Active");
@@ -77,8 +77,12 @@ public class TransactionController {
 		return new ResponseEntity<>(transactionList, HttpStatus.OK);
 	}
 	
-	
-	
+	@GetMapping(path = "/location/{transactionId}")
+	public ResponseEntity<?> getTransactionLocation(@PathVariable String transactionId){
+		Location location = transactionService.getTransactionLocation(Long.parseLong(transactionId));
+		return new ResponseEntity<>(location, HttpStatus.OK);
+	}
+  
 	@PostMapping()
 	public ResponseEntity<?> createTransaction(@RequestBody Transaction transaction){
 		Transaction transaction1 = transactionService.createTransaction(transaction);
