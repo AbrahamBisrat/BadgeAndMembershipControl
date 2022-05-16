@@ -1,9 +1,10 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 
+import edu.miu.cs.badgeandmembershipcontrol.aspect.annotations.ExcutionTime;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,19 +12,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/badges")
 public class BadgeController {
 
-    private BadgeService badgeService;
-
-    BadgeController(BadgeService badgeService){
-        this.badgeService = badgeService;
-    }
+    private final BadgeService badgeService;
 
     @GetMapping()
+    @ExcutionTime
     public ResponseEntity<?> getBadges() {
-        List<Badge> badgeList = badgeService.getAllBadges();
-        return new ResponseEntity<>(badgeList, HttpStatus.OK);
+        return new ResponseEntity<>(badgeService.getAllBadges(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{badgeId}")
@@ -31,9 +29,9 @@ public class BadgeController {
         Badge badge = badgeService.getBadge(Long.parseLong(badgeId));
 
         if(badge == null){
-            return new ResponseEntity<String>("No Badge Found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No Badge Found!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Badge>(badge, HttpStatus.OK);
+        return new ResponseEntity<>(badge, HttpStatus.OK);
     }
 
     @GetMapping(path = "/member/{memberId}")
@@ -42,27 +40,27 @@ public class BadgeController {
         return new ResponseEntity<>(badgeList, HttpStatus.OK);
     }
 
+    // List of active badges should be implemented here.
+
     @PostMapping()
     public ResponseEntity<?> createBadge(@RequestBody Badge badge){
-
-        Badge badge1 = badgeService.createBadge(badge);
-        return new ResponseEntity<Badge>(badge1, HttpStatus.OK);
+        Badge newBadge = badgeService.createBadge(badge);
+        return new ResponseEntity<>(newBadge, HttpStatus.OK);
     }
 
     @PutMapping(path = "/{badgeId}")
     public ResponseEntity<?> updateBadge(@PathVariable String badgeId, @RequestBody Badge badge){
-        Badge badge1 = badgeService.updateBadge(Long.parseLong(badgeId),badge);
-        if(badge1 == null){
-            return new ResponseEntity<String>("No Badge Found!", HttpStatus.NOT_FOUND);
+        Badge updatedBadge = badgeService.updateBadge(Long.parseLong(badgeId),badge);
+        if(updatedBadge == null){
+            return new ResponseEntity<>("No Badge Found!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Badge>(badge1, HttpStatus.OK);
+        return new ResponseEntity<>(updatedBadge, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{badgeId}")
     public ResponseEntity<?> deleteBadge(@PathVariable String badgeId){
-        Boolean result = badgeService.removeBadge(Long.parseLong(badgeId));
-        if(!result){
-            return new ResponseEntity<String>("No Badge Found!", HttpStatus.NOT_FOUND);
+        if(!badgeService.removeBadge(Long.parseLong(badgeId))){
+            return new ResponseEntity<>("No Badge Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
