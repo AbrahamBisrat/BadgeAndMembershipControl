@@ -1,14 +1,17 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import java.util.Objects;
@@ -16,20 +19,28 @@ import java.util.Objects;
 @Data
 @Entity
 @ToString
-public class Membership {
+public class Membership implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
-    @ManyToOne
+//    @JsonBackReference(value="member")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Member member;
 
-    @ManyToOne
+//    @JsonBackReference(value="plan")
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Plan plan;
+
+
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;

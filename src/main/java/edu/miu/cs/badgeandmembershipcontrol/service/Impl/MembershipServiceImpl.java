@@ -1,9 +1,13 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
 import com.sun.istack.NotNull;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
+import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
+import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,10 @@ public class MembershipServiceImpl implements MembershipService {
 
     @NotNull private final MembershipRepository membershipRepository;
 
+    @NotNull private final MemberService memberService;
+
+    @NotNull private final PlanService planService;
+
     @Override public List<Membership> getMemberMemberships(Long memberId) {
         Optional<List<Membership>> memberMemberShipOptional = membershipRepository.findMembershipByMember_Id(memberId);
         return memberMemberShipOptional.orElse(null);
@@ -33,7 +41,13 @@ public class MembershipServiceImpl implements MembershipService {
         return membershipOptional.orElse(null);
     }
 
+
+    // Get Member and Plan and set it to Membership then it saves it
     @Override public Membership createMemberShip(Membership membership) {
+        Member member = memberService.getMember(membership.getMember().getId());
+        Plan plan = planService.getPlan(membership.getPlan().getId());
+        membership.setMember(member);
+        membership.setPlan(plan);
         return membershipRepository.save(membership);
     }
 

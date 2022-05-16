@@ -1,16 +1,12 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
-
-
 import com.sun.istack.NotNull;
-
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.repository.PlanRepository;
+import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
 import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 
 import java.util.List;
 import java.util.Optional;
-
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PlanServiceImpl implements PlanService {
 
- 	@NotNull private final PlanRepository planRepository;
+ 	@NotNull
+	private final PlanRepository planRepository;
+
+	 @NotNull private final LocationService locationService;
 
 	@Override public List<Plan> getAllPlans() {
 		return planRepository.findAll();
@@ -37,6 +36,7 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override public Plan createPlan(Plan plan) {
+
 		return planRepository.save(plan);
 	}
 

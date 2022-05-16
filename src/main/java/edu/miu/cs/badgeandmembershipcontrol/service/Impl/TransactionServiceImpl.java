@@ -74,8 +74,9 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override public Location getTransactionLocation(Long transactionId) {
-		Optional<Location> transactionLocationOptional = transactionRepository.findTransactionLocationBy_Id(transactionId);
-		return transactionLocationOptional.orElse(null);
+//		Optional<Location> transactionLocationOptional = transactionRepository.findTransactionLocationBy_Id(transactionId);
+//		return transactionLocationOptional.orElse(null);
+		return new Location();
 	}
 
 }

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c6cb5ab3-2c51-4f52-bd76-78a077d6f4cb",
+		"_postman_id": "b6ba9aff-5cf1-401f-8509-fa4b68680897",
 		"name": "EA-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -423,7 +423,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"recriation\",\n    \"description\":\"gymnasium \",\n    \"capacity\":100\n    \n}"
+							"raw": "{\n    \"name\":\"Bldg HH\",\n    \"description\":\"Female dormitory\",\n    \"capacity\":200,\n    \"locationType\":\"DORMITORY\",\n    \"timeSlots\": [\n        {\n            \"startTime\": \"2022-12-12 00:00\",\n            \"endTime\": \"2022-12-12 23:59\"\n        }\n    ]\n}"
 						},
 						"url": {
 							"raw": "localhost:8080/api/v1/locations",
@@ -542,7 +542,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "   {\n        \"id\": 2,\n        \"name\": \"EAT\",\n        \"description\": \"SNACKS\",\n        \"roles\": [],\n        \"location\": {\n            \"id\": 1,\n            \"name\": \"VERIL\",\n            \"description\": \"VERILHALL\",\n            \"capacity\": 50,\n            \"locationType\": \"DORMITORY\",\n            \"timeSlots\": []\n        }\n    }"
+							"raw": "   {\n        \"name\": \"Cafeteria Access\",\n        \"description\": \"anyone who has this access can have a specific access to a cafeteria\",\n        \"roles\": [\"STUDENT\",\"FACULTY\",\"STAFF\"],\n        \"location\": {\n            \"name\":\"Argiro\",\n            \"description\":\"Cafeteria\",\n            \"capacity\":400,\n            \"locationType\":\"DINNING_HALL\",\n            \"timeSlots\": [\n                {\n                    \"startTime\": \"2022-12-12 08:30\",\n                    \"endTime\": \"2022-12-12 10:00\"\n                },\n                {\n                    \"startTime\": \"2022-12-12 12:00\",\n                    \"endTime\": \"2022-12-12 01:30\"\n                },\n                {\n                    \"startTime\": \"2022-12-12 18:00\",\n                    \"endTime\": \"2022-12-12 20:00\"\n                }\n            ]\n        }\n    }"
 						},
 						"url": {
 							"raw": "localhost:8080/api/v1/plans",
@@ -614,6 +614,27 @@
 								"v1",
 								"plans",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"3"
 							]
 						}
 					},
@@ -721,7 +742,7 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/api/v1/members",
+							"raw": "localhost:8080/api/v1/memberships",
 							"host": [
 								"localhost"
 							],
@@ -729,7 +750,7 @@
 							"path": [
 								"api",
 								"v1",
-								"members"
+								"memberships"
 							]
 						}
 					},
@@ -749,10 +770,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\":\"Yadessa\",\n    \"lastName\":\"Aga\",\n    \"emailAddress\":\"yade@miu.edu\",\n    \"roles\": [\"STUDENT\"]\n}"
+							"raw": "{\n    \"member\":{\n        \"id\": 3\n    },\n    \"plan\":{\n        \"id\": 4\n    },\n    \"startDate\" : \"2022-05-16 12:00\",\n    \"endDate\": \"2023-01-15 12:00\"\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/api/v1/members",
+							"raw": "localhost:8080/api/v1/memberships",
 							"host": [
 								"localhost"
 							],
@@ -760,7 +781,7 @@
 							"path": [
 								"api",
 								"v1",
-								"members"
+								"memberships"
 							]
 						}
 					},
@@ -821,6 +842,34 @@
 								"v1",
 								"members",
 								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Membership By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/memberships/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"memberships",
+								"1"
 							]
 						}
 					},
