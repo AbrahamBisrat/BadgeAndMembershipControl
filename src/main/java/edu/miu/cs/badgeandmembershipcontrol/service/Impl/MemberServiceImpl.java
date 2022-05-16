@@ -76,8 +76,7 @@ public class MemberServiceImpl implements MemberService {
             Long memberId, Long planId, Membership membership) {
         Plan plan = planService.getPlan(planId);
         Member member = memberRepository.findById(memberId).orElse(null);
-        if(member == null || plan == null){
-            System.out.println("Bad request, The id belong to nothing");
+        if(member == null || plan == null || membership == null){
             return null;
         }
         membership.setMember(member);

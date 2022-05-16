@@ -3,6 +3,7 @@ package edu.miu.cs.badgeandmembershipcontrol.service;
 import java.util.List;
 import java.util.Optional;
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,7 @@ public interface TransactionService {
 	boolean removeTransaction(Long transactionId);
 
 	List<Transaction> findTransactionByTimeSlot(Long timeSlotId);
+
+  Location getTransactionLocation(Long transactionId);
 
 }

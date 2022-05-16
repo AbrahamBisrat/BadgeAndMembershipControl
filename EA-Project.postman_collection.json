@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "190690b4-2627-42e4-bc2d-33331b534a01",
+		"_postman_id": "e7d57645-2bcd-4998-87e6-3f779383fa95",
 		"name": "EA-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -123,6 +123,14 @@
 								"4"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add membership to member",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
