@@ -35,4 +35,5 @@ public class Location {
     @ToString.Exclude
     private List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
 
+
 }
