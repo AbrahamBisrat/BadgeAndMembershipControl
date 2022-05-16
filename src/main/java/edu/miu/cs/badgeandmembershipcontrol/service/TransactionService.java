@@ -2,6 +2,7 @@ package edu.miu.cs.badgeandmembershipcontrol.service;
 
 import java.util.List;
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +18,7 @@ public interface TransactionService {
 	Transaction createTransaction(Transaction transaction);
 
 	boolean removeTransaction(Long transactionId);
+
+	Location getTransactionLocation(Long transactionId);
 
 }

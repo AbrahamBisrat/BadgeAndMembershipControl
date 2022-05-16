@@ -3,6 +3,7 @@ package edu.miu.cs.badgeandmembershipcontrol.controller;
 import java.util.List;
 
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,12 @@ public class TransactionController {
 	public ResponseEntity<?> getBadgeTransactions(@PathVariable String badgeId){
 		List<Transaction> transactionList = transactionService.getBadgeTransactions(Long.parseLong(badgeId));
 		return new ResponseEntity<>(transactionList, HttpStatus.OK);
+	}
+
+	@GetMapping(path = "/transaction/{transactionId}")
+	public ResponseEntity<?> getTransactionLocation(@PathVariable String transactionId){
+		Location location = transactionService.getTransactionLocation(Long.parseLong(transactionId));
+		return new ResponseEntity<>(location, HttpStatus.OK);
 	}
 
 	@PostMapping()
