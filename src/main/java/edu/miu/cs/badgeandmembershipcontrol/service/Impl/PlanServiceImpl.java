@@ -1,6 +1,8 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
-import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
+
+import com.sun.istack.NotNull;
+
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.repository.PlanRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
@@ -8,47 +10,37 @@ import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class PlanServiceImpl implements PlanService {
 
-    private PlanRepository planRepository;
+ 	@NotNull private final PlanRepository planRepository;
 
-    public PlanServiceImpl(PlanRepository planRepository){
-        this.planRepository = planRepository;
-    }
-
-	@Override
-	public List<Plan> getAllPlans() {
+	@Override public List<Plan> getAllPlans() {
 		return planRepository.findAll();
 	}
 
-	@Override
-	public Plan getPlan(Long planId) {
+	@Override public Plan getPlan(Long planId) {
 		Optional<Plan> planOptional = planRepository.findById(planId);
-        if(planOptional.isPresent()){
-            return planOptional.get();
-        }
-        return null;
+		return planOptional.orElse(null);
 	}
 
-	@Override
-	public List<Plan> getLocationPlans(Long locationId) {
+	@Override public List<Plan> getLocationPlans(Long locationId) {
 		Optional<List<Plan>> membershipPlansOptional = planRepository.findPlansByLocation_Id(locationId);
-        if(membershipPlansOptional.isPresent()){
-            return membershipPlansOptional.get();
-        }
-        return null;
+		return membershipPlansOptional.orElse(null);
 	}
 
-	@Override
-	public Plan createPlan(Plan plan) {
+	@Override public Plan createPlan(Plan plan) {
 		return planRepository.save(plan);
 	}
 
-	@Override
-	public Plan updatePlan(Long planId, Plan plan) {
+	@Override public Plan updatePlan(Long planId, Plan plan) {
 		Optional<Plan> planOptional = planRepository.findById(planId);
         if(planOptional.isPresent()){
             return planRepository.save(plan);
@@ -57,8 +49,8 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 
-	@Override
-	public boolean removePlan(Long planId) {
+	@Override public boolean removePlan(Long planId) {
+
 		Optional<Plan> planOptional = planRepository.findById(planId);
         if(planOptional.isPresent()){
             planRepository.deleteById(planId);

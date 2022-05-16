@@ -1,29 +1,24 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.*;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Data
 @Entity
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
@@ -36,10 +31,29 @@ public class Member {
     private String lastName;
     private String emailAddress;
 
+    @ToString.Include
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Badge> badges = new ArrayList<Badge>();
-  
+
+    public void addBadge(Badge badge){
+        this.badges.add(badge);
+    }
+
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return emailAddress.equals(member.emailAddress);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(emailAddress);
+    }
+
 }

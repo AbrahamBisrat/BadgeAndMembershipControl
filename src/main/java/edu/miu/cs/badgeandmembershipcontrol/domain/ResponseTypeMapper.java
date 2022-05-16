@@ -12,4 +12,5 @@ public class ResponseTypeMapper {
         map.put("data",t);
         return map;
     }
+
 }
