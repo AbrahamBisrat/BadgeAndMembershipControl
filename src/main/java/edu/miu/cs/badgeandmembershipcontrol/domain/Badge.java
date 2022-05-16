@@ -45,6 +45,10 @@ public class Badge {
     @ToString.Exclude
     private Member member;
 
+
+    public void setBadgeInActive() {
+        this.stateCode = "InActive";
+    }
     @Override public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

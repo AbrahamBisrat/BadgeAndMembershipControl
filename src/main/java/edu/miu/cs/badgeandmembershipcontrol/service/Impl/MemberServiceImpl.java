@@ -20,10 +20,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    @NotNull private final MemberRepository memberRepository;
-    @NotNull private final BadgeService badgeService;
+    @NotNull
+    private MemberRepository memberRepository;
+    @NotNull
+    private BadgeService badgeService;
 
-    @Override public List<Member> getAllMembers() {
+    @Override
+    public List<Member> getAllMembers() {
         return memberRepository.findAll();
     }
 
@@ -57,8 +60,14 @@ public class MemberServiceImpl implements MemberService {
         return false;
     }
 
-    @Override public Badge createNewBadge(Long memberId) {
-
-        return null;
+    @Override
+    public Member createNewBadge(Long memberId) {
+        Member member = getMember(memberId);
+        if(member == null ){
+            return null;
+        }
+        badgeService.deactivateBadge(memberId);
+        badgeService.createBadge(member);
+        return member;
     }
 }
