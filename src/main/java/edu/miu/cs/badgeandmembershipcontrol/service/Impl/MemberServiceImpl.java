@@ -4,6 +4,7 @@ import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.repository.BadgeRepository;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
+import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +17,11 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
 
     private MemberRepository memberRepository;
-    private BadgeRepository badgeRepository;
+    private BadgeService badgeService;
 
-    public MemberServiceImpl(MemberRepository memberRepository, BadgeRepository badgeRepository){
+    public MemberServiceImpl(MemberRepository memberRepository, BadgeService badgeService){
         this.memberRepository = memberRepository;
-        this.badgeRepository = badgeRepository;
+        this.badgeService = badgeService;
     }
 
     @Override
@@ -40,10 +41,9 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member createMember(Member member) {
         Member member1 = memberRepository.save(member);
-        Badge badge = new Badge();
-        badge.setMember(member1);
-        Badge badge1 = badgeRepository.save(badge);
-        member1.addBadge(badge1);
+        // Creates Badge with the member ID and returns the badge
+        Badge badge = badgeService.createBadge(member1);
+        member1.addBadge(badge);
         return member1;
     }
 
