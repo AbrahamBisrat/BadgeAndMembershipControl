@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
@@ -55,5 +56,11 @@ public class MemberServiceImpl implements MemberService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Badge createNewBadge(Long memberId) {
+
+        return null;
     }
 }

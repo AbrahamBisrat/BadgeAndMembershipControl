@@ -34,7 +34,6 @@ public class PlanController {
     @GetMapping(path = "/{planId}")
     public ResponseEntity<?> getPlan(@PathVariable String planId){
         Plan plan = planService.getPlan(Long.parseLong(planId));
-
         if(plan == null){
             return new ResponseEntity<String>("No Plan Found!", HttpStatus.NOT_FOUND);
         }
