@@ -18,8 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PlanServiceImpl implements PlanService {
 
- @NotNull
-   private final PlanRepository planRepository;
+ 	@NotNull private final PlanRepository planRepository;
 
 	@Override public List<Plan> getAllPlans() {
 		return planRepository.findAll();

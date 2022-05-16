@@ -22,8 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BadgeServiceImpl implements BadgeService {
 
- @NotNull
-   private final BadgeRepository badgeRepository;
+    @NotNull private final BadgeRepository badgeRepository;
 
     @Override public List<Badge> getAllBadges() {
         return badgeRepository.findAll();
@@ -34,8 +33,7 @@ public class BadgeServiceImpl implements BadgeService {
         return badgeOptional.orElse(null);
     }
 
-    @Override
-    public List<Badge> getMemberBadges(Long memberId) {
+    @Override public List<Badge> getMemberBadges(Long memberId) {
         Optional<List<Badge>> memberBadgeOptional = badgeRepository.findBadgesByMemberId(memberId);
         return memberBadgeOptional.orElse(null);
     }
@@ -44,8 +42,7 @@ public class BadgeServiceImpl implements BadgeService {
         return badgeRepository.save(badge);
     }
 
-    @Override
-    public Badge createBadge(Member member) {
+    @Override public Badge createBadge(Member member) {
         Badge badge = new Badge();
         badge.setCreatedOn(LocalDateTime.now());
         badge.setExpiryDate(LocalDate.from(LocalDateTime.now().plusYears(1)));
@@ -53,8 +50,7 @@ public class BadgeServiceImpl implements BadgeService {
         return badgeRepository.save(badge);
     }
 
-    @Override
-    public Badge updateBadge(Long badgeId, Badge badge) {
+    @Override public Badge updateBadge(Long badgeId, Badge badge) {
         Optional<Badge> badgeOptional = badgeRepository.findById(badgeId);
         if(badgeOptional.isPresent()){
             return badgeRepository.save(badge);

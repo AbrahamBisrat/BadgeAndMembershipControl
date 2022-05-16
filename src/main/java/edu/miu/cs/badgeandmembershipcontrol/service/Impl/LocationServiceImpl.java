@@ -18,8 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LocationServiceImpl implements LocationService {
 
-@NotNull
-  private final LocationRepository locationRepository;
+    @NotNull private final LocationRepository locationRepository;
 
     @Override public List<Location> getAllLocations() {
         return locationRepository.findAll();

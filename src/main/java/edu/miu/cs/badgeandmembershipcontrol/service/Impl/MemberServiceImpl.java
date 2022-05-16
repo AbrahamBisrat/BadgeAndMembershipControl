@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-   @NotNull private final MemberRepository memberRepository;
+    @NotNull private final MemberRepository memberRepository;
     @NotNull private final BadgeService badgeService;
 
     @Override public List<Member> getAllMembers() {

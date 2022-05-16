@@ -17,8 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MembershipServiceImpl implements MembershipService {
 
- @NotNull
-   private final MembershipRepository membershipRepository;
+    @NotNull private final MembershipRepository membershipRepository;
 
     @Override public List<Membership> getMemberMemberships(Long memberId) {
         Optional<List<Membership>> memberMemberShipOptional = membershipRepository.findMembershipByMember_Id(memberId);
