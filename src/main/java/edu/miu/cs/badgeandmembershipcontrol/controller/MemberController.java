@@ -47,6 +47,15 @@ public class MemberController {
         return new ResponseEntity<Member>(updatedMember, HttpStatus.OK);
     }
 
+    @PostMapping(path = "/renewBadge/{memberId}")
+    public ResponseEntity<?> renewMemberBadge(@PathVariable String memberId){
+        if(memberService.getMember(Long.parseLong(memberId)) == null) {
+            return new ResponseEntity<String>("No member by the Id " + memberId + " found", HttpStatus.NOT_FOUND);
+        }
+        Member member = memberService.createNewBadge(Long.parseLong(memberId));
+        return new ResponseEntity<Member>(member, HttpStatus.OK);
+    }
+
     @DeleteMapping(path = "/{memberId}")
     public ResponseEntity<?> deleteMember(@PathVariable String memberId){
         if(!memberService.removeMember(Long.parseLong(memberId))){
