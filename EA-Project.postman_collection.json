@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e7d57645-2bcd-4998-87e6-3f779383fa95",
+		"_postman_id": "190690b4-2627-42e4-bc2d-33331b534a01",
 		"name": "EA-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -123,14 +123,6 @@
 								"4"
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add membership to member",
-					"request": {
-						"method": "GET",
-						"header": []
 					},
 					"response": []
 				}
@@ -487,7 +479,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n        \"id\": 2,\n        \"accessTime\": \"2022-05-01T00:00:00\",\n        \"badge\": {\n            \"id\": 1,\n            \"stateCode\": \"ACTIVE\"\n        },\n        \"transactionLoc\": {\n            \"id\": 1,\n            \"name\": \"VERIL\",\n            \"description\": \"VERILHALL\",\n            \"capacity\": 50,\n            \"locationType\": \"DORMITORY\",\n            \"timeSlots\": []\n        }\n    }"
+							"raw": "{\n    \"id\": 2,\n    \"accessTime\": \"2020-02-03T00:00:00\",\n    \"badge\": {\n        \"id\": 1,\n        \"stateCode\": \"1\",\n        \"expiryDate\": \"2030-02-01\",\n        \"createdOn\": \"2020-02-01 00:00\",\n        \"modifiedOn\": \"2020-01-01 00:00\"\n    },\n    \"transactionLoc\": {\n        \"id\": 1,\n        \"name\": \"Argiro\",\n        \"description\": \"desc\",\n        \"capacity\": 12,\n        \"locationType\": \"MEDITATION_HALL\",\n        \"timeSlots\": []\n    },\n    \"membership\": {\n        \"id\": 1,\n        \"startDate\": \"2020-01-30T00:00:00\",\n        \"endDate\": \"2020-02-01T00:00:00\",\n        \"member\": {\n            \"id\": 1,\n            \"firstName\": \"fname\",\n            \"lastName\": \"lname\",\n            \"emailAddress\": \"email1\",\n            \"roles\": [],\n            \"badges\": [\n                {\n                    \"id\": 1,\n                    \"stateCode\": \"1\",\n                    \"expiryDate\": \"2030-02-01\",\n                    \"createdOn\": \"2020-02-01 00:00\",\n                    \"modifiedOn\": \"2020-01-01 00:00\"\n                }\n            ]\n        },\n        \"plan\": {\n            \"id\": 1,\n            \"name\": \"plan1\",\n            \"description\": \"desc\",\n            \"roles\": [],\n            \"location\": {\n                \"id\": 1,\n                \"name\": \"Argiro\",\n                \"description\": \"desc\",\n                \"capacity\": 12,\n                \"locationType\": \"MEDITATION_HALL\",\n                \"timeSlots\": []\n            },\n            \"counter\": 90\n        }\n    }\n}"
 						},
 						"url": {
 							"raw": "localhost:8080/api/v1/transactions",
@@ -542,6 +534,14 @@
 				},
 				{
 					"name": "Get Transaction By TimeSlotId",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get transaction By Plan",
 					"request": {
 						"method": "GET",
 						"header": []
@@ -668,6 +668,19 @@
 								"4"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Location",
+			"item": [
+				{
+					"name": "Get Location per Transaction",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

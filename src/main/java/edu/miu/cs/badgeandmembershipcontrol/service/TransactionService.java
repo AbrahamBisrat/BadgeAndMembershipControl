@@ -24,6 +24,9 @@ public interface TransactionService {
 
 	List<Transaction> findTransactionByTimeSlot(Long timeSlotId);
 
-  Location getTransactionLocation(Long transactionId);
+	Transaction findTransactionByPlan(Long planId);
+
+  	Location getTransactionLocation(Long transactionId);
+
 
 }
