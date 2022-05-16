@@ -1,6 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
 import com.sun.istack.NotNull;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TransactionRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
@@ -45,5 +46,11 @@ public class TransactionServiceImpl implements TransactionService {
 		}
 		return false;
 	}
+
+	@Override public Location getTransactionLocation(Long transactionId) {
+		Optional<Location> transactionLocationOptional = transactionRepository.findTransactionLocationBy_Id(transactionId);
+		return transactionLocationOptional.orElse(null);
+	}
+
 
 }
