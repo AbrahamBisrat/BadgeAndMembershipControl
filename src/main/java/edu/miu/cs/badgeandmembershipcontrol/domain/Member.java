@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -35,9 +36,9 @@ public class Member {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
-
+    @JsonBackReference(value="badges")
     @ToString.Exclude
-    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private List<Badge> badges = new ArrayList<Badge>();
 
     public void addBadge(Badge badge){

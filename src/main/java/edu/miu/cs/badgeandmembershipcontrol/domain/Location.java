@@ -1,5 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -33,6 +35,7 @@ public class Location {
     @Enumerated
     private LocationType locationType;
 
+    @JsonBackReference(value = "timeSlots")
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     @ToString.Exclude
