@@ -14,9 +14,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Entity
 @Data
+@Entity
+@ToString
+@EqualsAndHashCode
 public class Badge {
 
     @Id
@@ -40,5 +44,7 @@ public class Badge {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
+    @ToString.Exclude
     private Member member;
+
 }

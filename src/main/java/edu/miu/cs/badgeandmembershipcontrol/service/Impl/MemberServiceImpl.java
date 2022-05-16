@@ -6,6 +6,7 @@ import edu.miu.cs.badgeandmembershipcontrol.repository.BadgeRepository;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
     private MemberRepository memberRepository;
@@ -29,13 +31,9 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findAll();
     }
 
-    @Override
-    public Member getMember(Long memberId) {
+    @Override public Member getMember(Long memberId) {
         Optional<Member> memberOptional = memberRepository.findById(memberId);
-        if(memberOptional.isPresent()){
-            return memberOptional.get();
-        }
-        return null;
+        return memberOptional.orElse(null);
     }
 
     @Override
@@ -47,8 +45,7 @@ public class MemberServiceImpl implements MemberService {
         return member1;
     }
 
-    @Override
-    public Member updateMember(Long memberId, Member member) {
+    @Override public Member updateMember(Long memberId, Member member) {
         Optional<Member> memberOptional = memberRepository.findById(memberId);
         if(memberOptional.isPresent()){
             return memberRepository.save(member);
@@ -56,8 +53,7 @@ public class MemberServiceImpl implements MemberService {
         return null;
     }
 
-    @Override
-    public boolean removeMember(Long memberId) {
+    @Override public boolean removeMember(Long memberId) {
         Optional<Member> memberOptional = memberRepository.findById(memberId);
         if(memberOptional.isPresent()){
             memberRepository.deleteById(memberId);

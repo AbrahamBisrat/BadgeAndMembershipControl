@@ -3,6 +3,7 @@ import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.repository.BadgeRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,36 +17,26 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class BadgeServiceImpl implements BadgeService {
 
-    @Autowired
-    private BadgeRepository badgeRepository;
+    private final BadgeRepository badgeRepository;
 
-    @Override
-    public List<Badge> getAllBadges() {
+    @Override public List<Badge> getAllBadges() {
         return badgeRepository.findAll();
     }
 
-    @Override
-    public Badge getBadge(Long badgeId) {
+    @Override public Badge getBadge(Long badgeId) {
         Optional<Badge> badgeOptional = badgeRepository.findById(badgeId);
-        if(badgeOptional.isPresent()){
-            return badgeOptional.get();
-        }
-        return null;
+        return badgeOptional.orElse(null);
     }
 
-    @Override
-    public List<Badge> getMemberBadges(Long memberId) {
-        Optional<List<Badge>> memberBadgeOptional = badgeRepository.findBadgesByMember_Id(memberId);
-        if(memberBadgeOptional.isPresent()){
-            return memberBadgeOptional.get();
-        }
-        return null;
+    @Override public List<Badge> getMemberBadges(Long memberId) {
+        Optional<List<Badge>> memberBadgeOptional = badgeRepository.findBadgesByMemberId(memberId);
+        return memberBadgeOptional.orElse(null);
     }
 
-    @Override
-    public Badge createBadge(Badge badge) {
+    @Override public Badge createBadge(Badge badge) {
         return badgeRepository.save(badge);
     }
 
@@ -67,8 +58,7 @@ public class BadgeServiceImpl implements BadgeService {
         return null;
     }
 
-    @Override
-    public boolean removeBadge(Long badgeId) {
+    @Override public boolean removeBadge(Long badgeId) {
         Optional<Badge> badgeOptional = badgeRepository.findById(badgeId);
         if(badgeOptional.isPresent()){
             badgeRepository.deleteById(badgeId);
@@ -76,4 +66,5 @@ public class BadgeServiceImpl implements BadgeService {
         }
         return false;
     }
+
 }
