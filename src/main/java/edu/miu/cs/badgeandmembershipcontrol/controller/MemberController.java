@@ -2,6 +2,7 @@ package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,14 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/members")
 public class MemberController {
 
-    private MemberService memberService;
-
-    public MemberController(MemberService memberService){
-        this.memberService = memberService;
-    }
+    private final MemberService memberService;
 
     @GetMapping()
     public ResponseEntity<?> getMembers(){
