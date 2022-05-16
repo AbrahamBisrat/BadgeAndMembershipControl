@@ -29,9 +29,9 @@ public class BadgeController {
         Badge badge = badgeService.getBadge(Long.parseLong(badgeId));
 
         if(badge == null){
-            return new ResponseEntity<String>("No Badge Found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No Badge Found!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Badge>(badge, HttpStatus.OK);
+        return new ResponseEntity<>(badge, HttpStatus.OK);
     }
 
     @GetMapping(path = "/member/{memberId}")
@@ -45,22 +45,22 @@ public class BadgeController {
     @PostMapping()
     public ResponseEntity<?> createBadge(@RequestBody Badge badge){
         Badge newBadge = badgeService.createBadge(badge);
-        return new ResponseEntity<Badge>(newBadge, HttpStatus.OK);
+        return new ResponseEntity<>(newBadge, HttpStatus.OK);
     }
 
     @PutMapping(path = "/{badgeId}")
     public ResponseEntity<?> updateBadge(@PathVariable String badgeId, @RequestBody Badge badge){
         Badge updatedBadge = badgeService.updateBadge(Long.parseLong(badgeId),badge);
         if(updatedBadge == null){
-            return new ResponseEntity<String>("No Badge Found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No Badge Found!", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Badge>(updatedBadge, HttpStatus.OK);
+        return new ResponseEntity<>(updatedBadge, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{badgeId}")
     public ResponseEntity<?> deleteBadge(@PathVariable String badgeId){
         if(!badgeService.removeBadge(Long.parseLong(badgeId))){
-            return new ResponseEntity<String>("No Badge Found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No Badge Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
