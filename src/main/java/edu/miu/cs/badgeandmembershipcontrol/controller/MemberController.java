@@ -72,7 +72,7 @@ public class MemberController {
         Membership newMem =  memberService.addMembership(Long.parseLong(memberId),
                 Long.parseLong(planId), newMembership);
         if(newMem == null) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(newMem, HttpStatus.OK);
     }
