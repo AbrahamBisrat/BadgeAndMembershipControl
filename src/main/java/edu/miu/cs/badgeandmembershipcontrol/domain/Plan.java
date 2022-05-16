@@ -29,10 +29,6 @@ public class Plan {
 
     
     @ManyToOne
-    @JoinColumn(name="membership_id")
-    private Membership membership;
-    
-    @ManyToOne
     @JoinColumn(name="location_id")
     private Location location;
 
