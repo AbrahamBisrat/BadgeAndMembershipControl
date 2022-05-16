@@ -1,6 +1,5 @@
 package edu.miu.cs.badgeandmembershipcontrol.service;
 
-import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import org.springframework.stereotype.Service;
 
