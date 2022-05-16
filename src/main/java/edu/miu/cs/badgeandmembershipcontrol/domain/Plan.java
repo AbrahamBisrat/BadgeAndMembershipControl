@@ -21,7 +21,6 @@ public class Plan {
     private String name;
     private String description;
 
-
     @Enumerated
     @ElementCollection
     @ToString.Include

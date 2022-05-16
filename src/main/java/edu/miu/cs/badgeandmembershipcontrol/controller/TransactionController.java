@@ -3,6 +3,7 @@ package edu.miu.cs.badgeandmembershipcontrol.controller;
 import java.util.List;
 
 
+import lombok.NonNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
 @RequestMapping("/api/v1/transactions")
 public class TransactionController {
 
+	@NonNull
 	private final TransactionService transactionService;
 	
 	@GetMapping()
@@ -48,22 +50,44 @@ public class TransactionController {
 		return new ResponseEntity<>(transactionList, HttpStatus.OK);
 	}
 
+	@GetMapping(path = "/member/{memberId}")
+	public ResponseEntity<?> getTransactionsByMemberId(@PathVariable String memberId){
+		List<Transaction> transactionList = transactionService.findTransactionByMember(Long.parseLong(memberId),"Active");
+		if(transactionList == null){
+			return new ResponseEntity<>("Member have no active badge!", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(transactionList, HttpStatus.OK);
+	}
+
+	@GetMapping(path = "/timeslot/{timeslotId}")
+	public ResponseEntity<?> getTransactionsByTimeslotId(@PathVariable String timeslotId){
+		List<Transaction> transactionList = transactionService.findTransactionByTimeSlot(Long.parseLong(timeslotId));
+		if(transactionList == null){
+			return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(transactionList, HttpStatus.OK);
+	}
+	
 	@GetMapping(path = "/transaction/{transactionId}")
 	public ResponseEntity<?> getTransactionLocation(@PathVariable String transactionId){
 		Location location = transactionService.getTransactionLocation(Long.parseLong(transactionId));
 		return new ResponseEntity<>(location, HttpStatus.OK);
 	}
-
+  
 	@PostMapping()
 	public ResponseEntity<?> createTransaction(@RequestBody Transaction transaction){
-		Transaction newTransaction = transactionService.createTransaction(transaction);
-		return new ResponseEntity<>(newTransaction, HttpStatus.OK);
+		Transaction transaction1 = transactionService.createTransaction(transaction);
+		return new ResponseEntity<Transaction>(transaction1, HttpStatus.OK);
+
 	}
 	
 	@DeleteMapping(path = "/{transactionId}")
-	public ResponseEntity<?> removeTransaction(@PathVariable String transactionId){
-		if(!transactionService.removeTransaction(Long.parseLong(transactionId))){
+	public ResponseEntity<?> removeTransaction(@PathVariable String transactionId) {
+
+		Boolean result = transactionService.removeTransaction(Long.parseLong(transactionId));
+		if (!result) {
 			return new ResponseEntity<String>("No Transaction Found!", HttpStatus.NOT_FOUND);
+
 		}
 		return new ResponseEntity<>("Successful", HttpStatus.OK);
 	}

@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+
 import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
@@ -23,9 +24,24 @@ public class TransactionServiceImpl implements TransactionService {
 	return transactionRepository.findAll();
 	}
 
-	@Override public Transaction getTransaction(Long transactionId) {
+
+	@Override
+	public List<Transaction> findTransactionByMember(Long member_id, String status) {
+		Optional<List<Transaction>> TransactionByMemberOptional = transactionRepository.findTransactionByMember_Id(member_id,"Active");
+		if(TransactionByMemberOptional.isPresent()){
+			return TransactionByMemberOptional.get();
+		}
+		return null;
+	}
+
+
+	@Override
+	public Transaction getTransaction(Long transactionId) {
 		Optional<Transaction> transactionOptional = transactionRepository.findById(transactionId);
-		return transactionOptional.orElse(null);
+		if (transactionOptional.isPresent()) {
+			return transactionOptional.get();
+		}
+		return null;
 	}
 	
 	@Override public List<Transaction> getBadgeTransactions(Long badgeId) {
@@ -38,19 +54,28 @@ public class TransactionServiceImpl implements TransactionService {
 		return transactionRepository.save(transaction);
 	}
 	
-	@Override public boolean removeTransaction(Long transactionId) {
-		Optional<Transaction> transactionOptional = transactionRepository.findById(transactionId);
-		if(transactionOptional.isPresent()){
-			transactionRepository.deleteById(transactionId);
+	@Override
+		public boolean removeTransaction(Long transactionId) {
+			Optional<Transaction> transactionOptional = transactionRepository.findById(transactionId);
+			if(transactionOptional.isPresent()){
+				transactionRepository.deleteById(transactionId);
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Transaction> findTransactionByTimeSlot(Long timeSlotId) {
+		Optional<List<Transaction>> TransactionByMemberOptional = transactionRepository.findTransactionByTimeSlot(timeSlotId);
+		if(TransactionByMemberOptional.isPresent()){
+			return TransactionByMemberOptional.get();
+		}
+		return null;
 	}
 
 	@Override public Location getTransactionLocation(Long transactionId) {
 		Optional<Location> transactionLocationOptional = transactionRepository.findTransactionLocationBy_Id(transactionId);
 		return transactionLocationOptional.orElse(null);
 	}
-
 
 }

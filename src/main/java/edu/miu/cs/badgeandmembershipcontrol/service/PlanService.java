@@ -18,6 +18,8 @@ public interface PlanService {
 
     Plan updatePlan(Long planId, Plan plan);
 
+//    List<Membership> findPlanByMemberShip(Long membershipId);
+
     boolean removePlan(Long planId);
 }
 
