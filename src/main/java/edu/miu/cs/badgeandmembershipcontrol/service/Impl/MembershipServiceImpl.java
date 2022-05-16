@@ -6,6 +6,7 @@ import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
+import edu.miu.cs.badgeandmembershipcontrol.repository.PlanRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 import lombok.NonNull;
@@ -21,6 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MembershipServiceImpl implements MembershipService {
 
+    @NotNull private final PlanRepository planRepository;
     @NotNull private final MembershipRepository membershipRepository;
 
     @NotNull private final MemberService memberService;

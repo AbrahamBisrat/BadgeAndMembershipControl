@@ -31,7 +31,6 @@ public class Transaction {
     @JoinColumn(name="location_id")
     private Location transactionLoc;
 
-
     @Override public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -47,6 +46,5 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name="membership_id")
     private Membership membership;
-  
 
 }

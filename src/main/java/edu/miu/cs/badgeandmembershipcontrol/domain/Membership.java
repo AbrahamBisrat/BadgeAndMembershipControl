@@ -1,8 +1,5 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,7 +13,8 @@ import java.time.LocalDateTime;
 
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @Entity
 @ToString
 public class Membership implements Serializable {
