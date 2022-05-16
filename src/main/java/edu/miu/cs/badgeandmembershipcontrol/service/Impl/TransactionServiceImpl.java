@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TransactionRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
@@ -15,12 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-	private TransactionRepository transactionRepository;
-
-	
-	public TransactionServiceImpl(TransactionRepository transactionRepository){
-		this.transactionRepository = transactionRepository;
-	}
+	@NotNull private TransactionRepository transactionRepository;
 	
 	@Override
 	public List<Transaction> getAllTransactions() {

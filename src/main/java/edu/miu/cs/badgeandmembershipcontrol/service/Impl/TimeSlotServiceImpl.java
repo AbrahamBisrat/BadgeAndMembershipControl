@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TimeSlotRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.TimeSlotService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TimeSlotServiceImpl implements TimeSlotService {
 
-    private final TimeSlotRepository timeSlotRepository;
+   @NotNull
+   private final TimeSlotRepository timeSlotRepository;
 
 }
