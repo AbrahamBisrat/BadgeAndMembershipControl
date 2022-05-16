@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.service;
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,6 @@ public interface MemberService {
     Member updateMember(Long memberId, Member member);
 
     boolean removeMember(Long memberId);
+
+    Badge createNewBadge(Long memberId);
 }

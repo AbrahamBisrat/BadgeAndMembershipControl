@@ -35,8 +35,13 @@ public class Member {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
+
     @ToString.Exclude
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Badge> badges = new ArrayList<Badge>();
+
+    public void addBadge(Badge badge){
+        this.badges.add(badge);
+    }
   
 }
