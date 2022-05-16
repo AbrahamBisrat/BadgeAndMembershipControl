@@ -23,6 +23,7 @@ public class smokeTest {
     @Test public void controllerContext() throws  Exception {
         assertThat(locationController).isNotNull();
     }
+
     @Test public void memberController() throws  Exception {
         assertThat(memberController).isNotNull();
     }
