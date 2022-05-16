@@ -5,6 +5,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -20,7 +21,6 @@ import javax.persistence.OneToMany;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 public class Member {
 
     @Id
@@ -43,5 +43,17 @@ public class Member {
     public void addBadge(Badge badge){
         this.badges.add(badge);
     }
-  
+
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return emailAddress.equals(member.emailAddress);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(emailAddress);
+    }
+
 }

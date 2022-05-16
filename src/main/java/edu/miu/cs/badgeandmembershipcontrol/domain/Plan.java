@@ -32,4 +32,15 @@ public class Plan {
     @JoinColumn(name="location_id")
     private Location location;
 
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plan plan = (Plan) o;
+        return name.equals(plan.name) && description.equals(plan.description) && roles.equals(plan.roles) && location.equals(plan.location);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(name, description, roles, location);
+    }
+    
 }
