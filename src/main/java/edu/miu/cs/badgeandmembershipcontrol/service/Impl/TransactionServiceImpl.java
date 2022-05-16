@@ -2,6 +2,7 @@ package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
 
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TransactionRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
@@ -36,9 +37,17 @@ public class TransactionServiceImpl implements TransactionService {
 	public List<Transaction> getAllTransactions() {
 	return transactionRepository.findAll();
 	}
-	
-	
-	
+
+	@Override
+	public List<Transaction> findTransactionByMember(Long member_id, String status) {
+		Optional<List<Transaction>> TransactionByMemberOptional = transactionRepository.findTransactionByMember_Id(member_id,"Active");
+		if(TransactionByMemberOptional.isPresent()){
+			return TransactionByMemberOptional.get();
+		}
+		return null;
+	}
+
+
 	@Override
 	public Transaction getTransaction(Long transactionId) {
 	Optional<Transaction> transactionOptional = transactionRepository.findById(transactionId);

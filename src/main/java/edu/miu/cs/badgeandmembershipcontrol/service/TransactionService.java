@@ -7,7 +7,7 @@ import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 public interface TransactionService {
 	List<Transaction> getAllTransactions();
 
-
+	List<Transaction> findTransactionByMember(Long member_id, String status);
 
 	Transaction getTransaction(Long transactionId);
 

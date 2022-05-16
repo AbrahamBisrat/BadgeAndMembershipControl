@@ -61,22 +61,28 @@ public class TransactionController {
 	List<Transaction> transactionList = transactionService.getBadgeTransactions(Long.parseLong(badgeId));
 	return new ResponseEntity<>(transactionList, HttpStatus.OK);
 	}
+
+	@GetMapping(path = "/member/{memberId}")
+	public ResponseEntity<?> getTransactionsByMemberId(@PathVariable String memberId){
+		List<Transaction> transactionList = transactionService.findTransactionByMember(Long.parseLong(memberId),"Active");
+		return new ResponseEntity<>(transactionList, HttpStatus.OK);
+	}
 	
 	
 	
 	@PostMapping()
 	public ResponseEntity<?> createTransaction(@RequestBody Transaction transaction){
-	Transaction transaction1 = transactionService.createTransaction(transaction);
-	return new ResponseEntity<Transaction>(transaction1, HttpStatus.OK);
+		Transaction transaction1 = transactionService.createTransaction(transaction);
+		return new ResponseEntity<Transaction>(transaction1, HttpStatus.OK);
 	}
 	
 	
 	
 	@DeleteMapping(path = "/{transactionId}")
 	public ResponseEntity<?> removeTransaction(@PathVariable String transactionId){
-	Boolean result = transactionService.removeTransaction(Long.parseLong(transactionId));
-	if(!result){
-	return new ResponseEntity<String>("No Transaction Found!", HttpStatus.NOT_FOUND);
+		Boolean result = transactionService.removeTransaction(Long.parseLong(transactionId));
+		if(!result){
+			return new ResponseEntity<String>("No Transaction Found!", HttpStatus.NOT_FOUND);
 	}
 	return new ResponseEntity<>("Successful", HttpStatus.OK);
 	}

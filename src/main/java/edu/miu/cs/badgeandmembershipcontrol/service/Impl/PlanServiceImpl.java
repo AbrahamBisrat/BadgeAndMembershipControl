@@ -56,14 +56,6 @@ public class PlanServiceImpl implements PlanService {
         return null;
 	}
 
-	@Override
-	public List<Membership> findPlanByMemberShip(Long membershipId) {
-		Optional<List<Membership>> planOptional = planRepository.findPlanByMembership(membershipId);
-		if(planOptional.isPresent()){
-			return planOptional.get();
-		}
-		return null;
-	}
 
 	@Override
 	public boolean removePlan(Long planId) {

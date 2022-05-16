@@ -3,7 +3,6 @@ package edu.miu.cs.badgeandmembershipcontrol.service;
 
 import java.util.List;
 
-import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 
 
@@ -19,7 +18,7 @@ public interface PlanService {
 
     Plan updatePlan(Long planId, Plan plan);
 
-    List<Membership> findPlanByMemberShip(Long membershipId);
+//    List<Membership> findPlanByMemberShip(Long membershipId);
 
     boolean removePlan(Long planId);
 }
