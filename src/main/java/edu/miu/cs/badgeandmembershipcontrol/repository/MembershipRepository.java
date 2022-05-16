@@ -9,9 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface MembershipRepository extends JpaRepository<Membership,Long> {
+
     Optional<List<Membership>> findMembershipByMember_Id(Long memberId);
-
-
-
 
 }

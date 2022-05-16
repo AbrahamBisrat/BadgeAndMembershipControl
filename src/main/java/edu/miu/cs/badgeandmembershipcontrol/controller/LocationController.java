@@ -65,4 +65,5 @@ public class LocationController {
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
+
 }
