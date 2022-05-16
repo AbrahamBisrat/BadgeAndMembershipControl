@@ -39,6 +39,8 @@ public class MembershipController {
         return new ResponseEntity<>(memberShipList, HttpStatus.OK);
     }
 
+
+
     @PostMapping()
     public ResponseEntity<?> createMembership(@RequestBody Membership membership){
 

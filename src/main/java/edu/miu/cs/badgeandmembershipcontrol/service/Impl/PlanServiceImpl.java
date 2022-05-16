@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.repository.PlanRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
@@ -53,6 +54,15 @@ public class PlanServiceImpl implements PlanService {
             return planRepository.save(plan);
         }
         return null;
+	}
+
+	@Override
+	public List<Membership> findPlanByMemberShip(Long membershipId) {
+		Optional<List<Membership>> planOptional = planRepository.findPlanByMembership(membershipId);
+		if(planOptional.isPresent()){
+			return planOptional.get();
+		}
+		return null;
 	}
 
 	@Override
