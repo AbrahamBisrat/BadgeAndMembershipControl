@@ -1,8 +1,10 @@
 package edu.miu.cs.badgeandmembershipcontrol.aspect.service.impl;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.aspect.domain.Logger;
 import edu.miu.cs.badgeandmembershipcontrol.aspect.repo.LoggerRepo;
 import edu.miu.cs.badgeandmembershipcontrol.aspect.service.LoggerService;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +13,10 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class LoggerServiceImpl implements LoggerService {
 
-    private final LoggerRepo loggerRepo;
-
-    public LoggerServiceImpl(LoggerRepo loggerRepo) {
-        this.loggerRepo = loggerRepo;
-    }
+    @NotNull private final LoggerRepo loggerRepo;
 
     @Override public void add(ProceedingJoinPoint pjp) {
         loggerRepo.save(

@@ -1,9 +1,11 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.repository.LocationRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LocationServiceImpl implements LocationService {
 
-    private final LocationRepository locationRepository;
+    @NotNull private final LocationRepository locationRepository;
 
     @Override public List<Location> getAllLocations() {
         return locationRepository.findAll();
