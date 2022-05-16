@@ -1,8 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -12,7 +10,8 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @Entity
 @ToString
 public class Membership {
