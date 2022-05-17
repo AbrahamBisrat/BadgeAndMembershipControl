@@ -3,9 +3,11 @@ package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
 import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TransactionRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,7 +53,14 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	
 	@Override public Transaction createTransaction(Transaction transaction) {
-		return transactionRepository.save(transaction);
+		transactionRepository.save(transaction);
+		long count = transaction.getMembership().getPlan().getCounter();
+		count --;
+		transaction.getMembership().getPlan().setCounter(count);
+		System.out.println(transaction.getMembership().getPlan().getCounter());
+		return transaction;
+
+
 	}
 	
 	@Override
@@ -88,6 +97,5 @@ public class TransactionServiceImpl implements TransactionService {
 //		return transactionLocationOptional.orElse(null);
 		return new Location();
 	}
-
 
 }

@@ -13,12 +13,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlanRepository extends JpaRepository<Plan,Long> {
 
-	Optional<List<Plan>> findPlansByLocation_Id(Long locationId);
+//	Optional<List<Plan>> findPlansByLocation_Id(Long locationId);
 
 	Optional<Plan> findPlansById(Long planId);
 
 	@Query("select m.plan from Membership m join Member a where m.member = ?1")
 	Optional<List<Plan>> findPlanByMember_Id(Long memberId);
+
+	@Query("select m.plan from Membership m where m.id =?1")
+	Optional<Plan> findPlanByMemberShip(Long membershipId);
 
 
 }
