@@ -1,23 +1,24 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
-
-
 import com.sun.istack.NotNull;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TransactionRepository;
+import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
+import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
+import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import static edu.miu.cs.badgeandmembershipcontrol.domain.MembershipType.LIMITED;
 
 
 @Service
@@ -29,6 +30,12 @@ public class TransactionServiceImpl implements TransactionService {
 	private MembershipRepository membershipRepository;
 
 	@NotNull private TransactionRepository transactionRepository;
+
+	@NotNull private BadgeService badgeService;
+
+	@NotNull private MembershipService membershipService;
+
+	@NotNull private LocationService locationService;
 	
 	@Override public List<Transaction> getAllTransactions() {
 	return transactionRepository.findAll();
@@ -61,14 +68,22 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	
 	@Override public Transaction createTransaction(Transaction transaction) {
+		Badge badge = badgeService.getBadge(transaction.getBadge().getId());
+		Location location = locationService.getLocation(transaction.getTransactionLoc().getId());
+		Membership membership = membershipService.getMemberShip(transaction.getMembership().getId());
+
+		if(badge == null || location == null || membership == null) return null;
+
+		transaction.setTransactionLoc(location);
+		transaction.setBadge(badge);
+		transaction.setMembership(membership);
 		transactionRepository.save(transaction);
 		long count = transaction.getMembership().getCounter();
 		count --;
-		Membership membership = transaction.getMembership();
+		if(membership.getMembershipType() == LIMITED){
 		membership.setCounter(count);
-		membershipRepository.save(membership);
+		membershipRepository.save(membership);}
 		return transaction;
-
 
 	}
 	

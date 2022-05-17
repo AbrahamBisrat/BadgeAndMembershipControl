@@ -31,10 +31,8 @@ public class Location {
     private Long id;
 
 
-    @NotBlank(message = "Location name is Required")
-
+    @NotBlank
     @Column(unique = true)
-
     private String name;
     private String description;
     private int capacity;

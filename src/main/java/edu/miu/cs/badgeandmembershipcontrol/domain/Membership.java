@@ -35,7 +35,8 @@ public class Membership implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
-
+    @Enumerated
+    private MembershipType membershipType;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
@@ -44,8 +45,6 @@ public class Membership implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
     private Plan plan;
-
-
 
 
     public void deActivateMembership(){

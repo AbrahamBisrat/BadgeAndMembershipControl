@@ -33,8 +33,8 @@ public class BadgeServiceImpl implements BadgeService {
         return badgeOptional.orElse(null);
     }
 
-    @Override public List<Badge> getMemberBadges(Long memberId) {
-        Optional<List<Badge>> memberBadgeOptional = badgeRepository.findBadgesByMemberId(memberId);
+    @Override public List<Badge> getBadgesByMemberId(Long memberId) {
+        Optional<List<Badge>> memberBadgeOptional = badgeRepository.findBadgesByMemberIdOrderByStateCode(memberId);
         return memberBadgeOptional.orElse(null);
     }
 
