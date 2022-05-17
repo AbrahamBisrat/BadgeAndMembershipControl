@@ -96,7 +96,6 @@ public class TransactionController {
 		Boolean result = transactionService.removeTransaction(transactionId);
 		if (!result) {
 			return new ResponseEntity<String>("No Transaction Found!", HttpStatus.NOT_FOUND);
-
 		}
 		return new ResponseEntity<>("Successful", HttpStatus.OK);
 	}
