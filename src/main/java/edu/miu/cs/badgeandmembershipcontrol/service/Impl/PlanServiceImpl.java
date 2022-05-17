@@ -68,4 +68,13 @@ public class PlanServiceImpl implements PlanService {
 		return null;
 	}
 
+	@Override
+	public Plan findPlanByMemberShip(Long membershipId) {
+		Optional<Plan> planOptional = planRepository.findPlanByMemberShip(membershipId);
+		if(planOptional.isPresent()){
+			return planOptional.get();
+		}
+		return null;
+	}
+
 }

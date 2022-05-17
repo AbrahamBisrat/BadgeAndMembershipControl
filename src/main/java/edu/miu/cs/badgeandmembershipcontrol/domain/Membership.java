@@ -32,13 +32,13 @@ public class Membership implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
-
+    @JsonBackReference(value="member")
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     @ToString.Exclude
     private Member member;
 
 
-    @JsonBackReference(value="member")
+    @JsonBackReference(value="plan")
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     @ToString.Exclude
     private Plan plan;
