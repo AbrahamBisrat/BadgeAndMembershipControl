@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlanRepository extends JpaRepository<Plan,Long> {
-
-//	Optional<List<Plan>> findPlansByLocation_Id(Long locationId);
+	@Query("select p from Plan p join p.locations l on l.id=?1")
+	Optional<List<Plan>> findPlansByLocation_Id(Long locationId);
 
 	Optional<Plan> findPlansById(Long planId);
 
