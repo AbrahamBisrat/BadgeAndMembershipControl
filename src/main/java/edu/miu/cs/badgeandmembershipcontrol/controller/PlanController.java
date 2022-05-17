@@ -57,7 +57,6 @@ public class PlanController {
         return new ResponseEntity<>(plan, HttpStatus.OK);
     }
 
-
     @PostMapping()
     public ResponseEntity<?> createPlan(@RequestBody Plan plan){
         Plan newPlan = planService.createPlan(plan);
