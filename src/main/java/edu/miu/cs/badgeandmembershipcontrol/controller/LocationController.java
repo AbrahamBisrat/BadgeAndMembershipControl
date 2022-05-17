@@ -3,11 +3,11 @@ package edu.miu.cs.badgeandmembershipcontrol.controller;
 import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
+
 import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -48,12 +48,17 @@ public class LocationController {
     }
 //find the right name for message
     @PostMapping
-    public ResponseEntity<?> createLocation( @RequestBody Location location){
+    public ResponseEntity<?> createLocation(@RequestBody Location location){
+
         Location newLocation = locationService.createLocation(location);
         System.out.println("newLocation = " + newLocation);
         if(newLocation == null)
+
             return new ResponseEntity<>("Already Exists", HttpStatus.OK);
+
         return new ResponseEntity<>(newLocation, HttpStatus.CREATED);
+
+
     }
 
     @PutMapping(path = "/{locationId}")
