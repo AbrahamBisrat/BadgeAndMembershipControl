@@ -75,8 +75,8 @@ public class MembershipController {
 
 
     @GetMapping(path = "/checkAccess")
-    public ResponseEntity<?> checkMemberDoorAccess(@PathParam("memberId") String memberId, @PathParam("locationId") String locationId, @PathParam("locationType") LocationType locationType){
-        boolean accessResponse = membershipService.checkDoorAccess(Long.parseLong(memberId),Long.parseLong(locationId),locationType);
+    public ResponseEntity<?> checkMemberAccess(@PathParam("memberId") String memberId, @PathParam("locationId") String locationId, @PathParam("locationType") LocationType locationType){
+        boolean accessResponse = membershipService.checkAccess(Long.parseLong(memberId),Long.parseLong(locationId),locationType);
         if(accessResponse){
             return new ResponseEntity<>("Granted", HttpStatus.OK);
         }

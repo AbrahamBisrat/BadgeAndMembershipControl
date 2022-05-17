@@ -23,6 +23,8 @@ public interface MemberService {
 
     Member deActivateMembership(Long memberId, Long membershipId);
 
+    List<Membership> getMembershipsByMemberId(Long memberId);
+
 
 
 }

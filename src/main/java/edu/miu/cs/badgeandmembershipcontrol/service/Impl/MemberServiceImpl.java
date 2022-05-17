@@ -89,5 +89,10 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
+    @Override
+    public List<Membership> getMembershipsByMemberId(Long memberId) {
+        return membershipService.getMembershipsByMemberId(memberId);
+    }
+
 
 }

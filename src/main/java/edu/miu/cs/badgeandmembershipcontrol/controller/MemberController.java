@@ -38,6 +38,16 @@ public class MemberController {
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/{memberId}/memberships")
+    public ResponseEntity<?> getMembershipsByMember(@PathVariable String memberId){
+        List<Membership> memberships = memberService.getMembershipsByMemberId(Long.parseLong(memberId));
+
+        if(memberships.isEmpty()){
+            return new ResponseEntity<String>("No Membership Found!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<Membership>>(memberships, HttpStatus.OK);
+    }
+
     @PostMapping()
     public ResponseEntity<?> createMember(@RequestBody Member member){
         Member newMember = memberService.createMember(member);

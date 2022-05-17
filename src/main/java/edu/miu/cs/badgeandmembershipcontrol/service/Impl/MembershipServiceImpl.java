@@ -90,10 +90,15 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override
-    public boolean checkDoorAccess(Long memberId, Long locationId,LocationType locationType) {
+    public boolean checkAccess(Long memberId, Long locationId,LocationType locationType) {
         Optional<Membership> optionalMembership = getMembershipByMemberIdAndLocationIdAndStatus(memberId,locationId,"Active",locationType);
         if(optionalMembership.isPresent()) return validateLocationTimeSlot(locationId);
         return false;
+    }
+
+    @Override
+    public List<Membership> getMembershipsByMemberId(Long memberId) {
+        return membershipRepository.findMembershipsByMember_Id(memberId).orElse(null);
     }
 
     @Override
