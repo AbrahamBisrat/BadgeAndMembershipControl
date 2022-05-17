@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3360aacf-822d-49b3-8032-b365a038ea20",
+		"_postman_id": "47c21ce0-5d2e-485e-90c5-9c8c880dde5b",
 		"name": "EA-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -568,6 +568,71 @@
 					"response": []
 				},
 				{
+					"name": "Get Plan By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Locations By Plan ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/1/location",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"1",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan By Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/location/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"location",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Plan",
 					"request": {
 						"method": "POST",
@@ -653,27 +718,6 @@
 								"v1",
 								"plans",
 								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Plan By ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/api/v1/plans/3",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"plans",
-								"3"
 							]
 						}
 					},
