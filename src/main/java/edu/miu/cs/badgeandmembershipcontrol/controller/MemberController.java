@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -16,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/v1/members")
 public class MemberController {
 
-    private final MemberService memberService;
+    @NotNull private final MemberService memberService;
 
     @GetMapping()
     public ResponseEntity<?> getMembers(){
@@ -58,11 +60,11 @@ public class MemberController {
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
-//    @PostMapping(path = "/invokeMembership")
-//    public ResponseEntity<?> invokeMembership(@RequestBody String memberId, @RequestBody String membershipId){
-//        Member member = memberService.deActivateMembership(Long.parseLong(memberId),Long.parseLong(membershipId));
-//        return new ResponseEntity<Member>(member, HttpStatus.OK);
-//    }
+    @PostMapping(path = "/invokeMembership")
+    public ResponseEntity<?> invokeMembership(@PathParam("memberId") String memberId, @PathParam("membershipId") String membershipId){
+        Member member = memberService.deActivateMembership(Long.parseLong(memberId),Long.parseLong(membershipId));
+        return new ResponseEntity<Member>(member, HttpStatus.OK);
+    }
 
     @DeleteMapping(path = "/{memberId}")
     public ResponseEntity<?> deleteMember(@PathVariable String memberId){

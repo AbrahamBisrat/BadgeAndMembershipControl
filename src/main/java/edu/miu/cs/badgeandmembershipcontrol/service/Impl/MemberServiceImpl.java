@@ -24,11 +24,13 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
 
     @NotNull private final PlanService planService;
+
     @NotNull private final BadgeService badgeService;
     @NotNull private final MemberRepository memberRepository;
+
     @NotNull private final MembershipRepository membershipRepository;
 
-    @NotNull private final MembershipService membershipService;
+//    @NotNull private final MembershipService membershipService;
 
     @Override public List<Member> getAllMembers() {
         return memberRepository.findAll();
@@ -101,9 +103,25 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member deActivateMembership(Long memberId, Long membershipId) {
-        membershipService.deActivateMembership(membershipId,memberId);
-        Member member = memberRepository.getById(memberId);
-        return member;
+//        membershipService.deActivateMembership(membershipId,memberId);
+//        Member member = memberRepository.getById(memberId);
+//        return member;
+        deActivateMemberships(membershipId,memberId);
+        return memberRepository.findById(memberId).get();
+    }
+
+
+    public Membership getMembershipByIdAndMemberId(Long membershipId, Long memberId) {
+        return membershipRepository.findMembershipByIdAndMember_Id(membershipId,memberId).orElse(null);
+    }
+
+
+    public void deActivateMemberships(Long membershipId, Long memberId) {
+        Membership membership = getMembershipByIdAndMemberId(membershipId,memberId);
+        if(membership == null) return;
+
+        membership.deActivateMembership();
+        membershipRepository.save(membership);
     }
 
 }
