@@ -1,6 +1,10 @@
 {
 	"info": {
+<<<<<<< HEAD
 		"_postman_id": "0a671423-4e64-489d-b0f4-f165a02ee5e0",
+=======
+		"_postman_id": "3360aacf-822d-49b3-8032-b365a038ea20",
+>>>>>>> cbdeccc06d410894abc334c7824fd8f4b3138cb0
 		"name": "EA-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -831,7 +835,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"member\":{\n        \"id\": 4\n    },\n    \"plan\":{\n        \"id\": 5\n    },\n    \"startDate\" : \"2022-05-16 12:00\",\n    \"endDate\": \"2023-01-15 12:00\"\n}"
+							"raw": "{\n    \"member\":{\n        \"id\": 1\n    },\n    \"plan\":{\n        \"id\": 1\n    },\n    \"startDate\" : \"2022-05-16 12:00\",\n    \"endDate\": \"2023-01-15 12:00\"\n}"
 						},
 						"url": {
 							"raw": "localhost:8080/api/v1/memberships",
@@ -976,6 +980,125 @@
 							]
 						},
 						"description": "By sending member Id and location Id check access for the room"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TimeSlot",
+			"item": [
+				{
+					"name": "Get TimeSlots",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/timeslots",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"timeslots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get TimeSlots for Location",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/location/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"location",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create  TimeSlot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": 8,\n        \"startTime\": \"2022-12-12 18:00\",\n        \"endTime\": \"2022-12-12 20:00\"\n    }"
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/timeslots",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"timeslots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete TimeSlot",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/timeslots/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"timeslots",
+								"6"
+							]
+						}
 					},
 					"response": []
 				}
