@@ -34,6 +34,7 @@ public class Membership implements Serializable {
     private LocalDateTime endDate;
 
 
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
     private Member member;

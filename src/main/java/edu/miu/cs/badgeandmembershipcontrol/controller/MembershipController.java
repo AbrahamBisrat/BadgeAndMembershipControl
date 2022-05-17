@@ -26,19 +26,18 @@ public class MembershipController {
     }
 
     @GetMapping(path = "/{memberShipId}")
-    public ResponseEntity<?> getMemberShip(@PathVariable String memberShipId){
-        Membership memberShip = membershipService.getMemberShip(Long.parseLong(memberShipId));
-
+    public ResponseEntity<?> getMemberShip(@PathVariable Long memberShipId){
+        Membership memberShip = membershipService.getMemberShip(memberShipId);
         if(memberShip == null){
             return new ResponseEntity<>("No Membership Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(memberShip, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/membership/{membershipId}")
-    public ResponseEntity<?> getMemberMemberships(@PathVariable String membershipId){
+    @GetMapping(path = "/membership/{membershipId}") // This will have to be flipped - to comply with the reqs
+    public ResponseEntity<?> getMemberMemberships(@PathVariable Long membershipId){
         List<Membership> memberShipList = membershipService
-                .getMemberMemberships(Long.parseLong(membershipId));
+                .getMemberMemberships(membershipId);
         return new ResponseEntity<>(memberShipList, HttpStatus.OK);
     }
 
@@ -53,10 +52,10 @@ public class MembershipController {
     }
 
     @PutMapping(path = "/{membershipId}")
-    public ResponseEntity<?> updateMembership(@PathVariable String membershipId,
+    public ResponseEntity<?> updateMembership(@PathVariable Long membershipId,
                                               @RequestBody Membership membership){
         Membership updatedMembership = membershipService
-                .updateMembership(Long.parseLong(membershipId),membership);
+                .updateMembership(membershipId,membership);
 
         if(updatedMembership == null){
             return new ResponseEntity<String>("No MemberShip Found by the Id "
@@ -75,8 +74,10 @@ public class MembershipController {
 
 
     @GetMapping(path = "/checkAccess")
-    public ResponseEntity<?> checkMemberAccess(@PathParam("memberId") String memberId, @PathParam("locationId") String locationId, @PathParam("locationType") LocationType locationType){
-        boolean accessResponse = membershipService.checkAccess(Long.parseLong(memberId),Long.parseLong(locationId),locationType);
+    public ResponseEntity<?> checkMemberDoorAccess(@PathParam("memberId") Long memberId,
+                                                   @PathParam("locationId") Long locationId,
+                                                   @PathParam("locationType") LocationType locationType){
+        boolean accessResponse = membershipService.checkAccess(memberId, locationId,locationType);
         if(accessResponse){
             return new ResponseEntity<>("Granted", HttpStatus.OK);
         }

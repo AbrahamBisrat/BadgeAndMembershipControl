@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,21 +27,22 @@ public class Plan {
     private Set<Role> roles = new HashSet<>();
 
 //    @JsonBackReference(value = "location")
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="location_id")
-    private Location location;
-    @Column(columnDefinition = "integer default 90")
-    private int counter = 90;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name="plan_location", joinColumns = {@JoinColumn(name="plan_id")},inverseJoinColumns = {@JoinColumn(name="location_id")})
+    private List<Location> locations = new ArrayList<>();
 
-    @Override public boolean equals(Object o) {
+    private Long counter;
+
+    @Override
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plan plan = (Plan) o;
-        return name.equals(plan.name) && description.equals(plan.description) && roles.equals(plan.roles) && location.equals(plan.location);
+        return Objects.equals(id, plan.id) && Objects.equals(name, plan.name) && Objects.equals(description, plan.description) && Objects.equals(roles, plan.roles) && Objects.equals(locations, plan.locations) && Objects.equals(counter, plan.counter);
     }
 
-    @Override public int hashCode() {
-        return Objects.hash(name, description, roles, location);
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, roles, locations, counter);
     }
-    
 }

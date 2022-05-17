@@ -4,14 +4,11 @@ import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.websocket.server.PathParam;
 import java.util.List;
 
@@ -31,9 +28,8 @@ public class MemberController {
     }
 
     @GetMapping(path = "/{memberId}")
-    public ResponseEntity<?> getMember(@PathVariable String memberId){
-        Member member = memberService.getMember(Long.parseLong(memberId));
-
+    public ResponseEntity<?> getMember(@PathVariable Long memberId){
+        Member member = memberService.getMember(memberId);
         if(member == null){
             return new ResponseEntity<String>("No Member Found!", HttpStatus.NOT_FOUND);
         }
@@ -71,38 +67,39 @@ public class MemberController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> createMember(@RequestBody Member member){
-        Member newMember = memberService.createMember(member);
-        return new ResponseEntity<Member>(newMember, HttpStatus.OK);
+    public Member createMember(@RequestBody Member member){
+        return memberService.createMember(member);
     }
 
     @PutMapping(path = "/{memberId}")
-    public ResponseEntity<?> updateMember(@PathVariable String memberId, @RequestBody Member member){
-        if(memberService.getMember(Long.parseLong(memberId)) == null) {
+    public ResponseEntity<?> updateMember(@PathVariable Long memberId, @RequestBody Member member){
+        if(memberService.getMember(memberId) == null) {
             return new ResponseEntity<String>("No member by the Id " + memberId + " found", HttpStatus.NOT_FOUND);
         }
-        Member updatedMember = memberService.updateMember(Long.parseLong(memberId), member);
+        Member updatedMember = memberService.updateMember(memberId , member);
         return new ResponseEntity<Member>(updatedMember, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/renewBadge/{memberId}")
-    public ResponseEntity<?> renewMemberBadge(@PathVariable String memberId){
-        if(memberService.getMember(Long.parseLong(memberId)) == null) {
-            return new ResponseEntity<String>("No member by the Id " + memberId + " found", HttpStatus.NOT_FOUND);
+    @PostMapping(path = "/{memberId}/renewBadge")
+    public ResponseEntity<?> renewMemberBadge(@PathVariable Long memberId){
+        if(memberService.getMember(memberId) == null) {
+            return new ResponseEntity<String>("No member by the Id "
+                    + memberId + " found", HttpStatus.NOT_FOUND);
         }
-        Member member = memberService.createNewBadge(Long.parseLong(memberId));
+        Member member = memberService.createNewBadge(memberId);
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
     @PostMapping(path = "/invokeMembership")
-    public ResponseEntity<?> invokeMembership(@PathParam("memberId") String memberId, @PathParam("membershipId") String membershipId){
-        Member member = memberService.deActivateMembership(Long.parseLong(memberId),Long.parseLong(membershipId));
+    public ResponseEntity<?> invokeMembership(@PathParam("memberId") Long memberId,
+                                              @PathParam("membershipId") Long membershipId){
+        Member member = memberService.deActivateMembership(memberId , membershipId);
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{memberId}")
-    public ResponseEntity<?> deleteMember(@PathVariable String memberId){
-        if(!memberService.removeMember(Long.parseLong(memberId))){
+    public ResponseEntity<?> deleteMember(@PathVariable Long memberId){
+        if(!memberService.removeMember(memberId)){
             return new ResponseEntity<String>("No Member Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);

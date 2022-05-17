@@ -103,7 +103,8 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Override
     public Optional<Membership> getMembershipByMemberIdAndLocationIdAndStatus(Long memberId, Long locationId, String status, LocationType locationType) {
-        return membershipRepository.findMembershipByPlan_Location_IdAndMember_IdAndMembershipStatusAndPlan_Location_LocationType(locationId,memberId,status,locationType);
+       // return membershipRepository.findMembershipByPlan_Location_IdAndMember_IdAndMembershipStatusAndPlan_Location_LocationType(locationId,memberId,status,locationType);
+        return null;
     }
 
     private boolean validateLocationTimeSlot(Long locationId){
