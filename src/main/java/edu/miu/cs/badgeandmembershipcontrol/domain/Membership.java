@@ -33,7 +33,7 @@ public class Membership implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
-
+    private Long counter;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
