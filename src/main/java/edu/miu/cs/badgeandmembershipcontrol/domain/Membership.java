@@ -2,7 +2,6 @@ package edu.miu.cs.badgeandmembershipcontrol.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.ToString;
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -24,6 +23,8 @@ public class Membership implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String membershipStatus = "Active";
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;
@@ -32,14 +33,18 @@ public class Membership implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
     private Member member;
 
-    @JsonBackReference(value="member")
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
     private Plan plan;
+
+
+    public void deActivateMembership(){
+        this.membershipStatus = "InActive";
+    }
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;
