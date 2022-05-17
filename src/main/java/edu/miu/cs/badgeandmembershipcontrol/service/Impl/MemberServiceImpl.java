@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override public Member createMember(Member member) {
-        Optional<Member> optionalMember = memberRepository.findMemberByFirstNameAndLastName(member.getFirstName(), member.getLastName());
+        Optional<Member> optionalMember = memberRepository.getMemberByFirstNameAndLastName(member.getFirstName(), member.getLastName());
         if(optionalMember.isPresent())
             return null;
         Member member1 = memberRepository.save(member);
