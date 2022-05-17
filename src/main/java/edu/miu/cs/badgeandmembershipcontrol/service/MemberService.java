@@ -1,9 +1,9 @@
 package edu.miu.cs.badgeandmembershipcontrol.service;
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -24,6 +24,9 @@ public interface MemberService {
     Member deActivateMembership(Long memberId, Long membershipId);
 
     List<Membership> getMembershipsByMemberId(Long memberId);
+
+    List<Badge> getBadgesByMember(Long memberId);
+    Badge getActiveBadgeByMember(Long memberId);
 
 
 

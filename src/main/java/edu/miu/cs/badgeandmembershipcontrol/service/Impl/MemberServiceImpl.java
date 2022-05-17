@@ -94,5 +94,15 @@ public class MemberServiceImpl implements MemberService {
         return membershipService.getMembershipsByMemberId(memberId);
     }
 
+    @Override
+    public List<Badge> getBadgesByMember(Long memberId) {
+        return badgeService.getBadgesByMemberId(memberId);
+    }
+
+    @Override
+    public Badge getActiveBadgeByMember(Long memberId) {
+        return badgeService.getActiveBadgeByMemberId(memberId);
+    }
+
 
 }

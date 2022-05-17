@@ -1,6 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import com.sun.istack.NotNull;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
@@ -24,6 +25,7 @@ public class MemberController {
 
     @GetMapping()
     public ResponseEntity<?> getMembers(){
+
         List<Member> memberList = memberService.getAllMembers();
         return new ResponseEntity<>(memberList, HttpStatus.OK);
     }
@@ -46,6 +48,26 @@ public class MemberController {
             return new ResponseEntity<String>("No Membership Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<List<Membership>>(memberships, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/{memberId}/badges")
+    public ResponseEntity<?> getBadgeByMember(@PathVariable String memberId){
+        List<Badge> badgeList = memberService.getBadgesByMember(Long.parseLong(memberId));
+
+        if(badgeList.isEmpty()){
+            return new ResponseEntity<String>("No Badge Found!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<Badge>>(badgeList, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/{memberId}/activeBadge")
+    public ResponseEntity<?> getActiveBadge(@PathVariable String memberId){
+        Badge badge = memberService.getActiveBadgeByMember(Long.parseLong(memberId));
+
+        if(badge == null){
+            return new ResponseEntity<String>("No Active Badge Found!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Badge>(badge, HttpStatus.OK);
     }
 
     @PostMapping()

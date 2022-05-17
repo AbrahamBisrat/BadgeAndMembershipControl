@@ -36,7 +36,7 @@ public class BadgeController {
 
     @GetMapping(path = "/member/{memberId}")
     public ResponseEntity<?> getMemberBadges(@PathVariable String memberId){
-        List<Badge> badgeList = badgeService.getMemberBadges(Long.parseLong(memberId));
+        List<Badge> badgeList = badgeService.getBadgesByMemberId(Long.parseLong(memberId));
         return new ResponseEntity<>(badgeList, HttpStatus.OK);
     }
 
