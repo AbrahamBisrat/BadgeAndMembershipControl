@@ -1,6 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -69,6 +71,16 @@ public class MembershipController {
             return new ResponseEntity<String>("No MemberShip Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
+    }
+
+
+    @GetMapping(path = "/checkAccess")
+    public ResponseEntity<?> checkMemberDoorAccess(@PathParam("memberId") String memberId, @PathParam("locationId") String locationId, @PathParam("locationType") LocationType locationType){
+        boolean accessResponse = membershipService.checkDoorAccess(Long.parseLong(memberId),Long.parseLong(locationId),locationType);
+        if(accessResponse){
+            return new ResponseEntity<>("Granted", HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("Not Allowed", HttpStatus.OK);
     }
 
 }

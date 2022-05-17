@@ -1,9 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
 import com.sun.istack.NotNull;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
+import edu.miu.cs.badgeandmembershipcontrol.domain.*;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
@@ -27,6 +25,9 @@ public class MembershipServiceImpl implements MembershipService {
 
     @Lazy
     @NotNull private final MemberService memberService;
+
+
+    @NotNull private final LocationServiceImpl locationService;
 
     @Override public List<Membership> getMemberMemberships(Long memberId) {
         return membershipRepository.findMembershipByMember_Id(memberId).orElse(null);
@@ -87,5 +88,23 @@ public class MembershipServiceImpl implements MembershipService {
     public Optional<List<Membership>> getMembershipsByMemberIdAndPlanId(Long memberId, Long planId,String status) {
         return membershipRepository.findMembershipsByMember_IdAndPlan_IdAndMembershipStatus(memberId,planId,status);
     }
+
+    @Override
+    public boolean checkDoorAccess(Long memberId, Long locationId,LocationType locationType) {
+        Optional<Membership> optionalMembership = getMembershipByMemberIdAndLocationIdAndStatus(memberId,locationId,"Active",locationType);
+        if(optionalMembership.isPresent()) return validateLocationTimeSlot(locationId);
+        return false;
+    }
+
+    @Override
+    public Optional<Membership> getMembershipByMemberIdAndLocationIdAndStatus(Long memberId, Long locationId, String status, LocationType locationType) {
+        return membershipRepository.findMembershipByPlan_Location_IdAndMember_IdAndMembershipStatusAndPlan_Location_LocationType(locationId,memberId,status,locationType);
+    }
+
+    private boolean validateLocationTimeSlot(Long locationId){
+        Location location = locationService.getLocation(locationId);
+        return location.checkTimeSlot();
+    }
+
 
 }

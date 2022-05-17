@@ -913,6 +913,49 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Check Access",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/memberships/checkAccess?memberId=2&locationId=14&locationType=DORMITORY",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"memberships",
+								"checkAccess"
+							],
+							"query": [
+								{
+									"key": "memberId",
+									"value": "2"
+								},
+								{
+									"key": "locationId",
+									"value": "14"
+								},
+								{
+									"key": "locationType",
+									"value": "DORMITORY"
+								}
+							]
+						},
+						"description": "By sending member Id and location Id check access for the room"
+					},
+					"response": []
 				}
 			]
 		}

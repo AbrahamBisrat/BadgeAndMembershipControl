@@ -2,7 +2,6 @@ package edu.miu.cs.badgeandmembershipcontrol.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.ToString;
 import javax.persistence.*;
 import javax.persistence.Entity;
