@@ -224,6 +224,35 @@
 						"description": "Use Membership Id and member Id"
 					},
 					"response": []
+				},
+				{
+					"name": "Get Memberships by Member Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/members/1/memberships",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"1",
+								"memberships"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
