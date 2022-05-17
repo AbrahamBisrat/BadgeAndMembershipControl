@@ -26,7 +26,7 @@ public class Plan {
     @ToString.Include
     private Set<Role> roles = new HashSet<>();
 
-//    @JsonBackReference(value = "location")
+    @JsonBackReference(value = "location")
 
 
     @ManyToOne(cascade = CascadeType.PERSIST)
