@@ -3,9 +3,11 @@ package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
 import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TransactionRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +15,16 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@NotNull private TransactionRepository transactionRepository;
 	
@@ -51,7 +59,15 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	
 	@Override public Transaction createTransaction(Transaction transaction) {
-		return transactionRepository.save(transaction);
+		transactionRepository.save(transaction);
+/*		long count = transaction.getMembership().getPlan().getCounter();
+		count --;
+		transaction.getMembership().getPlan().setCounter(count);
+		System.out.println(transaction.getMembership().getPlan().getCounter());
+		entityManager.flush(); */
+		return transaction;
+
+
 	}
 	
 	@Override
@@ -88,6 +104,5 @@ public class TransactionServiceImpl implements TransactionService {
 //		return transactionLocationOptional.orElse(null);
 		return new Location();
 	}
-
 
 }

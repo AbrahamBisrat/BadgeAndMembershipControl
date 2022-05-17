@@ -40,8 +40,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override public Member getMember(Long memberId) {
-        Optional<Member> memberOptional = memberRepository.findById(memberId);
-        return memberOptional.orElse(null);
+       return memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("member id invalid"));
     }
 
     @Override public Member createMember(Member member) {
@@ -58,6 +57,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override public Member updateMember(Long memberId, Member member) {
+        member.setId(memberId);
         Optional<Member> memberOptional = memberRepository.findById(memberId);
         if(memberOptional.isPresent()){
             return memberRepository.save(member);

@@ -1,19 +1,15 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Required;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -43,6 +39,9 @@ public class Location {
 
     @Enumerated
     private LocationType locationType;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "locations")
+    private List<Plan> plans = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "location_id")

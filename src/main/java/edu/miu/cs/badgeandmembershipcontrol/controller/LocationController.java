@@ -28,8 +28,8 @@ public class LocationController {
     }
 
     @GetMapping(path = "/{locationId}")
-    public ResponseEntity<?> getLocation(@PathVariable String locationId){
-        Location location = locationService.getLocation(Long.parseLong(locationId));
+    public ResponseEntity<?> getLocation(@PathVariable Long locationId){
+        Location location = locationService.getLocation(locationId);
 
         if(location == null){
             return new ResponseEntity<>("No Location Found!", HttpStatus.NOT_FOUND);
@@ -62,14 +62,14 @@ public class LocationController {
     }
 
     @PutMapping(path = "/{locationId}")
-    public ResponseEntity<?> updateLocation(@PathVariable String locationId, @RequestBody Location location){
-        Location updatedLocation = locationService.updateLocation(Long.parseLong(locationId), location);
+    public ResponseEntity<?> updateLocation(@PathVariable Long locationId, @RequestBody Location location){
+        Location updatedLocation = locationService.updateLocation(locationId , location);
         return new ResponseEntity<>(updatedLocation, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{locationId}")
-    public ResponseEntity<?> deleteLocation(@PathVariable String locationId) {
-        if (!locationService.removeLocation(Long.parseLong(locationId))) {
+    public ResponseEntity<?> deleteLocation(@PathVariable Long locationId) {
+        if (!locationService.removeLocation(locationId)) {
             return new ResponseEntity<>("No Location Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
