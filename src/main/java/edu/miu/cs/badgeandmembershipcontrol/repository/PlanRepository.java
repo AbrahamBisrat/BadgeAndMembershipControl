@@ -16,6 +16,7 @@ public interface PlanRepository extends JpaRepository<Plan,Long> {
 	@Query("select p from Plan p join p.locations l on l.id=?1")
 	Optional<List<Plan>> findPlansByLocation_Id(Long locationId);
 
+	@Query("select p.locations from Plan p where p.id =?1")
 	Optional<List<Location>> findLocationsByPlan_Id(Long planId);
 
 	Optional<Plan> findPlansById(Long planId);
@@ -25,6 +26,5 @@ public interface PlanRepository extends JpaRepository<Plan,Long> {
 
 	@Query("select m.plan from Membership m where m.id =?1")
 	Optional<Plan> findPlanByMemberShip(Long membershipId);
-
 
 }
