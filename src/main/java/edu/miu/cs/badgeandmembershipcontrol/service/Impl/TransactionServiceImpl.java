@@ -4,10 +4,13 @@ package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
+import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TransactionRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,16 +18,15 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private MembershipRepository membershipRepository;
 
 	@NotNull private TransactionRepository transactionRepository;
 	
@@ -60,11 +62,11 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	@Override public Transaction createTransaction(Transaction transaction) {
 		transactionRepository.save(transaction);
-/*		long count = transaction.getMembership().getPlan().getCounter();
+		long count = transaction.getMembership().getCounter();
 		count --;
-		transaction.getMembership().getPlan().setCounter(count);
-		System.out.println(transaction.getMembership().getPlan().getCounter());
-		entityManager.flush(); */
+		Membership membership = transaction.getMembership();
+		membership.setCounter(count);
+		membershipRepository.save(membership);
 		return transaction;
 
 
