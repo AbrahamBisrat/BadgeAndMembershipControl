@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b6ba9aff-5cf1-401f-8509-fa4b68680897",
+		"_postman_id": "0a671423-4e64-489d-b0f4-f165a02ee5e0",
 		"name": "EA-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -674,6 +674,28 @@
 								"v1",
 								"plans",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan By Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/location/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"location",
+								"1"
 							]
 						}
 					},
