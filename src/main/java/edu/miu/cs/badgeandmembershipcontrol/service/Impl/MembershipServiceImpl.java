@@ -9,9 +9,9 @@ import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -22,9 +22,11 @@ public class MembershipServiceImpl implements MembershipService {
 
     @NotNull private final MembershipRepository membershipRepository;
 
-    @NotNull private final MemberService memberService;
-
+    @Lazy
     @NotNull private final PlanService planService;
+
+    @Lazy
+    @NotNull private final MemberService memberService;
 
     @Override public List<Membership> getMemberMemberships(Long memberId) {
         return membershipRepository.findMembershipByMember_Id(memberId).orElse(null);
@@ -43,6 +45,8 @@ public class MembershipServiceImpl implements MembershipService {
     @Override public Membership createMemberShip(Membership membership) {
         Member member = memberService.getMember(membership.getMember().getId());
         Plan plan = planService.getPlan(membership.getPlan().getId());
+        Optional<List<Membership>> optionalMemberships = getMembershipsByMemberIdAndPlanId(member.getId(),plan.getId(),"Active");
+        if(optionalMemberships.get().size() > 0) return null;
         membership.setMember(member);
         membership.setPlan(plan);
         return membershipRepository.save(membership);
@@ -77,6 +81,11 @@ public class MembershipServiceImpl implements MembershipService {
 
         membership.deActivateMembership();
         return membershipRepository.save(membership);
+    }
+
+    @Override
+    public Optional<List<Membership>> getMembershipsByMemberIdAndPlanId(Long memberId, Long planId,String status) {
+        return membershipRepository.findMembershipsByMember_IdAndPlan_IdAndMembershipStatus(memberId,planId,status);
     }
 
 }

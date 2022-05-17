@@ -4,6 +4,7 @@ import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface MembershipService {
@@ -24,5 +25,7 @@ public interface MembershipService {
     Membership getMembershipByIdAndMemberId(Long membershipId, Long memberId);
 
     Membership deActivateMembership(Long membershipId, Long memberId);
+
+    Optional<List<Membership>> getMembershipsByMemberIdAndPlanId(Long memberId, Long planId, String status);
 
 }

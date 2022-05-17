@@ -41,10 +41,12 @@ public class MembershipController {
     }
 
 
-
     @PostMapping()
     public ResponseEntity<?> createMembership(@RequestBody Membership membership){
         Membership newMembership = membershipService.createMemberShip(membership);
+        if(newMembership == null){
+            return new ResponseEntity<String>("Could Not Create MemberShip!", HttpStatus.CONFLICT);
+        }
         return new ResponseEntity<>(newMembership, HttpStatus.OK);
     }
 

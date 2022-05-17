@@ -21,8 +21,6 @@ public interface MemberService {
 
     Member createNewBadge(Long memberId);
 
-    Membership addMembership(Long memberId, Long planId, Membership membership);
-
     Member deActivateMembership(Long memberId, Long membershipId);
 
 }

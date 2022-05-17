@@ -2,7 +2,8 @@ package edu.miu.cs.badgeandmembershipcontrol.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.ToString;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,18 +29,19 @@ public class Membership implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
-//    @JsonBackReference(value="member")
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ToString.Exclude
     private Member member;
 
-//    @JsonBackReference(value="plan")
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @ToString.Exclude
     private Plan plan;
-
 
 
     public void deActivateMembership(){
@@ -50,7 +52,8 @@ public class Membership implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Membership that = (Membership) o;
-        return startDate.equals(that.startDate) && endDate.equals(that.endDate) && member.equals(that.member) && plan.equals(that.plan);
+        return startDate.equals(that.startDate) && endDate.equals(that.endDate)
+                && member.equals(that.member) && plan.equals(that.plan);
     }
 
     @Override public int hashCode() {

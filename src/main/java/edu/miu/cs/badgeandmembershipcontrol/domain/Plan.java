@@ -32,6 +32,8 @@ public class Plan {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="location_id")
     private Location location;
+    @Column(columnDefinition = "integer default 90")
+    private int counter = 90;
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;
