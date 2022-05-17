@@ -9,8 +9,10 @@ import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
+import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +21,22 @@ import java.util.Optional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    @NotNull private final PlanService planService;
-    @NotNull private final BadgeService badgeService;
     @NotNull private final MemberRepository memberRepository;
-    @NotNull private final MembershipRepository membershipRepository;
+
+    @NotNull private final BadgeService badgeService;
+
+    @NotNull private final MembershipService membershipService;
+
+    // Resolved Circular application context form a cycle
+    MemberServiceImpl(@Lazy MembershipService membershipService, BadgeService badgeService, MemberRepository memberRepository){
+        this.membershipService = membershipService;
+        this.badgeService = badgeService;
+        this.memberRepository = memberRepository;
+    }
+
 
     @Override public List<Member> getAllMembers() {
         return memberRepository.findAll();
@@ -71,28 +82,12 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
-    @Override public Membership addMembership(Long memberId, Long planId, Membership membership) {
-        Plan plan = planService.getPlan(planId);
-        Member member = memberRepository.findById(memberId).orElse(null);
-        if(member == null || plan == null || membership == null){
-            return null;
-        }
-        // check if the user have that plan already.
-        List<Membership> memberships = membershipRepository.findMembershipByMember_Id(memberId).orElse(null);
-
-        Long sameCopies = null;
-        if(memberships != null) {
-            sameCopies = memberships.stream().map(Membership::getPlan)
-                    .filter(eachPlan -> eachPlan.equals(plan)).count();
-        }
-
-        if(sameCopies != null && sameCopies > 0) return null;
-
-        membership.setMember(member);
-        membership.setPlan(plan);
-        membershipRepository.save(membership);
-
-        return membership;
+    @Override
+    public Member deActivateMembership(Long memberId, Long membershipId) {
+        membershipService.deActivateMembership(membershipId,memberId);
+        Member member = memberRepository.getById(memberId);
+        return member;
     }
+
 
 }
