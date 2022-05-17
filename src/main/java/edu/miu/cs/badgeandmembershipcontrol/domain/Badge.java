@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -19,7 +20,7 @@ import java.util.Objects;
 @Data
 @Entity
 @ToString
-public class Badge {
+public class Badge implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +40,7 @@ public class Badge {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime modifiedOn = LocalDateTime.now();
 
-    @JsonBackReference
+    @JsonBackReference(value="member")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     @ToString.Exclude

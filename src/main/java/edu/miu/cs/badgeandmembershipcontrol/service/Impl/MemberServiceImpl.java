@@ -71,28 +71,27 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
-    @Override public Membership addMembership(
-            Long memberId, Long planId, Membership membership) {
+    @Override public Membership addMembership(Long memberId, Long planId, Membership membership) {
         Plan plan = planService.getPlan(planId);
         Member member = memberRepository.findById(memberId).orElse(null);
         if(member == null || plan == null || membership == null){
             return null;
         }
         // check if the user have that plan already.
-        System.out.println("#####################            #############           ########");
         List<Membership> memberships = membershipRepository.findMembershipByMember_Id(memberId).orElse(null);
 
-        boolean duplicatePlan = true;
+        Long sameCopies = null;
         if(memberships != null) {
-            duplicatePlan = memberships.stream().map(Membership::getPlan)
-                    .filter(eachPlan -> eachPlan.equals(plan))
-                    .toList().isEmpty(); }
+            sameCopies = memberships.stream().map(Membership::getPlan)
+                    .filter(eachPlan -> eachPlan.equals(plan)).count();
+        }
 
-        if(duplicatePlan) return null;
+        if(sameCopies != null && sameCopies > 0) return null;
 
         membership.setMember(member);
         membership.setPlan(plan);
         membershipRepository.save(membership);
+
         return membership;
     }
 

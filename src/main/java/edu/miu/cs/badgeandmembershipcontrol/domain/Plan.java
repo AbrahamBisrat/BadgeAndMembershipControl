@@ -1,5 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -26,10 +28,12 @@ public class Plan {
     @ToString.Include
     private Set<Role> roles = new HashSet<>();
 
-    
-    @ManyToOne
+//    @JsonBackReference(value = "location")
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="location_id")
     private Location location;
+    @Column(columnDefinition = "integer default 90")
+    private int counter = 90;
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;

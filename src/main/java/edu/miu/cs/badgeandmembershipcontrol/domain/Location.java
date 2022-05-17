@@ -1,6 +1,8 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Required;
@@ -17,7 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+
 
 @Data
 @Entity
@@ -29,7 +31,7 @@ public class Location {
     private Long id;
 
 
-    @NotEmpty(message = "Location name is Required")
+    @NotBlank(message = "Location name is Required")
     @Column(unique = true)
 
     private String name;
@@ -39,6 +41,7 @@ public class Location {
     @Enumerated
     private LocationType locationType;
 
+    @JsonBackReference(value = "timeSlots")
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     @ToString.Exclude
