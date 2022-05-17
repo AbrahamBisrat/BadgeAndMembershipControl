@@ -1,15 +1,19 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.beans.factory.annotation.Required;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -32,6 +36,7 @@ public class Location {
 
 
     @NotBlank(message = "Location name is Required")
+
     @Column(unique = true)
 
     private String name;
@@ -41,11 +46,23 @@ public class Location {
     @Enumerated
     private LocationType locationType;
 
-    @JsonBackReference(value = "timeSlots")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "location_id")
     @ToString.Exclude
     private List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
+
+    public boolean checkTimeSlot(){
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        boolean isValid = false;
+        for (int i = 0; i<timeSlots.size(); i++){
+            if(currentDateTime.isAfter(this.timeSlots.get(i).getStartTime()) && currentDateTime.isBefore(this.timeSlots.get(i).getEndTime()))
+            {
+                isValid = true;
+                break;
+            }
+        }
+        return isValid;
+    }
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;
