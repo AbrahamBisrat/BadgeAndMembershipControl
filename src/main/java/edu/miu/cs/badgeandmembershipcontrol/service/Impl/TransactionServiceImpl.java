@@ -2,7 +2,6 @@ package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
@@ -78,11 +77,12 @@ public class TransactionServiceImpl implements TransactionService {
 		transaction.setBadge(badge);
 		transaction.setMembership(membership);
 		transactionRepository.save(transaction);
+
 		long count = transaction.getMembership().getCounter();
 		count --;
 		if(membership.getMembershipType() == LIMITED){
-		membership.setCounter(count);
-		membershipRepository.save(membership);}
+			membership.setCounter(count);
+			membershipRepository.save(membership);}
 		return transaction;
 
 	}
