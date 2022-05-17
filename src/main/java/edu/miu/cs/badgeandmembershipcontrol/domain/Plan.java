@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,8 @@ public class Plan {
     private Set<Role> roles = new HashSet<>();
 
 //    @JsonBackReference(value = "location")
+
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="location_id")
     private Location location;
