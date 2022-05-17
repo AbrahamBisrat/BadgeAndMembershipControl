@@ -15,10 +15,16 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
+
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@NotNull private TransactionRepository transactionRepository;
 	
@@ -54,10 +60,11 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	@Override public Transaction createTransaction(Transaction transaction) {
 		transactionRepository.save(transaction);
-		long count = transaction.getMembership().getPlan().getCounter();
+/*		long count = transaction.getMembership().getPlan().getCounter();
 		count --;
 		transaction.getMembership().getPlan().setCounter(count);
 		System.out.println(transaction.getMembership().getPlan().getCounter());
+		entityManager.flush(); */
 		return transaction;
 
 

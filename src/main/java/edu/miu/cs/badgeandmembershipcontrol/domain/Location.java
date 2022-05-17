@@ -1,6 +1,8 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -39,7 +41,7 @@ public class Location {
 
     @Enumerated
     private LocationType locationType;
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "locations")
     private List<Plan> plans = new ArrayList<>();
 
