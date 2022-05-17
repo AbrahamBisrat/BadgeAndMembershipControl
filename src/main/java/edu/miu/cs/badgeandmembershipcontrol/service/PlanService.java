@@ -2,6 +2,7 @@ package edu.miu.cs.badgeandmembershipcontrol.service;
 
 import java.util.List;
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ public interface PlanService {
     Plan getPlan(Long planId);
 
     List<Plan> getLocationPlans(Long locationId);
+
+    List<Location> getPlanLocations(Long planId);
 
     Plan createPlan(Plan plan);
 

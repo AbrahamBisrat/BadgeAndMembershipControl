@@ -2,6 +2,7 @@ package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import java.util.List;
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,11 @@ public class PlanController {
         return new ResponseEntity<>(planList, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/{planId}/location")
+    public ResponseEntity<?> getPlanLocations(@PathVariable String planId){
+        List<Location> locationList = planService.getPlanLocations(Long.parseLong(planId));
+        return new ResponseEntity<>(locationList, HttpStatus.OK);
+    }
 
     @PostMapping()
     public ResponseEntity<?> createPlan(@RequestBody Plan plan){

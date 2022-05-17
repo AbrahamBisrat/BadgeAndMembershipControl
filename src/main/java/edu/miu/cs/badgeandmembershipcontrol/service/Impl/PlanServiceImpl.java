@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 import com.sun.istack.NotNull;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.repository.PlanRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
@@ -33,6 +34,12 @@ public class PlanServiceImpl implements PlanService {
 	@Override public List<Plan> getLocationPlans(Long locationId) {
 		Optional<List<Plan>> membershipPlansOptional = planRepository.findPlansByLocation_Id(locationId);
 		return membershipPlansOptional.orElse(null);
+	}
+
+	@Override
+	public List<Location> getPlanLocations(Long planId) {
+		Optional<List<Location>> planLocationsOptional = planRepository.findLocationsByPlan_Id(planId);
+		return planLocationsOptional.orElse(null);
 	}
 
 	@Override public Plan createPlan(Plan plan) {
