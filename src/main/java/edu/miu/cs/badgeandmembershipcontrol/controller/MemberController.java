@@ -58,6 +58,12 @@ public class MemberController {
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
+//    @PostMapping(path = "/invokeMembership")
+//    public ResponseEntity<?> invokeMembership(@RequestBody String memberId, @RequestBody String membershipId){
+//        Member member = memberService.deActivateMembership(Long.parseLong(memberId),Long.parseLong(membershipId));
+//        return new ResponseEntity<Member>(member, HttpStatus.OK);
+//    }
+
     @DeleteMapping(path = "/{memberId}")
     public ResponseEntity<?> deleteMember(@PathVariable String memberId){
         if(!memberService.removeMember(Long.parseLong(memberId))){
@@ -67,10 +73,8 @@ public class MemberController {
     }
 
     @PostMapping(path = "/addMembership/{memberId}/{planId}")
-    public ResponseEntity<?> addMembership(@PathVariable String memberId,
-            @PathVariable String planId, @RequestBody Membership newMembership) {
-        Membership newMem =  memberService.addMembership(Long.parseLong(memberId),
-                Long.parseLong(planId), newMembership);
+    public ResponseEntity<?> addMembership(@PathVariable String memberId, @PathVariable String planId, @RequestBody Membership newMembership) {
+        Membership newMem =  memberService.addMembership(Long.parseLong(memberId), Long.parseLong(planId), newMembership);
         if(newMem == null) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }

@@ -20,4 +20,9 @@ public interface MembershipService {
 
     boolean removeMembership(Long membershipId);
 
+    // Gets the Membership by Membership Id and Member Id
+    Membership getMembershipByIdAndMemberId(Long membershipId, Long memberId);
+
+    Membership deActivateMembership(Long membershipId, Long memberId);
+
 }

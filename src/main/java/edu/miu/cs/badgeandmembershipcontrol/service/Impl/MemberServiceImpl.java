@@ -9,6 +9,7 @@ import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
+import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class MemberServiceImpl implements MemberService {
     @NotNull private final BadgeService badgeService;
     @NotNull private final MemberRepository memberRepository;
     @NotNull private final MembershipRepository membershipRepository;
+
+    @NotNull private final MembershipService membershipService;
 
     @Override public List<Member> getAllMembers() {
         return memberRepository.findAll();
@@ -94,6 +97,13 @@ public class MemberServiceImpl implements MemberService {
         membership.setPlan(plan);
         membershipRepository.save(membership);
         return membership;
+    }
+
+    @Override
+    public Member deActivateMembership(Long memberId, Long membershipId) {
+        membershipService.deActivateMembership(membershipId,memberId);
+        Member member = memberRepository.getById(memberId);
+        return member;
     }
 
 }

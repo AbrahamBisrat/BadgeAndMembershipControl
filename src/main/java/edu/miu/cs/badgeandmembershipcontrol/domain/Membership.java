@@ -23,6 +23,8 @@ public class Membership implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String membershipStatus = "Active";
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;
@@ -39,6 +41,10 @@ public class Membership implements Serializable {
     private Plan plan;
 
 
+
+    public void deActivateMembership(){
+        this.membershipStatus = "InActive";
+    }
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;

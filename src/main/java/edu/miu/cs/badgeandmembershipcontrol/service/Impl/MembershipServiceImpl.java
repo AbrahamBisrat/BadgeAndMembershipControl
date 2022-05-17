@@ -30,8 +30,7 @@ public class MembershipServiceImpl implements MembershipService {
     @NotNull private final PlanService planService;
 
     @Override public List<Membership> getMemberMemberships(Long memberId) {
-        Optional<List<Membership>> memberMemberShipOptional = membershipRepository.findMembershipByMember_Id(memberId);
-        return memberMemberShipOptional.orElse(null);
+        return membershipRepository.findMembershipByMember_Id(memberId).orElse(null);
     }
 
     @Override public List<Membership> getAllMemberships() {
@@ -39,8 +38,7 @@ public class MembershipServiceImpl implements MembershipService {
     }
 
     @Override public Membership getMemberShip(Long membershipId) {
-        Optional<Membership> membershipOptional = membershipRepository.findById(membershipId);
-        return membershipOptional.orElse(null);
+        return membershipRepository.findById(membershipId).orElse(null);
     }
 
 
@@ -68,6 +66,20 @@ public class MembershipServiceImpl implements MembershipService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Membership getMembershipByIdAndMemberId(Long membershipId, Long memberId) {
+        return membershipRepository.findMembershipByIdAndMember_Id(membershipId,memberId).orElse(null);
+    }
+
+    @Override
+    public Membership deActivateMembership(Long membershipId, Long memberId) {
+        Membership membership = getMembershipByIdAndMemberId(membershipId,memberId);
+        if(membership == null) return null;
+
+        membership.deActivateMembership();
+        return membershipRepository.save(membership);
     }
 
 }

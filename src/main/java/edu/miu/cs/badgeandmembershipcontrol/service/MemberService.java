@@ -23,4 +23,6 @@ public interface MemberService {
 
     Membership addMembership(Long memberId, Long planId, Membership membership);
 
+    Member deActivateMembership(Long memberId, Long membershipId);
+
 }
