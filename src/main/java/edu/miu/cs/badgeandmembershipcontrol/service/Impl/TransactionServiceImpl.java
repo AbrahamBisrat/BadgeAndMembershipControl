@@ -4,28 +4,29 @@ import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Transaction;
+import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.repository.TransactionRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import static edu.miu.cs.badgeandmembershipcontrol.domain.MembershipType.LIMITED;
+
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private MembershipRepository membershipRepository;
 
 	@NotNull private TransactionRepository transactionRepository;
 
@@ -75,14 +76,15 @@ public class TransactionServiceImpl implements TransactionService {
 		transaction.setTransactionLoc(location);
 		transaction.setBadge(badge);
 		transaction.setMembership(membership);
+		transactionRepository.save(transaction);
 
-//		long count = transaction.getMembership().getPlan().getCounter();
-//		count --;
-//		transaction.getMembership().getPlan().setCounter(count);
-//		System.out.println(transaction.getMembership().getPlan().getCounter());
-//		entityManager.flush();
+		long count = transaction.getMembership().getCounter();
+		count --;
+		if(membership.getMembershipType() == LIMITED){
+			membership.setCounter(count);
+			membershipRepository.save(membership);}
+		return transaction;
 
-		return transactionRepository.save(transaction);
 	}
 	
 	@Override

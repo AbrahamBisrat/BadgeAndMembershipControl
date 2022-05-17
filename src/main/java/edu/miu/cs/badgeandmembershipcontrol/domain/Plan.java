@@ -31,18 +31,18 @@ public class Plan {
     @JoinTable(name="plan_location", joinColumns = {@JoinColumn(name="plan_id")},inverseJoinColumns = {@JoinColumn(name="location_id")})
     private List<Location> locations = new ArrayList<>();
 
-    private Long counter;
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Plan plan = (Plan) o;
-        return Objects.equals(id, plan.id) && Objects.equals(name, plan.name) && Objects.equals(description, plan.description) && Objects.equals(roles, plan.roles) && Objects.equals(locations, plan.locations) && Objects.equals(counter, plan.counter);
+        return Objects.equals(id, plan.id) && Objects.equals(name, plan.name) && Objects.equals(description, plan.description) && Objects.equals(roles, plan.roles) && Objects.equals(locations, plan.locations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, roles, locations, counter);
+        return Objects.hash(id, name, description, roles, locations);
     }
 }
