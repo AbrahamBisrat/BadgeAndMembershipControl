@@ -655,6 +655,71 @@
 					"response": []
 				},
 				{
+					"name": "Get Plan By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Locations By Plan ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/1/location",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"1",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan By Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/location/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"location",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Plan",
 					"request": {
 						"method": "POST",
@@ -761,6 +826,28 @@
 								"v1",
 								"plans",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan By Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/location/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"location",
+								"1"
 							]
 						}
 					},
