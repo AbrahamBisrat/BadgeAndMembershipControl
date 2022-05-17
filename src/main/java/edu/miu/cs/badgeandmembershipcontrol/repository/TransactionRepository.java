@@ -22,7 +22,6 @@ public interface TransactionRepository extends JpaRepository<Transaction,Long> {
 
 	Optional<List<Transaction>> findTransactionsByBadge_Id(Long badgelocationId);
 
-//	Optional<Location> findTransactionLocationBy_Id(Long transactionId);
 
 	@Query("select t from Transaction t JOIN t.membership m Join Plan p on p.id=?1")
 	Transaction findTransactionByPlan(Long planId);

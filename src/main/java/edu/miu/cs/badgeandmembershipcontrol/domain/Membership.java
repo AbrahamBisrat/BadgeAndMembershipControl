@@ -37,6 +37,7 @@ public class Membership implements Serializable {
     @ToString.Exclude
     private Member member;
 
+
     @JsonBackReference(value="member")
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     @ToString.Exclude

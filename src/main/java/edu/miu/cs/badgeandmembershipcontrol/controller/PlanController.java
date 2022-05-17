@@ -65,4 +65,13 @@ public class PlanController {
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
 
+    @GetMapping(path = "/member/{memberId}")
+    public ResponseEntity<?> getPlanByMemberId(@PathVariable String memberId){
+        List<Plan> planList = planService.findPlanByMember_Id(Long.parseLong(memberId));
+        if(planList == null){
+            return new ResponseEntity<>("No Plan found for this member!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(planList, HttpStatus.OK);
+    }
+
 }
