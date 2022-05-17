@@ -3,12 +3,9 @@ package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.*;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
-import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
-import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override public Member createMember(Member member) {
         // if the Member already exists do not take it!
-        Optional<Member> optionalMember = memberRepository.findMemberByFirstNameAndLastName(member.getFirstName(), member.getLastName());
+        Optional<Member> optionalMember = memberRepository.getMemberByFirstNameAndLastName(member.getFirstName(), member.getLastName());
         if(!optionalMember.isEmpty())
             return null;
 
@@ -89,6 +86,21 @@ public class MemberServiceImpl implements MemberService {
         membershipService.deActivateMembership(membershipId,memberId);
         Member member = memberRepository.getById(memberId);
         return member;
+    }
+
+    @Override
+    public List<Membership> getMembershipsByMemberId(Long memberId) {
+        return membershipService.getMembershipsByMemberId(memberId);
+    }
+
+    @Override
+    public List<Badge> getBadgesByMember(Long memberId) {
+        return badgeService.getBadgesByMemberId(memberId);
+    }
+
+    @Override
+    public Badge getActiveBadgeByMember(Long memberId) {
+        return badgeService.getActiveBadgeByMemberId(memberId);
     }
 
 

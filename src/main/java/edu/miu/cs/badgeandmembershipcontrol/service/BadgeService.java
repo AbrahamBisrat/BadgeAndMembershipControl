@@ -13,7 +13,7 @@ public interface BadgeService {
 
     Badge getBadge(Long badgeId);
 
-    List<Badge> getMemberBadges(Long memberId);
+    List<Badge> getBadgesByMemberId(Long memberId);
 
     Badge getActiveBadgeByMemberId(Long memberId);
 

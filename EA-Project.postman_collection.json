@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3360aacf-822d-49b3-8032-b365a038ea20",
+		"_postman_id": "b6ba9aff-5cf1-401f-8509-fa4b68680897",
 		"name": "EA-Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -132,7 +132,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/v1/members/renewBadge/3",
+							"raw": "localhost:8080/api/v1/members/1/renewBadge",
 							"host": [
 								"localhost"
 							],
@@ -141,8 +141,8 @@
 								"api",
 								"v1",
 								"members",
-								"renewBadge",
-								"3"
+								"1",
+								"renewBadge"
 							]
 						}
 					},
@@ -222,6 +222,93 @@
 							]
 						},
 						"description": "Use Membership Id and member Id"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Memberships by Member Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/members/1/memberships",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"1",
+								"memberships"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Badges by Member Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/members/2/badges",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"2",
+								"badges"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Active Badge by Member Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/v1/members/2/activeBadge",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"members",
+								"2",
+								"activeBadge"
+							]
+						}
 					},
 					"response": []
 				}
@@ -568,6 +655,71 @@
 					"response": []
 				},
 				{
+					"name": "Get Plan By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Locations By Plan ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/1/location",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"1",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan By Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/location/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"location",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Plan",
 					"request": {
 						"method": "POST",
@@ -674,6 +826,28 @@
 								"v1",
 								"plans",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Plan By Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/plans/location/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"plans",
+								"location",
+								"1"
 							]
 						}
 					},
@@ -809,7 +983,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"member\":{\n        \"id\": 1\n    },\n    \"plan\":{\n        \"id\": 1\n    },\n    \"startDate\" : \"2022-05-16 12:00\",\n    \"endDate\": \"2023-01-15 12:00\"\n}"
+							"raw": "{\n    \"member\":{\n        \"id\": 4\n    },\n    \"plan\":{\n        \"id\": 5\n    },\n    \"startDate\" : \"2022-05-16 12:00\",\n    \"endDate\": \"2023-01-15 12:00\"\n}"
 						},
 						"url": {
 							"raw": "localhost:8080/api/v1/memberships",
@@ -958,8 +1132,7 @@
 					"response": []
 				}
 			]
-		},
-		{
+		},{
 			"name": "TimeSlot",
 			"item": [
 				{
