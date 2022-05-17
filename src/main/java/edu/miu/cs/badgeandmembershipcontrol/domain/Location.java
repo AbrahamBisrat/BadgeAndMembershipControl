@@ -31,7 +31,7 @@ public class Location {
 
     @NotEmpty(message = "Location name is Required")
     @Column(unique = true)
-//    @NotNull
+
     private String name;
     private String description;
     private int capacity;

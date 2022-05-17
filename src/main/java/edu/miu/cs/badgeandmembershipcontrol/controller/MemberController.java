@@ -1,6 +1,8 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -47,6 +49,15 @@ public class MemberController {
         return new ResponseEntity<Member>(updatedMember, HttpStatus.OK);
     }
 
+    @PostMapping(path = "/renewBadge/{memberId}")
+    public ResponseEntity<?> renewMemberBadge(@PathVariable String memberId){
+        if(memberService.getMember(Long.parseLong(memberId)) == null) {
+            return new ResponseEntity<String>("No member by the Id " + memberId + " found", HttpStatus.NOT_FOUND);
+        }
+        Member member = memberService.createNewBadge(Long.parseLong(memberId));
+        return new ResponseEntity<Member>(member, HttpStatus.OK);
+    }
+
     @DeleteMapping(path = "/{memberId}")
     public ResponseEntity<?> deleteMember(@PathVariable String memberId){
         if(!memberService.removeMember(Long.parseLong(memberId))){
@@ -54,4 +65,16 @@ public class MemberController {
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
+
+    @PostMapping(path = "/addMembership/{memberId}/{planId}")
+    public ResponseEntity<?> addMembership(@PathVariable String memberId,
+            @PathVariable String planId, @RequestBody Membership newMembership) {
+        Membership newMem =  memberService.addMembership(Long.parseLong(memberId),
+                Long.parseLong(planId), newMembership);
+        if(newMem == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(newMem, HttpStatus.OK);
+    }
+
 }

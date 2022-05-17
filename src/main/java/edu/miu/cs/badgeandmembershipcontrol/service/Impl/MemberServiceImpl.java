@@ -3,11 +3,13 @@ package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
-import edu.miu.cs.badgeandmembershipcontrol.repository.BadgeRepository;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
+import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
-import lombok.NonNull;
+import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +22,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    @NotNull private final MemberRepository memberRepository;
+    @NotNull private final PlanService planService;
     @NotNull private final BadgeService badgeService;
+    @NotNull private final MemberRepository memberRepository;
+    @NotNull private final MembershipRepository membershipRepository;
 
     @Override public List<Member> getAllMembers() {
         return memberRepository.findAll();
@@ -57,8 +61,39 @@ public class MemberServiceImpl implements MemberService {
         return false;
     }
 
-    @Override public Badge createNewBadge(Long memberId) {
-
-        return null;
+    @Override public Member createNewBadge(Long memberId) {
+        Member member = getMember(memberId);
+        if(member == null ){
+            return null;
+        }
+        badgeService.deactivateBadge(memberId);
+        badgeService.createBadge(member);
+        return member;
     }
+
+    @Override public Membership addMembership(
+            Long memberId, Long planId, Membership membership) {
+        Plan plan = planService.getPlan(planId);
+        Member member = memberRepository.findById(memberId).orElse(null);
+        if(member == null || plan == null || membership == null){
+            return null;
+        }
+        // check if the user have that plan already.
+        System.out.println("#####################            #############           ########");
+        List<Membership> memberships = membershipRepository.findMembershipByMember_Id(memberId).orElse(null);
+
+        boolean duplicatePlan = true;
+        if(memberships != null) {
+            duplicatePlan = memberships.stream().map(Membership::getPlan)
+                    .filter(eachPlan -> eachPlan.equals(plan))
+                    .toList().isEmpty(); }
+
+        if(duplicatePlan) return null;
+
+        membership.setMember(member);
+        membership.setPlan(plan);
+        membershipRepository.save(membership);
+        return membership;
+    }
+
 }

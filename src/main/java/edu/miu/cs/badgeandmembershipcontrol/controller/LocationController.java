@@ -7,7 +7,10 @@ import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 import static edu.miu.cs.badgeandmembershipcontrol.domain.ResponseTypeMapper.ResponseType;
@@ -45,6 +48,7 @@ public class LocationController {
     }
 //find the right name for message
     @PostMapping
+
     public ResponseEntity<?> createLocation(@RequestBody Location location){
         Location newLocation = locationService.createLocation(location);
         System.out.println("newLocation = " + newLocation);
@@ -66,4 +70,5 @@ public class LocationController {
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
+
 }
