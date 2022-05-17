@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.aspect;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.aspect.service.LoggerService;
 import edu.miu.cs.badgeandmembershipcontrol.aspect.service.exceptionService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LoggerAspect {
 
-    private final LoggerService loggerService;
+    @NotNull private final LoggerService loggerService;
 
-    private final exceptionService exceptionService;
+    @NotNull private final exceptionService exceptionService;
 
     // Intercept every directory except the aspect = That would lead to -> stackOverflow
     @Pointcut("within(edu.miu.cs.badgeandmembershipcontrol..*) && !within(edu.miu.cs.badgeandmembershipcontrol.aspect..*)")

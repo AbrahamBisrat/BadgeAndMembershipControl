@@ -1,7 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.*;
@@ -21,19 +20,27 @@ public class Plan {
     private String name;
     private String description;
 
-
     @Enumerated
     @ElementCollection
     @ToString.Include
     private Set<Role> roles = new HashSet<>();
 
-    
-    @ManyToOne
-    @JoinColumn(name="membership_id")
-    private Membership membership;
-    
-    @ManyToOne
+//    @JsonBackReference(value = "location")
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="location_id")
     private Location location;
+    @Column(columnDefinition = "integer default 90")
+    private int counter = 90;
 
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Plan plan = (Plan) o;
+        return name.equals(plan.name) && description.equals(plan.description) && roles.equals(plan.roles) && location.equals(plan.location);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(name, description, roles, location);
+    }
+    
 }

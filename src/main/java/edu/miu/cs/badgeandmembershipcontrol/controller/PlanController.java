@@ -32,7 +32,6 @@ public class PlanController {
     @GetMapping(path = "/{planId}")
     public ResponseEntity<?> getPlan(@PathVariable String planId){
         Plan plan = planService.getPlan(Long.parseLong(planId));
-
         if(plan == null){
             return new ResponseEntity<>("No Plan Found!", HttpStatus.NOT_FOUND);
         }
@@ -44,6 +43,7 @@ public class PlanController {
         List<Plan> planList = planService.getLocationPlans(Long.parseLong(locationId));
         return new ResponseEntity<>(planList, HttpStatus.OK);
     }
+
 
     @PostMapping()
     public ResponseEntity<?> createPlan(@RequestBody Plan plan){
@@ -63,6 +63,15 @@ public class PlanController {
             return new ResponseEntity<String>("No Plan Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/member/{memberId}")
+    public ResponseEntity<?> getPlanByMemberId(@PathVariable String memberId){
+        List<Plan> planList = planService.findPlanByMember_Id(Long.parseLong(memberId));
+        if(planList == null){
+            return new ResponseEntity<>("No Plan found for this member!", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(planList, HttpStatus.OK);
     }
 
 }

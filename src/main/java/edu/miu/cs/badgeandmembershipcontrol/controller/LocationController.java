@@ -1,5 +1,6 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
+import com.sun.istack.NotNull;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
@@ -16,7 +17,7 @@ import static edu.miu.cs.badgeandmembershipcontrol.domain.ResponseTypeMapper.Res
 @RequestMapping("/api/v1/locations")
 public class LocationController {
 
-    private final LocationService locationService;
+    @NotNull private final LocationService locationService;
 
     @GetMapping
     public ResponseEntity<?>getLocations(){
@@ -42,11 +43,13 @@ public class LocationController {
         }
         return new ResponseEntity<>(ResponseType(locationList), HttpStatus.OK);
     }
-
+//find the right name for message
     @PostMapping
     public ResponseEntity<?> createLocation(@RequestBody Location location){
         Location newLocation = locationService.createLocation(location);
-        return new ResponseEntity<>(newLocation, HttpStatus.OK);
+        if(newLocation == null)
+            return new ResponseEntity<>("Already Exists", HttpStatus.OK);
+        return new ResponseEntity<>(newLocation, HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/{locationId}")
@@ -62,4 +65,5 @@ public class LocationController {
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
+
 }

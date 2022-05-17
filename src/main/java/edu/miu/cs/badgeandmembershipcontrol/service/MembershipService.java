@@ -1,10 +1,11 @@
 package edu.miu.cs.badgeandmembershipcontrol.service;
 
-import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
+import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface MembershipService {
@@ -20,5 +21,16 @@ public interface MembershipService {
     Membership updateMembership(Long membershipId, Membership membership);
 
     boolean removeMembership(Long membershipId);
+
+    // Gets the Membership by Membership Id and Member Id
+    Membership getMembershipByIdAndMemberId(Long membershipId, Long memberId);
+
+    Membership deActivateMembership(Long membershipId, Long memberId);
+
+    Optional<List<Membership>> getMembershipsByMemberIdAndPlanId(Long memberId, Long planId, String status);
+
+    boolean checkDoorAccess(Long memberId, Long locationId,LocationType locationType);
+
+    Optional<Membership> getMembershipByMemberIdAndLocationIdAndStatus(Long memberId, Long locationId, String status, LocationType locationType);
 
 }

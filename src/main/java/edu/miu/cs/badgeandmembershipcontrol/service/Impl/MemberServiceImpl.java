@@ -1,9 +1,18 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
+import com.sun.istack.NotNull;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
+import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
+import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
+import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
+import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
+import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,10 +21,22 @@ import java.util.Optional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private MemberRepository memberRepository;
+    @NotNull private final MemberRepository memberRepository;
+
+    @NotNull private final BadgeService badgeService;
+
+    @NotNull private final MembershipService membershipService;
+
+    // Resolved Circular application context form a cycle
+    MemberServiceImpl(@Lazy MembershipService membershipService, BadgeService badgeService, MemberRepository memberRepository){
+        this.membershipService = membershipService;
+        this.badgeService = badgeService;
+        this.memberRepository = memberRepository;
+    }
+
 
     @Override public List<Member> getAllMembers() {
         return memberRepository.findAll();
@@ -27,7 +48,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override public Member createMember(Member member) {
-        return memberRepository.save(member);
+        Member member1 = memberRepository.save(member);
+        // Creates Badge with the member ID and returns the badge
+        Badge badge = badgeService.createBadge(member1);
+        member1.addBadge(badge);
+        return member1;
     }
 
     @Override public Member updateMember(Long memberId, Member member) {
@@ -46,5 +71,23 @@ public class MemberServiceImpl implements MemberService {
         }
         return false;
     }
+
+    @Override public Member createNewBadge(Long memberId) {
+        Member member = getMember(memberId);
+        if(member == null ){
+            return null;
+        }
+        badgeService.deactivateBadge(memberId);
+        badgeService.createBadge(member);
+        return member;
+    }
+
+    @Override
+    public Member deActivateMembership(Long memberId, Long membershipId) {
+        membershipService.deActivateMembership(membershipId,memberId);
+        Member member = memberRepository.getById(memberId);
+        return member;
+    }
+
 
 }
