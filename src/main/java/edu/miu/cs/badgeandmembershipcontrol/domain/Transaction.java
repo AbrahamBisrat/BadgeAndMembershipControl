@@ -4,12 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -22,15 +17,19 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime accessTime;
+    private LocalDateTime accessTime = LocalDateTime.now();
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="badge_id")
     private Badge badge;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="location_id")
     private Location transactionLoc;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="membership_id")
+    private Membership membership;
 
     @Override public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,10 +41,5 @@ public class Transaction {
     @Override public int hashCode() {
         return Objects.hash(accessTime, badge, transactionLoc);
     }
-
-    
-    @ManyToOne
-    @JoinColumn(name="membership_id")
-    private Membership membership;
 
 }

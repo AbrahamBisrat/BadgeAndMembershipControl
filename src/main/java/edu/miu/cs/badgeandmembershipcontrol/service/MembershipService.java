@@ -2,6 +2,7 @@ package edu.miu.cs.badgeandmembershipcontrol.service;
 
 import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +30,9 @@ public interface MembershipService {
 
     Optional<List<Membership>> getMembershipsByMemberIdAndPlanId(Long memberId, Long planId, String status);
 
-    boolean checkDoorAccess(Long memberId, Long locationId,LocationType locationType);
+    boolean checkAccess(Long memberId, Long locationId,LocationType locationType);
+
+    List<Membership> getMembershipsByMemberId(Long memberId);
 
     Optional<Membership> getMembershipByMemberIdAndLocationIdAndStatus(Long memberId, Long locationId, String status, LocationType locationType);
 
