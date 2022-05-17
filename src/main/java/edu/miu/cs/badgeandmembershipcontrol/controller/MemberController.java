@@ -41,7 +41,9 @@ public class MemberController {
     @PostMapping()
     public ResponseEntity<?> createMember(@RequestBody Member member){
         Member newMember = memberService.createMember(member);
-        return new ResponseEntity<Member>(newMember, HttpStatus.OK);
+        if( newMember == null)
+            return new ResponseEntity<>("Name Already Exists", HttpStatus.OK);
+        return new ResponseEntity<>(newMember, HttpStatus.OK);
     }
 
     @PutMapping(path = "/{memberId}")
