@@ -36,11 +36,7 @@ public class Membership implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Member member;
 
-//    @JsonBackReference(value="plan")
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JsonBackReference(value="member")
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
-    private Member member;
+
 
     @JsonBackReference(value="member")
     @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
