@@ -46,19 +46,13 @@ public class LocationController {
         }
         return new ResponseEntity<>(ResponseType(locationList), HttpStatus.OK);
     }
-//find the right name for message
+
     @PostMapping
     public ResponseEntity<?> createLocation(@RequestBody Location location){
-
         Location newLocation = locationService.createLocation(location);
-        System.out.println("newLocation = " + newLocation);
         if(newLocation == null)
-
             return new ResponseEntity<>("Already Exists", HttpStatus.OK);
-
         return new ResponseEntity<>(newLocation, HttpStatus.CREATED);
-
-
     }
 
     @PutMapping(path = "/{locationId}")

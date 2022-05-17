@@ -33,11 +33,19 @@ public class MemberController {
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
-    @PostMapping()
-    public Member createMember(@RequestBody Member member){
-        return memberService.createMember(member);
-    }
+//    @PostMapping()
+//    public Member createMember(@RequestBody Member member){
+//        return memberService.createMember(member);
+//    }
 
+    @PostMapping()
+    public ResponseEntity<?> createMember(@RequestBody Member member){
+        Member newMember = memberService.createMember(member);
+        if( newMember == null)
+            return new ResponseEntity<>("Name Already Exists", HttpStatus.OK);
+        return new ResponseEntity<>(newMember, HttpStatus.OK);
+    }
+    
     @PutMapping(path = "/{memberId}")
     public ResponseEntity<?> updateMember(@PathVariable Long memberId, @RequestBody Member member){
         if(memberService.getMember(memberId) == null) {
