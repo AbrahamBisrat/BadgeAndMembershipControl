@@ -1,10 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.service.Impl;
 
 import com.sun.istack.NotNull;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
-import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
+import edu.miu.cs.badgeandmembershipcontrol.domain.*;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MemberRepository;
 import edu.miu.cs.badgeandmembershipcontrol.repository.MembershipRepository;
 import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
@@ -43,11 +40,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override public Member getMember(Long memberId) {
-        Optional<Member> memberOptional = memberRepository.findById(memberId);
-        return memberOptional.orElse(null);
+       return memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("member id invalid"));
     }
 
     @Override public Member createMember(Member member) {
+        // if the Member already exists do not take it!
+        Optional<Member> optionalMember = memberRepository.findMemberByFirstNameAndLastName(member.getFirstName(), member.getLastName());
+        if(!optionalMember.isEmpty())
+            return null;
+
         Member member1 = memberRepository.save(member);
         // Creates Badge with the member ID and returns the badge
         Badge badge = badgeService.createBadge(member1);
@@ -56,6 +57,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override public Member updateMember(Long memberId, Member member) {
+        member.setId(memberId);
         Optional<Member> memberOptional = memberRepository.findById(memberId);
         if(memberOptional.isPresent()){
             return memberRepository.save(member);

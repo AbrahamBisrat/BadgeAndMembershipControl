@@ -7,7 +7,10 @@ import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 import static edu.miu.cs.badgeandmembershipcontrol.domain.ResponseTypeMapper.ResponseType;
@@ -45,8 +48,9 @@ public class LocationController {
     }
 //find the right name for message
     @PostMapping
-    public ResponseEntity<?> createLocation(@RequestBody Location location){
+    public ResponseEntity<?> createLocation( @RequestBody Location location){
         Location newLocation = locationService.createLocation(location);
+        System.out.println("newLocation = " + newLocation);
         if(newLocation == null)
             return new ResponseEntity<>("Already Exists", HttpStatus.OK);
         return new ResponseEntity<>(newLocation, HttpStatus.CREATED);

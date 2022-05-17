@@ -32,8 +32,9 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override public List<Plan> getLocationPlans(Long locationId) {
-		Optional<List<Plan>> membershipPlansOptional = planRepository.findPlansByLocation_Id(locationId);
-		return membershipPlansOptional.orElse(null);
+	//	Optional<List<Plan>> membershipPlansOptional = planRepository.findPlansByLocation_Id(locationId);
+	//	return membershipPlansOptional.orElse(null);
+		return null;
 	}
 
 	@Override
@@ -71,6 +72,15 @@ public class PlanServiceImpl implements PlanService {
 		Optional<List<Plan>> planListOptional = planRepository.findPlanByMember_Id(memberId);
 		if (planListOptional.isPresent()) {
 			return planListOptional.get();
+		}
+		return null;
+	}
+
+	@Override
+	public Plan findPlanByMemberShip(Long membershipId) {
+		Optional<Plan> planOptional = planRepository.findPlanByMemberShip(membershipId);
+		if(planOptional.isPresent()){
+			return planOptional.get();
 		}
 		return null;
 	}

@@ -51,6 +51,13 @@ public class PlanController {
         return new ResponseEntity<>(locationList, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/membershipPlan/{membershipId}")
+    public ResponseEntity<?> getPlanByMembership(@PathVariable String membershipId){
+        Plan plan = planService.findPlanByMemberShip(Long.parseLong(membershipId));
+        return new ResponseEntity<>(plan, HttpStatus.OK);
+    }
+
+
     @PostMapping()
     public ResponseEntity<?> createPlan(@RequestBody Plan plan){
         Plan newPlan = planService.createPlan(plan);

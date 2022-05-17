@@ -26,5 +26,7 @@ public interface PlanService {
     boolean removePlan(Long planId);
 
     List<Plan> findPlanByMember_Id(Long memberId);
+
+    Plan findPlanByMemberShip(Long membershipId);
 }
 

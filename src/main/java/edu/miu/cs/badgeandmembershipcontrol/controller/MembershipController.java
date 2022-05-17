@@ -35,7 +35,7 @@ public class MembershipController {
         return new ResponseEntity<>(memberShip, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/membership/{membershipId}")
+    @GetMapping(path = "/membership/{membershipId}") // This will have to be flipped - to comply with the reqs
     public ResponseEntity<?> getMemberMemberships(@PathVariable String membershipId){
         List<Membership> memberShipList = membershipService
                 .getMemberMemberships(Long.parseLong(membershipId));

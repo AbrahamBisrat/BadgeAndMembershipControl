@@ -39,9 +39,8 @@ public class MemberController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> createMember(@RequestBody Member member){
-        Member newMember = memberService.createMember(member);
-        return new ResponseEntity<Member>(newMember, HttpStatus.OK);
+    public Member createMember(@RequestBody Member member){
+        return memberService.createMember(member);
     }
 
     @PutMapping(path = "/{memberId}")
