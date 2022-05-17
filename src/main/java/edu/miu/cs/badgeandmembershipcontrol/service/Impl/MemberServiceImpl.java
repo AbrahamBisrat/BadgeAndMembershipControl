@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Service
 @Transactional
-//@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
     @NotNull private final MemberRepository memberRepository;
@@ -25,12 +24,11 @@ public class MemberServiceImpl implements MemberService {
     @NotNull private final MembershipService membershipService;
 
     // Resolved Circular application context form a cycle
-    MemberServiceImpl(@Lazy MembershipService membershipService, BadgeService badgeService, MemberRepository memberRepository){
+    public MemberServiceImpl(@Lazy MembershipService membershipService, BadgeService badgeService, MemberRepository memberRepository){
         this.membershipService = membershipService;
         this.badgeService = badgeService;
         this.memberRepository = memberRepository;
     }
-
 
     @Override public List<Member> getAllMembers() {
         return memberRepository.findAll();
@@ -41,11 +39,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override public Member createMember(Member member) {
-        // if the Member already exists do not take it!
-        Optional<Member> optionalMember = memberRepository.getMemberByFirstNameAndLastName(member.getFirstName(), member.getLastName());
-        if(!optionalMember.isEmpty())
+        Optional<Member> optionalMember = memberRepository.findMemberByFirstNameAndLastName(member.getFirstName(), member.getLastName());
+        if(optionalMember.isPresent())
             return null;
-
         Member member1 = memberRepository.save(member);
         // Creates Badge with the member ID and returns the badge
         Badge badge = badgeService.createBadge(member1);
@@ -56,9 +52,8 @@ public class MemberServiceImpl implements MemberService {
     @Override public Member updateMember(Long memberId, Member member) {
         member.setId(memberId);
         Optional<Member> memberOptional = memberRepository.findById(memberId);
-        if(memberOptional.isPresent()){
+        if(memberOptional.isPresent())
             return memberRepository.save(member);
-        }
         return null;
     }
 
