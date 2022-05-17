@@ -36,9 +36,9 @@ public class Member {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
-    @JsonBackReference(value="badges")
+//    @JsonBackReference(value="badges")
     @ToString.Exclude
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<Badge> badges = new ArrayList<Badge>();
 
     public void addBadge(Badge badge){
