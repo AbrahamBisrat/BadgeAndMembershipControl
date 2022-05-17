@@ -25,7 +25,7 @@ public class PlanController {
     private final PlanService planService;
 
     @GetMapping()
-    public ResponseEntity<?> getMembers(){
+    public ResponseEntity<?> getPlans(){
         return new ResponseEntity<>(planService.getAllPlans(), HttpStatus.OK);
     }
 
