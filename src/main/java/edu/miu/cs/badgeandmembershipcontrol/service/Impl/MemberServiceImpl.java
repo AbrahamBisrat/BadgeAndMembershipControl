@@ -82,23 +82,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override public List<Membership> getMembershipsByMemberId(Long checkerId, Long memberId) {
-//        List<Membership> memberships = membershipService.getMembershipsByMemberId(memberId);
-//        if(memberships.isEmpty()) return null;
-//        // Then filter for Memberships of type “CHECKER” (so, now you have three types of memberships: LIMITED, UNLIMITED and CHECKER).
-//        // The last type allows the member to check other members for that plan.
-//
-//        System.out.println("memberships = " + memberships);
-//        List<Membership> checkerMembershipsWithCheckerId = membershipService.getMemberMemberships(checkerId)
-//                .stream().filter(each -> each.getMembershipType().equals(MembershipType.CHECKER)
-//                        && each.getMembershipStatus().equals("Active")).toList();
-//        System.out.println("checkerMembershipsWithCheckerId = " + checkerMembershipsWithCheckerId);
-//        // figure out which memberships are the intersection memberships that
-//        return memberships.stream().filter(each -> each).toList();
-        // For door checker :
-            // return a list of memberships (This)
-            // Filter membership types CHECKER
-            //
-        return membershipService.getMembershipsByMemberId(memberId);
+        List<Membership> memberships = membershipService.getMembershipsByMemberId(memberId);
+        if(memberships.isEmpty()) return null;
+        System.out.println("memberships = " + memberships);
+        List<Membership> checkerMembershipsWithCheckerId =
+                memberships .stream().filter(each -> each.getMembershipType().equals(MembershipType.CHECKER)
+                        && each.getMembershipStatus().equals("Active")).toList();
+        if(checkerMembershipsWithCheckerId.isEmpty()) return memberships;
+        System.out.println("checkerMembershipsWithCheckerId = " + checkerMembershipsWithCheckerId);
+        return checkerMembershipsWithCheckerId;
     }
 
     @Override public List<Badge> getBadgesByMember(Long memberId) {

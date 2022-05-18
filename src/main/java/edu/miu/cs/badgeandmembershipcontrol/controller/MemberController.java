@@ -19,7 +19,6 @@ public class MemberController {
 
     @NotNull private final MemberService memberService;
 
-
     @GetMapping()
     public ResponseEntity<?> getMembers(){
         List<Member> memberList = memberService.getAllMembers();
@@ -34,7 +33,6 @@ public class MemberController {
         }
         return new ResponseEntity<>(member, HttpStatus.OK);
     }
-
 
     @GetMapping(path = "/{checkerId}/{memberId}/memberships/")
     public ResponseEntity<?> getMembershipsByMember(@PathVariable Long checkerId, @PathVariable Long memberId){
@@ -68,7 +66,7 @@ public class MemberController {
     public ResponseEntity<?> createMember(@RequestBody Member member){
         Member newMember = memberService.createMember(member);
         if( newMember == null)
-            return new ResponseEntity<>("Name Already Exists", HttpStatus.OK);
+            return new ResponseEntity<>("Member Already Exists", HttpStatus.OK);
         return new ResponseEntity<>(newMember, HttpStatus.OK);
     }
     
