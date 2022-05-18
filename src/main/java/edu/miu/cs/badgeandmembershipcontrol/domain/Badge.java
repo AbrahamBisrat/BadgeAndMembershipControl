@@ -46,7 +46,6 @@ public class Badge implements Serializable {
     @ToString.Exclude
     private Member member;
 
-
     public void setBadgeInActive() {
         this.stateCode = "InActive";
     }

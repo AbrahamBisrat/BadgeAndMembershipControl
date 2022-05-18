@@ -35,6 +35,10 @@ public class Membership implements Serializable {
 
     private Long counter;
 
+    @Enumerated
+    private MembershipType membershipType;
+
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
     private Member member;
@@ -42,7 +46,6 @@ public class Membership implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
     private Plan plan;
-
 
     public void deActivateMembership(){
         this.membershipStatus = "InActive";
