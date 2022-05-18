@@ -20,7 +20,6 @@ public class RestAdvice {
     @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
 //    public ErrorMessage handle(RuntimeException e){
     public ResponseEntity<?> handle(RuntimeException e){
-        System.out.println(e.getMessage());
 //        return new ErrorMessage(e.getMessage());
         return new ResponseEntity<>("Oops Something went wrong", HttpStatus.BAD_REQUEST);
     }

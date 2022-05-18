@@ -43,9 +43,10 @@ public class Member {
 //    @JsonBackReference(value="badges")
     @ToString.Exclude
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
-    private List<Badge> badges = new ArrayList<Badge>();
+    private List<Badge> badges = new ArrayList<>();
 
     public void addBadge(Badge badge){
+
         this.badges.add(badge);
     }
 
