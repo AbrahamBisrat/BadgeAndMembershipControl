@@ -60,6 +60,8 @@ public class PlanController {
     @PostMapping()
     public ResponseEntity<?> createPlan(@RequestBody Plan plan){
         Plan newPlan = planService.createPlan(plan);
+        if(newPlan == null)
+            return new ResponseEntity<>("Already Exists", HttpStatus.OK);
         return new ResponseEntity<>(newPlan, HttpStatus.OK);
     }
 

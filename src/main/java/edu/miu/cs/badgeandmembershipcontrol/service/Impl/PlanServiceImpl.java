@@ -43,8 +43,12 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override public Plan createPlan(Plan plan) {
+		// if the plan already exists do not take it!
+		Optional<Plan> optionalPlan = planRepository.findPlanByName(plan.getName());
+		if(optionalPlan.isEmpty())
 
 		return planRepository.save(plan);
+		return null;
 	}
 
 	@Override public Plan updatePlan(Long planId, Plan plan) {
