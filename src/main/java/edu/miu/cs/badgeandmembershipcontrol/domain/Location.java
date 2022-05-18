@@ -40,8 +40,8 @@ public class Location {
     @Enumerated
     private LocationType locationType;
     @JsonIgnore
-    @ManyToMany(mappedBy = "locations")
-    private List<Plan> plans = new ArrayList<>();
+//    @ManyToMany(mappedBy = "locations")//
+//    private List<Plan> plans = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "location_id")
