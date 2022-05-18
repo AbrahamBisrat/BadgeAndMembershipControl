@@ -3,6 +3,7 @@ package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
+import edu.miu.cs.badgeandmembershipcontrol.domain.MembershipType;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,10 +41,9 @@ public class MembershipController {
         return new ResponseEntity<>(memberShipList, HttpStatus.OK);
     }
 
-
-    @PostMapping()
-    public ResponseEntity<?> createMembership(@RequestBody Membership membership){
-        Membership newMembership = membershipService.createMemberShip(membership);
+    @PostMapping("/{checkerId}")
+    public ResponseEntity<?> createMembership(@PathVariable Long checkerId, @RequestBody Membership membership){
+        Membership newMembership = membershipService.createMemberShip(checkerId, membership);
         if(newMembership == null){
             return new ResponseEntity<String>("Could Not Create MemberShip!", HttpStatus.CONFLICT);
         }

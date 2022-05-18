@@ -25,7 +25,7 @@ public class exceptionServiceImpl implements exceptionService {
                         .time(LocalTime.now())
                         .operation(jp.getSignature().getName())
                         .exceptionType(throwable.getClass().getName())
-                        .exceptionMessage(throwable.getMessage().substring(0, 248))
+                        .exceptionMessage(throwable.getMessage())//.substring(0, 248))
                         .build());
     }
 

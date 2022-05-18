@@ -13,8 +13,7 @@ import java.time.LocalDateTime;
 
 import java.util.Objects;
 
-@Getter
-@Setter
+@Data
 @Entity
 @ToString
 public class Membership implements Serializable {
