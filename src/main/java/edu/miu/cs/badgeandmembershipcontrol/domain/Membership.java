@@ -25,6 +25,8 @@ public class Membership implements Serializable {
 
     private String membershipStatus = "Active";
 
+    private Long counter;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startDate;
@@ -33,7 +35,8 @@ public class Membership implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
-
+    @Enumerated
+    private MembershipType membershipType;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
@@ -53,11 +56,11 @@ public class Membership implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Membership that = (Membership) o;
         return startDate.equals(that.startDate) && endDate.equals(that.endDate)
-                && member.equals(that.member) && plan.equals(that.plan);
+                && member.equals(that.member) && plan.equals(that.plan) && counter.equals(that.counter);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(startDate, endDate, member, plan);
+        return Objects.hash(startDate, endDate, member, plan, counter);
     }
 
 }
