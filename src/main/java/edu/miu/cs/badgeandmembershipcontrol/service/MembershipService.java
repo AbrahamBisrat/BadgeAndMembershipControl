@@ -17,7 +17,7 @@ public interface MembershipService {
 
     Membership getMemberShip(Long membershipId);
 
-    Membership createMemberShip(Long checkerId, Membership membership);
+    Membership createMemberShip(Membership membership);
 
     Membership updateMembership(Long membershipId, Membership membership);
 

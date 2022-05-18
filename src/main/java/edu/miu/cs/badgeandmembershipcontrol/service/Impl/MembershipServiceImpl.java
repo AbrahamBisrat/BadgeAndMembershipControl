@@ -42,11 +42,8 @@ public class MembershipServiceImpl implements MembershipService {
 
 
     // Get Member and Plan and set it to Membership then it saves it
-    @Override public Membership createMemberShip(Long checkerId, Membership membership) {
+    @Override public Membership createMemberShip(Membership membership) {
         Member member = memberService.getMember(membership.getMember().getId());
-        Optional<Membership> memMock = membershipRepository.findMembershipByMember_IdAndPlan_Id(checkerId, membership.getPlan().getId());
-        if(!memMock.get().getMembershipType().equals(MembershipType.CHECKER)
-                || memMock.get().getMembershipStatus().equals("Inactive")) return null; // Only Checker can Add
         Plan plan = planService.getPlan(membership.getPlan().getId());
         Optional<List<Membership>> optionalMemberships = getMembershipsByMemberIdAndPlanId(member.getId(), plan.getId(),"Active");
         if(optionalMemberships.get().size() > 0) return null;

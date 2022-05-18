@@ -85,6 +85,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<Membership> getMembershipsByMemberId(Long memberId) {
+//        Optional<Membership> memMock = membershipRepository.findMembershipByMember_IdAndPlan_Id(checkerId, membership.getPlan().getId());
+//        if(!memMock.get().getMembershipType().equals(MembershipType.CHECKER)
+//                || memMock.get().getMembershipStatus().equals("Inactive")) return null; // Only Checker can Add
         return membershipService.getMembershipsByMemberId(memberId);
     }
 
