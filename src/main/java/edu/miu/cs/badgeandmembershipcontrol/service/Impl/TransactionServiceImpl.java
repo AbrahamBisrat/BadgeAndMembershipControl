@@ -10,7 +10,9 @@ import edu.miu.cs.badgeandmembershipcontrol.service.BadgeService;
 import edu.miu.cs.badgeandmembershipcontrol.service.LocationService;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import edu.miu.cs.badgeandmembershipcontrol.service.TransactionService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -67,9 +69,11 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	
 	@Override public Transaction createTransaction(Transaction transaction) {
+
 		Badge badge = badgeService.getBadge(transaction.getBadge().getId());
 		Location location = locationService.getLocation(transaction.getTransactionLoc().getId());
 		Membership membership = membershipService.getMemberShip(transaction.getMembership().getId());
+
 
 		if(badge == null || location == null || membership == null) return null;
 

@@ -34,8 +34,10 @@ public class Membership implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endDate;
 
+
     @Enumerated
     private MembershipType membershipType;
+
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude

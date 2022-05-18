@@ -34,10 +34,10 @@ public class MembershipController {
         return new ResponseEntity<>(memberShip, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/membership/{membershipId}") // This will have to be flipped - to comply with the reqs
-    public ResponseEntity<?> getMemberMemberships(@PathVariable Long membershipId){
+    @GetMapping(path = "/membership/{memberId}") // This will have to be flipped - to comply with the reqs
+    public ResponseEntity<?> getMemberMemberships(@PathVariable Long memberId){
         List<Membership> memberShipList = membershipService
-                .getMemberMemberships(membershipId);
+                .getMemberMemberships(memberId);
         return new ResponseEntity<>(memberShipList, HttpStatus.OK);
     }
 
