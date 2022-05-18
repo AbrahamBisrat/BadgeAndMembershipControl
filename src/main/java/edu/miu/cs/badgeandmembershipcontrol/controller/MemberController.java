@@ -36,9 +36,10 @@ public class MemberController {
     }
 
 
-    @GetMapping(path = "/{memberId}/memberships")
-    public ResponseEntity<?> getMembershipsByMember(@PathVariable String memberId){
-        List<Membership> memberships = memberService.getMembershipsByMemberId(Long.parseLong(memberId));
+    @GetMapping(path = "/{checkerId}/{memberId}/memberships/")
+    public ResponseEntity<?> getMembershipsByMember(@PathVariable Long checkerId, @PathVariable Long memberId){
+        // This should be replaced by the id from the security context once security is implemented
+        List<Membership> memberships = memberService.getMembershipsByMemberId(checkerId, memberId);
         if(memberships.isEmpty()){
             return new ResponseEntity<>("No Membership Found!", HttpStatus.NOT_FOUND);
         }

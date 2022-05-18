@@ -23,7 +23,7 @@ public interface MemberService {
 
     Member deActivateMembership(Long memberId, Long membershipId);
 
-    List<Membership> getMembershipsByMemberId(Long memberId);
+    List<Membership> getMembershipsByMemberId(Long checkerId, Long memberId);
 
     List<Badge> getBadgesByMember(Long memberId);
     Badge getActiveBadgeByMember(Long memberId);

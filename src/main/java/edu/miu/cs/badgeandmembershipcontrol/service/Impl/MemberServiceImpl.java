@@ -76,28 +76,36 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
-    @Override
-    public Member deActivateMembership(Long memberId, Long membershipId) {
+    @Override public Member deActivateMembership(Long memberId, Long membershipId) {
         membershipService.deActivateMembership(membershipId,memberId);
-        Member member = memberRepository.getById(memberId);
-        return member;
+        return memberRepository.getById(memberId);
     }
 
-    @Override
-    public List<Membership> getMembershipsByMemberId(Long memberId) {
-//        Optional<Membership> memMock = membershipRepository.findMembershipByMember_IdAndPlan_Id(checkerId, membership.getPlan().getId());
-//        if(!memMock.get().getMembershipType().equals(MembershipType.CHECKER)
-//                || memMock.get().getMembershipStatus().equals("Inactive")) return null; // Only Checker can Add
+    @Override public List<Membership> getMembershipsByMemberId(Long checkerId, Long memberId) {
+//        List<Membership> memberships = membershipService.getMembershipsByMemberId(memberId);
+//        if(memberships.isEmpty()) return null;
+//        // Then filter for Memberships of type “CHECKER” (so, now you have three types of memberships: LIMITED, UNLIMITED and CHECKER).
+//        // The last type allows the member to check other members for that plan.
+//
+//        System.out.println("memberships = " + memberships);
+//        List<Membership> checkerMembershipsWithCheckerId = membershipService.getMemberMemberships(checkerId)
+//                .stream().filter(each -> each.getMembershipType().equals(MembershipType.CHECKER)
+//                        && each.getMembershipStatus().equals("Active")).toList();
+//        System.out.println("checkerMembershipsWithCheckerId = " + checkerMembershipsWithCheckerId);
+//        // figure out which memberships are the intersection memberships that
+//        return memberships.stream().filter(each -> each).toList();
+        // For door checker :
+            // return a list of memberships (This)
+            // Filter membership types CHECKER
+            //
         return membershipService.getMembershipsByMemberId(memberId);
     }
 
-    @Override
-    public List<Badge> getBadgesByMember(Long memberId) {
+    @Override public List<Badge> getBadgesByMember(Long memberId) {
         return badgeService.getBadgesByMemberId(memberId);
     }
 
-    @Override
-    public Badge getActiveBadgeByMember(Long memberId) {
+    @Override public Badge getActiveBadgeByMember(Long memberId) {
         return badgeService.getActiveBadgeByMemberId(memberId);
     }
 

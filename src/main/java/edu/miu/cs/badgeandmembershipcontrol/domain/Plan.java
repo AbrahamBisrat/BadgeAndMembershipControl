@@ -10,7 +10,6 @@ import java.util.*;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @RequiredArgsConstructor
 public class Plan {
 
@@ -29,6 +28,7 @@ public class Plan {
 //    @JsonBackReference(value = "location")
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name="plan_location", joinColumns = {@JoinColumn(name="plan_id")},inverseJoinColumns = {@JoinColumn(name="location_id")})
+    @ToString.Exclude
     private List<Location> locations = new ArrayList<>();
 
 
