@@ -1,4 +1,4 @@
-package edu.miu.cs.badgeandmembershipcontrol.controller;
+package edu.miu.cs.badgeandmembershipcontrol.advice;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
