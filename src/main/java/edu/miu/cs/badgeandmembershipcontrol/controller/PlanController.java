@@ -2,6 +2,7 @@ package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import java.util.List;
 
+import edu.miu.cs.badgeandmembershipcontrol.domain.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +26,13 @@ public class PlanController {
     private final PlanService planService;
 
     @GetMapping()
-    public ResponseEntity<?> getMembers(){
+    public ResponseEntity<?> getPlans(){
         return new ResponseEntity<>(planService.getAllPlans(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{planId}")
-    public ResponseEntity<?> getPlan(@PathVariable String planId){
-        Plan plan = planService.getPlan(Long.parseLong(planId));
+    public ResponseEntity<?> getPlan(@PathVariable Long planId){
+        Plan plan = planService.getPlan(planId);
         if(plan == null){
             return new ResponseEntity<>("No Plan Found!", HttpStatus.NOT_FOUND);
         }
@@ -39,35 +40,48 @@ public class PlanController {
     }
     
     @GetMapping(path = "/location/{locationId}")
-    public ResponseEntity<?> getLocationPlans(@PathVariable String locationId){
-        List<Plan> planList = planService.getLocationPlans(Long.parseLong(locationId));
+    public ResponseEntity<?> getLocationPlans(@PathVariable Long locationId){
+        List<Plan> planList = planService.getLocationPlans(locationId);
         return new ResponseEntity<>(planList, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/{planId}/location")
+    public ResponseEntity<?> getPlanLocations(@PathVariable String planId){
+        List<Location> locationList = planService.getPlanLocations(Long.parseLong(planId));
+        return new ResponseEntity<>(locationList, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/membershipPlan/{membershipId}")
+    public ResponseEntity<?> getPlanByMembership(@PathVariable Long membershipId){
+        Plan plan = planService.findPlanByMemberShip(membershipId);
+        return new ResponseEntity<>(plan, HttpStatus.OK);
+    }
 
     @PostMapping()
     public ResponseEntity<?> createPlan(@RequestBody Plan plan){
         Plan newPlan = planService.createPlan(plan);
+        if(newPlan == null)
+            return new ResponseEntity<>("Already Exists", HttpStatus.OK);
         return new ResponseEntity<>(newPlan, HttpStatus.OK);
     }
 
     @PutMapping(path = "/{planId}")
-    public ResponseEntity<?> updatePlan(@PathVariable String planId, @RequestBody Plan plan){
-        Plan updatedPlan = planService.updatePlan(Long.parseLong(planId), plan);
+    public ResponseEntity<?> updatePlan(@PathVariable Long planId, @RequestBody Plan plan){
+        Plan updatedPlan = planService.updatePlan(planId , plan);
         return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{planId}")
-    public ResponseEntity<?> removePlan(@PathVariable String planId){
-        if(!planService.removePlan(Long.parseLong(planId))){
+    public ResponseEntity<?> removePlan(@PathVariable Long planId){
+        if(!planService.removePlan(planId)){
             return new ResponseEntity<String>("No Plan Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
 
     @GetMapping(path = "/member/{memberId}")
-    public ResponseEntity<?> getPlanByMemberId(@PathVariable String memberId){
-        List<Plan> planList = planService.findPlanByMember_Id(Long.parseLong(memberId));
+    public ResponseEntity<?> getPlanByMemberId(@PathVariable Long memberId){
+        List<Plan> planList = planService.findPlanByMember_Id(memberId);
         if(planList == null){
             return new ResponseEntity<>("No Plan found for this member!", HttpStatus.NOT_FOUND);
         }

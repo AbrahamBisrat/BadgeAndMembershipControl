@@ -25,9 +25,8 @@ public class BadgeController {
     }
 
     @GetMapping(path = "/{badgeId}")
-    public ResponseEntity<?> getBadge(@PathVariable String badgeId){
-        Badge badge = badgeService.getBadge(Long.parseLong(badgeId));
-
+    public ResponseEntity<?> getBadge(@PathVariable Long badgeId){
+        Badge badge = badgeService.getBadge(badgeId);
         if(badge == null){
             return new ResponseEntity<>("No Badge Found!", HttpStatus.NOT_FOUND);
         }
@@ -35,12 +34,10 @@ public class BadgeController {
     }
 
     @GetMapping(path = "/member/{memberId}")
-    public ResponseEntity<?> getMemberBadges(@PathVariable String memberId){
-        List<Badge> badgeList = badgeService.getMemberBadges(Long.parseLong(memberId));
+    public ResponseEntity<?> getMemberBadges(@PathVariable Long memberId){
+        List<Badge> badgeList = badgeService.getBadgesByMemberId(memberId);
         return new ResponseEntity<>(badgeList, HttpStatus.OK);
     }
-
-    // List of active badges should be implemented here.
 
     @PostMapping()
     public ResponseEntity<?> createBadge(@RequestBody Badge badge){
@@ -49,8 +46,8 @@ public class BadgeController {
     }
 
     @PutMapping(path = "/{badgeId}")
-    public ResponseEntity<?> updateBadge(@PathVariable String badgeId, @RequestBody Badge badge){
-        Badge updatedBadge = badgeService.updateBadge(Long.parseLong(badgeId),badge);
+    public ResponseEntity<?> updateBadge(@PathVariable Long badgeId, @RequestBody Badge badge){
+        Badge updatedBadge = badgeService.updateBadge(badgeId ,badge);
         if(updatedBadge == null){
             return new ResponseEntity<>("No Badge Found!", HttpStatus.NOT_FOUND);
         }
@@ -58,8 +55,8 @@ public class BadgeController {
     }
 
     @DeleteMapping(path = "/{badgeId}")
-    public ResponseEntity<?> deleteBadge(@PathVariable String badgeId){
-        if(!badgeService.removeBadge(Long.parseLong(badgeId))){
+    public ResponseEntity<?> deleteBadge(@PathVariable Long badgeId){
+        if(!badgeService.removeBadge(badgeId)){
             return new ResponseEntity<>("No Badge Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);

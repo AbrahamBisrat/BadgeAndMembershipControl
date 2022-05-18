@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
@@ -28,7 +29,10 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
     private String emailAddress;
 
@@ -36,12 +40,13 @@ public class Member {
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     private Collection<Role> roles;
 
-    @JsonBackReference(value="badges")
+//    @JsonBackReference(value="badges")
     @ToString.Exclude
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
-    private List<Badge> badges = new ArrayList<Badge>();
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
+    private List<Badge> badges = new ArrayList<>();
 
     public void addBadge(Badge badge){
+
         this.badges.add(badge);
     }
 

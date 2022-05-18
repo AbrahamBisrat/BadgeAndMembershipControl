@@ -19,14 +19,10 @@ public class ExecutionTimeAspect {
         LocalTime afterExecution = LocalTime.now();
 
         String message =
-                "|||**  Execution time details  **|||"
-                + "\n" + beforeExecution
-                + "\n" + afterExecution
-                + "\n" + "Time elapsed while executing -->> "
+                 "\n" + "Time elapsed while executing -->> "
                 + proceedingJoinPoint.getSignature().getName()
                 + " <<--  : "
-                + Duration.between(beforeExecution, afterExecution).toMillis()
-                + "ms";
+                + Duration.between(beforeExecution, afterExecution).toMillis() + "ms";
 
         System.out.println(message);
         return retVal;

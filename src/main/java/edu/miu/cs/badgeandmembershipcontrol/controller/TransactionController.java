@@ -35,8 +35,8 @@ public class TransactionController {
 	}
 
 	@GetMapping(path = "/{transactionId}")
-	public ResponseEntity<?> getTransaction(@PathVariable String transactionId){
-		Transaction transaction = transactionService.getTransaction(Long.parseLong(transactionId));
+	public ResponseEntity<?> getTransaction(@PathVariable Long transactionId){
+		Transaction transaction = transactionService.getTransaction(transactionId);
 
 		if(transaction == null){
 			return new ResponseEntity<>("No Transaction Found!", HttpStatus.NOT_FOUND);
@@ -45,14 +45,14 @@ public class TransactionController {
 	}
 	
 	@GetMapping(path = "/badge/{badgeId}")
-	public ResponseEntity<?> getBadgeTransactions(@PathVariable String badgeId){
-		List<Transaction> transactionList = transactionService.getBadgeTransactions(Long.parseLong(badgeId));
+	public ResponseEntity<?> getBadgeTransactions(@PathVariable Long badgeId){
+		List<Transaction> transactionList = transactionService.getBadgeTransactions(badgeId);
 		return new ResponseEntity<>(transactionList, HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/member/{memberId}")
-	public ResponseEntity<?> getTransactionsByMemberId(@PathVariable String memberId){
-		List<Transaction> transactionList = transactionService.findTransactionByMember(Long.parseLong(memberId),"Active");
+	public ResponseEntity<?> getTransactionsByMemberId(@PathVariable Long memberId){
+		List<Transaction> transactionList = transactionService.findTransactionByMember(memberId ,"Active");
 		if(transactionList == null){
 			return new ResponseEntity<>("Member have no active badge!", HttpStatus.NOT_FOUND);
 		}
@@ -60,8 +60,8 @@ public class TransactionController {
 	}
 
 	@GetMapping(path = "/timeslot/{timeslotId}")
-	public ResponseEntity<?> getTransactionsByTimeslotId(@PathVariable String timeslotId){
-		List<Transaction> transactionList = transactionService.findTransactionByTimeSlot(Long.parseLong(timeslotId));
+	public ResponseEntity<?> getTransactionsByTimeslotId(@PathVariable Long timeslotId){
+		List<Transaction> transactionList = transactionService.findTransactionByTimeSlot(timeslotId);
 		if(transactionList == null){
 			return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
 		}
@@ -69,8 +69,8 @@ public class TransactionController {
 	}
 
 	@GetMapping(path = "/plan/{planId}")
-	public ResponseEntity<?> getTransactionsByPlanId(@PathVariable String planId){
-		Transaction transactionList = transactionService.findTransactionByPlan(Long.parseLong(planId));
+	public ResponseEntity<?> getTransactionsByPlanId(@PathVariable Long planId){
+		Transaction transactionList = transactionService.findTransactionByPlan(planId);
 		if(transactionList == null){
 			return new ResponseEntity<>("Not found", HttpStatus.NOT_FOUND);
 		}
@@ -78,8 +78,8 @@ public class TransactionController {
 	}
 	
 	@GetMapping(path = "/location/{transactionId}")
-	public ResponseEntity<?> getTransactionLocation(@PathVariable String transactionId){
-		Location location = transactionService.getTransactionLocation(Long.parseLong(transactionId));
+	public ResponseEntity<?> getTransactionLocation(@PathVariable Long transactionId){
+		Location location = transactionService.getTransactionLocation(transactionId);
 		return new ResponseEntity<>(location, HttpStatus.OK);
 	}
   
@@ -91,12 +91,11 @@ public class TransactionController {
 	}
 	
 	@DeleteMapping(path = "/{transactionId}")
-	public ResponseEntity<?> removeTransaction(@PathVariable String transactionId) {
+	public ResponseEntity<?> removeTransaction(@PathVariable Long transactionId) {
 
-		Boolean result = transactionService.removeTransaction(Long.parseLong(transactionId));
+		Boolean result = transactionService.removeTransaction(transactionId);
 		if (!result) {
 			return new ResponseEntity<String>("No Transaction Found!", HttpStatus.NOT_FOUND);
-
 		}
 		return new ResponseEntity<>("Successful", HttpStatus.OK);
 	}
