@@ -23,7 +23,8 @@ public class LoggerAspect {
     @NotNull private final exceptionService exceptionService;
 
     // Intercept every directory except the aspect = That would lead to -> stackOverflow
-    @Pointcut("within(edu.miu.cs.badgeandmembershipcontrol..*) && !within(edu.miu.cs.badgeandmembershipcontrol.aspect..*)")
+    @Pointcut("within(edu.miu.cs.badgeandmembershipcontrol..*) " +
+            "&& !within(edu.miu.cs.badgeandmembershipcontrol.aspect..*)")
     public void entireProjectPointCut(){}
 
     @Around("entireProjectPointCut()")

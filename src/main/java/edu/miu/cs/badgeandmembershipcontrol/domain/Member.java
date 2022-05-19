@@ -23,6 +23,7 @@ import javax.validation.constraints.NotBlank;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "members") // reserved word conflict when migrating to MSSQL
 public class Member {
 
     @Id

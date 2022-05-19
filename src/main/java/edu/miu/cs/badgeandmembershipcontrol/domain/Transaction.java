@@ -12,6 +12,7 @@ import java.util.Objects;
 @Data
 @Entity
 @ToString
+@Table(name = "transactions") // reserved word conflict when migrating to MSSQL
 public class Transaction {
 
     @Id
