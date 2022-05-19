@@ -67,6 +67,7 @@ public class MemberController {
     }
 
     @PostMapping()
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> createMember(@RequestBody Member member){
         Member newMember = memberService.createMember(member);
         if( newMember == null)
