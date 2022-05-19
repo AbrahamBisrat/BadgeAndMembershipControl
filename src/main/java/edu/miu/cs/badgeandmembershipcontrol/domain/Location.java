@@ -4,6 +4,7 @@ package edu.miu.cs.badgeandmembershipcontrol.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Entity
 @ToString
+@NoArgsConstructor
 public class Location {
 
     @Id
@@ -47,6 +49,13 @@ public class Location {
     @JoinColumn(name = "location_id")
     @ToString.Exclude
     private List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
+
+    public Location(Long id, String name, String description, int capacity) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.capacity = capacity;
+    }
 
     public boolean checkTimeSlot(){
         LocalDateTime currentDateTime = LocalDateTime.now();
