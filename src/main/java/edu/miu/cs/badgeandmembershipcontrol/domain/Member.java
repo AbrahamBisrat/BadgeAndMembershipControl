@@ -47,7 +47,6 @@ public class Member {
     private List<Badge> badges = new ArrayList<>();
 
     public void addBadge(Badge badge){
-
         this.badges.add(badge);
     }
 

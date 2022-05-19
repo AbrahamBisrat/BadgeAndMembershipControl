@@ -1,6 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import com.sun.istack.NotNull;
+import edu.miu.cs.badgeandmembershipcontrol.aspect.annotations.ExcutionTime;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
@@ -24,8 +25,10 @@ public class MemberController {
 
     @GetMapping()
     @RolesAllowed("USER")
+//    @ExcutionTime
     public ResponseEntity<?> getMembers(){
         List<Member> memberList = memberService.getAllMembers();
+        System.out.println("***** Get members have triggered");
         return new ResponseEntity<>(memberList, HttpStatus.OK);
     }
 
@@ -66,7 +69,7 @@ public class MemberController {
         return new ResponseEntity<>(badge, HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("/")
     @RolesAllowed("ADMIN")
     public ResponseEntity<?> createMember(@RequestBody Member member){
         Member newMember = memberService.createMember(member);

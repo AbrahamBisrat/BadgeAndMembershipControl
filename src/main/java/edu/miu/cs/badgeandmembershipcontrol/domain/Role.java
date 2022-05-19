@@ -1,6 +1,5 @@
 package edu.miu.cs.badgeandmembershipcontrol.domain;
 
 public enum Role {
-	STUDENT, STAFF, FACULTY;
+	STUDENT, STAFF, FACULTY, ADMIN;
 }
-// One more Role for ADMIN : and validations when creating accounts accordingly

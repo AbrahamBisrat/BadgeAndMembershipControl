@@ -13,4 +13,5 @@ public interface BadgeRepository extends JpaRepository<Badge,Long> {
     Optional<List<Badge>> findBadgesByMemberIdOrderByStateCode(Long memberId);
 
     Badge findBadgeByMemberIdAndStateCode(Long memberId,String stateCode);
+
 }

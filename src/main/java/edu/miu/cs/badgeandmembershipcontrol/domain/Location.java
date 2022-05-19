@@ -32,7 +32,6 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @NotBlank
     @Column(unique = true)
     private String name;
@@ -48,7 +47,7 @@ public class Location {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "location_id")
     @ToString.Exclude
-    private List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
+    private List<TimeSlot> timeSlots = new ArrayList<>();
 
     public Location(Long id, String name, String description, int capacity) {
         this.id = id;
@@ -60,9 +59,8 @@ public class Location {
     public boolean checkTimeSlot(){
         LocalDateTime currentDateTime = LocalDateTime.now();
         boolean isValid = false;
-        for (int i = 0; i<timeSlots.size(); i++){
-            if(currentDateTime.isAfter(this.timeSlots.get(i).getStartTime()) && currentDateTime.isBefore(this.timeSlots.get(i).getEndTime()))
-            {
+        for (TimeSlot timeSlot : timeSlots) {
+            if (currentDateTime.isAfter(timeSlot.getStartTime()) && currentDateTime.isBefore(timeSlot.getEndTime())) {
                 isValid = true;
                 break;
             }

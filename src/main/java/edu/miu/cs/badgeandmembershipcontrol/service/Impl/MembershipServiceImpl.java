@@ -40,7 +40,6 @@ public class MembershipServiceImpl implements MembershipService {
         return membershipRepository.findById(membershipId).orElse(null);
     }
 
-
     // Get Member and Plan and set it to Membership then it saves it
     @Override public Membership createMemberShip(Membership membership) {
         Member member = memberService.getMember(membership.getMember().getId());
