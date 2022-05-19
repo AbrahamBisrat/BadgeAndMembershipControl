@@ -41,18 +41,8 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/api/v1/members").hasRole("USER")
-//                .antMatchers("/api/v1/memberships").hasAnyRole("USER", "ADMIN")
-//                .antMatchers("/api/v1/plans").hasRole("ADMIN")
-//                .antMatchers("/api/v1/locations").hasRole("ADMIN")
-//                .anyRequest().permitAll();
                 .authorizeRequests()
-//                .antMatchers("/api/v1/members")
-//                .hasRole("USER")
-                .anyRequest()
-                .permitAll();
+                .anyRequest().permitAll();
     }
 
 }
