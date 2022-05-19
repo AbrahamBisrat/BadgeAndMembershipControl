@@ -6,6 +6,7 @@ import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +67,6 @@ public class MemberController {
     }
 
     @PostMapping()
-    @RolesAllowed("ADMIN")
     public ResponseEntity<?> createMember(@RequestBody Member member){
         Member newMember = memberService.createMember(member);
         if( newMember == null)
