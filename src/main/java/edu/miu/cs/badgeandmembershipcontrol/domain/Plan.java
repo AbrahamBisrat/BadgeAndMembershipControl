@@ -32,6 +32,12 @@ public class Plan {
     @ToString.Exclude
     private List<Location> locations = new ArrayList<>();
 
+    public Plan(long id, String name, String description, List<Location> locationList) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.locations = locationList;
+    }
 
 
     @Override

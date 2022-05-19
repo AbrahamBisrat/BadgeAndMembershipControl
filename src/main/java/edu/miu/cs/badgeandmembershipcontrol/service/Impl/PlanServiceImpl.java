@@ -21,6 +21,7 @@ public class PlanServiceImpl implements PlanService {
 	private final PlanRepository planRepository;
 
 	 @NotNull private final LocationService locationService;
+	 //private final LocationService locationService;
 
 	@Override public List<Plan> getAllPlans() {
 		return planRepository.findAll();
