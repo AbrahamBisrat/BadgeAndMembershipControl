@@ -3,6 +3,7 @@ package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
+import edu.miu.cs.badgeandmembershipcontrol.domain.MembershipType;
 import edu.miu.cs.badgeandmembershipcontrol.service.MembershipService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,12 +41,11 @@ public class MembershipController {
         return new ResponseEntity<>(memberShipList, HttpStatus.OK);
     }
 
-
-    @PostMapping()
+    @PostMapping("/{checkerId}")
     public ResponseEntity<?> createMembership(@RequestBody Membership membership){
         Membership newMembership = membershipService.createMemberShip(membership);
         if(newMembership == null){
-            return new ResponseEntity<String>("Could Not Create MemberShip!", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Could Not Create MemberShip!", HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(newMembership, HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class MembershipController {
                 .updateMembership(membershipId,membership);
 
         if(updatedMembership == null){
-            return new ResponseEntity<String>("No MemberShip Found by the Id "
+            return new ResponseEntity<>("No MemberShip Found by the Id "
                     + membershipId + " found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(updatedMembership, HttpStatus.OK);
@@ -66,7 +66,7 @@ public class MembershipController {
     @DeleteMapping(path = "/{membershipId}")
     public ResponseEntity<?> deleteMemberShip(@PathVariable String membershipId){
         if(!membershipService.removeMembership(Long.parseLong(membershipId))){
-            return new ResponseEntity<String>("No MemberShip Found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No MemberShip Found!", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
@@ -80,7 +80,7 @@ public class MembershipController {
         if(accessResponse){
             return new ResponseEntity<>("Granted", HttpStatus.OK);
         }
-        return new ResponseEntity<String>("Not Allowed", HttpStatus.OK);
+        return new ResponseEntity<>("Not Allowed", HttpStatus.OK);
     }
 
 }

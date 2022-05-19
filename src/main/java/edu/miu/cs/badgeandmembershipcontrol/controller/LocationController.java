@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class LocationController {
     @NotNull private final LocationService locationService;
 
     @GetMapping
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?>getLocations(){
         return new ResponseEntity<>(ResponseType(locationService.getAllLocations()), HttpStatus.OK);
     }
