@@ -20,11 +20,9 @@ public class MembershipServiceImpl implements MembershipService {
 
     @NotNull private final MembershipRepository membershipRepository;
 
-    @Lazy
-    @NotNull private final PlanService planService;
+    @Lazy @NotNull private final PlanService planService;
 
-    @Lazy
-    @NotNull private final MemberService memberService;
+    @Lazy @NotNull private final MemberService memberService;
 
     @NotNull private final LocationServiceImpl locationService;
 
@@ -39,7 +37,6 @@ public class MembershipServiceImpl implements MembershipService {
     @Override public Membership getMemberShip(Long membershipId) {
         return membershipRepository.findById(membershipId).orElse(null);
     }
-
 
     // Get Member and Plan and set it to Membership then it saves it
     @Override public Membership createMemberShip(Membership membership) {
@@ -110,6 +107,5 @@ public class MembershipServiceImpl implements MembershipService {
         Location location = locationService.getLocation(locationId);
         return location.checkTimeSlot();
     }
-
 
 }

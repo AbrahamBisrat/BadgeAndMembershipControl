@@ -17,7 +17,8 @@ public class TransactionAdvice {
 
     private final MemberService memberService;
 
-    @After("execution(* edu.miu.cs.badgeandmembershipcontrol.service.Impl.MembershipServiceImpl.checkAccess(..)) && args(memberId,locationId,locationType)")
+    @After("execution(* edu.miu.cs.badgeandmembershipcontrol.service.Impl.MembershipServiceImpl.checkAccess(..)) " +
+            "&& args(memberId,locationId,locationType)")
     public void saveTransactionLog(JoinPoint joinPoint, Long memberId, Long locationId, LocationType locationType){
         System.out.println("Method = "+joinPoint.getSignature().getName());
         System.out.println("kashdfjhsdjfhasdkfhaskfhaskhfjsdhfksjdhfkjasdhf-------------------- "+ memberId);

@@ -1,6 +1,5 @@
 package edu.miu.cs.badgeandmembershipcontrol.repository;
 
-import edu.miu.cs.badgeandmembershipcontrol.domain.LocationType;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
 import edu.miu.cs.badgeandmembershipcontrol.domain.MembershipType;
 import org.springframework.data.jpa.repository.JpaRepository;
