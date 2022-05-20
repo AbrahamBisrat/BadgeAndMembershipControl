@@ -20,11 +20,9 @@ public class MembershipServiceImpl implements MembershipService {
 
     @NotNull private final MembershipRepository membershipRepository;
 
-    @Lazy
-    @NotNull private final PlanService planService;
+    @Lazy @NotNull private final PlanService planService;
 
-    @Lazy
-    @NotNull private final MemberService memberService;
+    @Lazy @NotNull private final MemberService memberService;
 
     @NotNull private final LocationServiceImpl locationService;
 
@@ -109,6 +107,5 @@ public class MembershipServiceImpl implements MembershipService {
         Location location = locationService.getLocation(locationId);
         return location.checkTimeSlot();
     }
-
 
 }

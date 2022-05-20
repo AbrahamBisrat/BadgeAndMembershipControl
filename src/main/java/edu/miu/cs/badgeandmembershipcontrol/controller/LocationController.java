@@ -50,6 +50,7 @@ public class LocationController {
     }
 
     @PostMapping
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> createLocation(@RequestBody Location location){
         Location newLocation = locationService.createLocation(location);
         if(newLocation == null)
@@ -58,12 +59,14 @@ public class LocationController {
     }
 
     @PutMapping(path = "/{locationId}")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> updateLocation(@PathVariable Long locationId, @RequestBody Location location){
         Location updatedLocation = locationService.updateLocation(locationId , location);
         return new ResponseEntity<>(updatedLocation, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{locationId}")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> deleteLocation(@PathVariable Long locationId) {
         if (!locationService.removeLocation(locationId)) {
             return new ResponseEntity<>("No Location Found!", HttpStatus.NOT_FOUND);
