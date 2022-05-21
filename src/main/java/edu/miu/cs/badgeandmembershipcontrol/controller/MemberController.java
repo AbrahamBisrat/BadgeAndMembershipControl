@@ -1,6 +1,7 @@
 package edu.miu.cs.badgeandmembershipcontrol.controller;
 
 import com.sun.istack.NotNull;
+import edu.miu.cs.badgeandmembershipcontrol.aspect.annotations.ExcutionTime;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Badge;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Member;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Membership;
@@ -24,6 +25,7 @@ public class MemberController {
 
     @GetMapping()
     @RolesAllowed("USER")
+    @ExcutionTime
     public ResponseEntity<?> getMembers(){
         List<Member> memberList = memberService.getAllMembers();
         return new ResponseEntity<>(memberList, HttpStatus.OK);
@@ -66,8 +68,10 @@ public class MemberController {
         return new ResponseEntity<>(badge, HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("/")
+//    @RolesAllowed("ADMIN")
     public ResponseEntity<?> createMember(@RequestBody Member member){
+        System.out.println("**** Member controller triggered");
         Member newMember = memberService.createMember(member);
         if( newMember == null)
             return new ResponseEntity<>("Member Already Exists", HttpStatus.OK);
@@ -75,6 +79,7 @@ public class MemberController {
     }
     
     @PutMapping(path = "/{memberId}")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> updateMember(@PathVariable Long memberId, @RequestBody Member member){
         if(memberService.getMember(memberId) == null) {
             return new ResponseEntity<>("No member by the Id " + memberId + " found", HttpStatus.NOT_FOUND);
@@ -84,6 +89,7 @@ public class MemberController {
     }
 
     @PostMapping(path = "/{memberId}/renewBadge")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> renewMemberBadge(@PathVariable Long memberId){
         if(memberService.getMember(memberId) == null) {
             return new ResponseEntity<>("No member by the Id "
@@ -101,6 +107,7 @@ public class MemberController {
     }
 
     @DeleteMapping(path = "/{memberId}")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> deleteMember(@PathVariable Long memberId){
         if(!memberService.removeMember(memberId)){
             return new ResponseEntity<>("No Member Found!", HttpStatus.NOT_FOUND);

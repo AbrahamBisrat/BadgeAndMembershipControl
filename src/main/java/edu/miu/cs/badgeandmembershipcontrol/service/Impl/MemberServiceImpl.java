@@ -84,12 +84,10 @@ public class MemberServiceImpl implements MemberService {
     @Override public List<Membership> getMembershipsByMemberId(Long checkerId, Long memberId) {
         List<Membership> memberships = membershipService.getMembershipsByMemberId(memberId);
         if(memberships.isEmpty()) return null;
-        System.out.println("memberships = " + memberships);
         List<Membership> checkerMembershipsWithCheckerId =
                 memberships .stream().filter(each -> each.getMembershipType().equals(MembershipType.CHECKER)
                         && each.getMembershipStatus().equals("Active")).toList();
         if(checkerMembershipsWithCheckerId.isEmpty()) return memberships;
-        System.out.println("checkerMembershipsWithCheckerId = " + checkerMembershipsWithCheckerId);
         return checkerMembershipsWithCheckerId;
     }
 
@@ -100,6 +98,5 @@ public class MemberServiceImpl implements MemberService {
     @Override public Badge getActiveBadgeByMember(Long memberId) {
         return badgeService.getActiveBadgeByMemberId(memberId);
     }
-
 
 }

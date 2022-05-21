@@ -1,6 +1,5 @@
 package edu.miu.cs.badgeandmembershipcontrol.repository;
 
-import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.domain.TimeSlot;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

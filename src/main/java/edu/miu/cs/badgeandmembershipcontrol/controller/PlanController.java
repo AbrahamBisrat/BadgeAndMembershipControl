@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.miu.cs.badgeandmembershipcontrol.domain.Plan;
 import edu.miu.cs.badgeandmembershipcontrol.service.PlanService;
 
+import javax.annotation.security.RolesAllowed;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/plans")
@@ -58,6 +60,7 @@ public class PlanController {
     }
 
     @PostMapping()
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> createPlan(@RequestBody Plan plan){
         Plan newPlan = planService.createPlan(plan);
         if(newPlan == null)
@@ -66,12 +69,14 @@ public class PlanController {
     }
 
     @PutMapping(path = "/{planId}")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> updatePlan(@PathVariable Long planId, @RequestBody Plan plan){
         Plan updatedPlan = planService.updatePlan(planId , plan);
         return new ResponseEntity<>(updatedPlan, HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{planId}")
+    @RolesAllowed("ADMIN")
     public ResponseEntity<?> removePlan(@PathVariable Long planId){
         if(!planService.removePlan(planId)){
             return new ResponseEntity<String>("No Plan Found!", HttpStatus.NOT_FOUND);
